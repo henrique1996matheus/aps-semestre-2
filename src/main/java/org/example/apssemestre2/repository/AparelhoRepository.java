@@ -14,4 +14,9 @@ public class AparelhoRepository {
 
         return lista;
     }
+
+    public void buscar() {}
+
+    public void salvar() {}
+
 }

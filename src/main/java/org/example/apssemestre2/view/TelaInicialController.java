@@ -1,14 +1,14 @@
-package org.example.apssemestre2;
+package org.example.apssemestre2.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import org.example.apssemestre2.model.Aparelho;
 import org.example.apssemestre2.model.enums.VoltagemEnum;
 
-public class AparelhoController {
+public class TelaInicialController {
     org.example.apssemestre2.controller.AparelhoController controller;
 
-    public AparelhoController() {
+    public TelaInicialController() {
         controller = new org.example.apssemestre2.controller.AparelhoController();
     }
 
