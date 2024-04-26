@@ -1,19 +1,20 @@
-package org.example.apssemestre2.view;
+package org.example.apssemestre2.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import org.example.apssemestre2.model.Aparelho;
 import org.example.apssemestre2.model.enums.VoltagemEnum;
+import org.example.apssemestre2.service.AparelhoService;
 
 public class TelaInicialController {
-    org.example.apssemestre2.controller.AparelhoController controller;
+    AparelhoService controller;
 
     public TelaInicialController() {
-        controller = new org.example.apssemestre2.controller.AparelhoController();
+        controller = new AparelhoService();
     }
 
     @FXML
-    private Label welcomeText;
+    private Label txtOla;
 
     @FXML
     protected void onHelloButtonClick() {
@@ -24,6 +25,6 @@ public class TelaInicialController {
             aparelho = lista.get(0);
         }
 
-        welcomeText.setText("Aparelho encontrado: " + aparelho.nome);
+        txtOla.setText("Aparelho encontrado: " + aparelho.nome);
     }
 }

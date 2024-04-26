@@ -5,7 +5,18 @@ import org.example.apssemestre2.model.enums.VoltagemEnum;
 
 import java.util.List;
 
-public class AparelhoRepository {
+public class AparelhoRepository extends BaseRepository<Aparelho> {
+    @Override
+    public Aparelho buscar() {
+        return null;
+    }
+
+    @Override
+    public boolean salvar() {
+        return false;
+    }
+
+    @Override
     public List<Aparelho> listar() {
         List<Aparelho> lista = List.of(
                 new Aparelho("TV", VoltagemEnum.v110),
@@ -14,9 +25,4 @@ public class AparelhoRepository {
 
         return lista;
     }
-
-    public void buscar() {}
-
-    public void salvar() {}
-
 }
