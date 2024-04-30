@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #6495ED;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CadastroAparelhosController">
+   <children>
+      <HBox alignment="CENTER" layoutX="14.0" layoutY="7.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #6495ED;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="Aparelhos">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+         </children></HBox>
+      <AnchorPane layoutX="16.0" layoutY="44.0" prefHeight="156.0" prefWidth="567.0" style="-fx-background-color: #FFD700;" AnchorPane.bottomAnchor="195.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="45.0">
+         <children>
+            <HBox alignment="CENTER" layoutX="106.0" layoutY="50.0" prefHeight="50.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Button fx:id="BtnNovo" mnemonicParsing="false" onAction="#adicionarAparelho" text="Novo">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="BtnAlterar" mnemonicParsing="false" onAction="#alterarAparelho" text="Alterar">
+                     <HBox.margin>
+                        <Insets right="60.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="BtnSalvar" mnemonicParsing="false" onAction="#salvarAparelho" text="Salvar">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="BtnExcluir" alignment="CENTER" mnemonicParsing="false" onAction="#excluirAparelho" text="Excluir" />
+               </children>
+            </HBox>
+            <Label layoutX="14.0" layoutY="15.0" text="Nome" />
+            <Label layoutX="176.0" layoutY="15.0" text="Marca" />
+            <Label layoutX="176.0" layoutY="64.0" text="Modelo" />
+            <Label layoutX="14.0" layoutY="68.0" text="Potencia" />
+            <TextField fx:id="TextFieldNome" layoutX="14.0" layoutY="32.0" prefHeight="25.0" prefWidth="131.0" style="-fx-background-radius: 5;" />
+            <TextField fx:id="TextFieldMarca" layoutX="176.0" layoutY="32.0" style="-fx-background-radius: 5;" />
+            <TextField fx:id="TextFieldModelo" layoutX="176.0" layoutY="81.0" style="-fx-background-radius: 5;" />
+            <TextField fx:id="TextFieldPotencia" layoutX="14.0" layoutY="85.0" style="-fx-background-radius: 5;" />
+            <ChoiceBox fx:id="ChoiceBoxCategoria" layoutX="395.0" layoutY="32.0" prefHeight="25.0" prefWidth="149.0" />
+            <Label layoutX="395.0" layoutY="15.0" text="Categoria" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="35.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #6495ED;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
+         <children>
+            <TableView fx:id="TableViewAparelhos" layoutX="54.0" layoutY="53.0" prefHeight="133.0" prefWidth="525.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="45.0">
+              <columns>
+                <TableColumn fx:id="TableColumnNome" prefWidth="179.0" text="Nome" />
+                <TableColumn fx:id="TableColumnMarca" prefWidth="99.0" text="Marca" />
+                  <TableColumn fx:id="TableColumnModelo" prefWidth="132.0" text="Modelo" />
+                  <TableColumn fx:id="TableColumnPotencia" prefWidth="179.0" text="Potencia" />
+              </columns>
+            </TableView>
+            <ChoiceBox fx:id="ChoiceBoxFiltro" layoutX="474.0" layoutY="10.0" prefHeight="25.0" prefWidth="109.0" />
+         </children></AnchorPane>
+   </children>
+</AnchorPane>

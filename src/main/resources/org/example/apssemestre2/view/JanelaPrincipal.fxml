@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.JanelaPrincipalController">
+   <children>
+      <HBox alignment="CENTER" layoutX="6.0" prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: #FFD700;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <MenuBar fx:id="BarraMenu">
+              <menus>
+                <Menu fx:id="MenuAparelhos" mnemonicParsing="false" text="Aparelhos">
+                  <items>
+                    <MenuItem fx:id="menuitemListaAparelhos" mnemonicParsing="false" onAction="#acessarListaAparelhos" text="Lista de Aparelhos" />
+                        <MenuItem fx:id="menuitemConsumoAparelho" mnemonicParsing="false" onAction="#acessarConsumoAparelho" text="Consumo Aparelho" />
+                        <MenuItem fx:id="menuitemCategorias" mnemonicParsing="false" onAction="#acessarCategorias" text="Categorias" />
+                  </items>
+                </Menu>
+                <Menu fx:id="MenuMonitoramento" mnemonicParsing="false" text="Monitoramento">
+                  <items>
+                    <MenuItem fx:id="menuitemMonitoramentoMetas" mnemonicParsing="false" onAction="#acessarMetas" text="Metas" />
+                        <MenuItem fx:id="menuitemMonitoramentoAnaliseCategoria" mnemonicParsing="false" onAction="#acessarAnaliseCategoria" text="Análise por Categoria" />
+                  </items>
+                </Menu>
+                <Menu fx:id="MenuConsumoDetalhado" mnemonicParsing="false" text="Consumo Detalhado">
+                  <items>
+                    <MenuItem fx:id="menuitemConsumoConsumoporDia" mnemonicParsing="false" onAction="#acessarConsumoDia" text="Consumo por Dia" />
+                        <MenuItem fx:id="menuitemConsumoConsumoporMes" mnemonicParsing="false" onAction="#acessarConsumoMes" text="Consumo por Mes" />
+                        <MenuItem fx:id="menuitemConsumoContaLuz" mnemonicParsing="false" onAction="#acessarContaLuz" text="Conta de Luz" />
+                  </items>
+                </Menu>
+                  <Menu fx:id="MenuSobre" mnemonicParsing="false" text="Sobre">
+                     <items>
+                        <MenuItem fx:id="MenuitemSobreSistema" mnemonicParsing="false" onAction="#acessarSistema" text="Sistema" />
+                     </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </HBox>
+      <Pane layoutX="47.0" layoutY="57.0" prefHeight="444.0" prefWidth="657.0" style="-fx-background-color: #6495ED;">
+         <children>
+            <BarChart fx:id="GraficoBarra" layoutX="9.0" layoutY="19.0" prefHeight="312.0" prefWidth="465.0" title="Consumo Parcial Mensal">
+              <xAxis>
+                <CategoryAxis fx:id="GraficoDias" side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis fx:id="GraficoVoltagem" side="LEFT" />
+              </yAxis>
+            </BarChart>
+            <Label layoutX="506.0" layoutY="78.0" text="Total Mes Anterior">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <TextField fx:id="TextFieldAnt" alignment="CENTER" layoutX="528.0" layoutY="106.0" prefHeight="25.0" prefWidth="79.0" />
+            <Label layoutX="498.0" layoutY="162.0" text="Fechamento da Fatura">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <TextField fx:id="TextFieldFat" alignment="CENTER" layoutX="528.0" layoutY="190.0" prefHeight="25.0" prefWidth="79.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UsoAparelhoController">
+   <children>
+      <HBox alignment="CENTER" layoutX="124.0" prefHeight="52.0" prefWidth="600.0" style="-fx-background-color: #6495ED;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="Uso Aparelho/Dia">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <AnchorPane layoutX="153.0" layoutY="52.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #6495ED;" AnchorPane.bottomAnchor="230.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="52.0">
+         <children>
+            <Pane layoutX="100.0" layoutY="25.0" prefHeight="129.0" prefWidth="200.0" style="-fx-background-color: #FFD700; -fx-background-radius: 12;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+               <children>
+                  <Label layoutX="30.0" layoutY="14.0" text="Data :" />
+                  <Label layoutX="30.0" layoutY="48.0" text="Aparelho :" />
+                  <Label layoutX="247.0" layoutY="14.0" text="Gasto em Hora :" />
+                  <TextField fx:id="TextFieldData" layoutX="77.0" layoutY="10.0" />
+                  <TextField fx:id="TextFieldAparelho" layoutX="98.0" layoutY="44.0" />
+                  <TextField fx:id="TextFieldGastoHora" layoutX="350.0" layoutY="10.0" />
+                  <Button fx:id="BtnSalvar" layoutX="275.0" layoutY="77.0" mnemonicParsing="false" onAction="#salvarUso" prefHeight="20.0" prefWidth="75.0" text="Salvar" />
+                  <Button fx:id="BtnAlterar" layoutX="187.0" layoutY="77.0" mnemonicParsing="false" onAction="#alterarUso" prefHeight="20.0" prefWidth="75.0" text="Alterar" />
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="167.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #6495ED;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="170.0">
+         <children>
+            <TreeTableView layoutX="148.0" layoutY="15.0" prefHeight="170.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="35.0">
+              <columns>
+                <TreeTableColumn prefWidth="269.0" text="Aparelho" />
+                <TreeTableColumn minWidth="0.0" prefWidth="97.0" text="Data" />
+                  <TreeTableColumn prefWidth="213.0" text="Gasto em Hora" />
+              </columns>
+            </TreeTableView>
+            <ChoiceBox layoutX="11.0" layoutY="5.0" prefHeight="25.0" prefWidth="85.0" />
+            <ChoiceBox layoutX="110.0" layoutY="5.0" prefHeight="25.0" prefWidth="104.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
