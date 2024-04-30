@@ -15,8 +15,8 @@ public class MainApplication extends Application {
         try {
             primaryStage.setTitle("Controle de energia");
             //FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("tela-inicial-view.fxml"));
-            AnchorPane root = FXMLLoader.load(getClass().getResource("aps-semestre-2/src/main/resources/org/example/apssemestre2/view/JanelaPrincipal.fxml"));
-            Image applicationIcon = new Image(getClass().getResourceAsStream("/icons/light-bulb_1778126.png"));
+            AnchorPane root = FXMLLoader.load(getClass().getResource("/org/example/apssemestre2/view/JanelaPrincipal.fxml"));
+            Image applicationIcon = new Image(getClass().getResourceAsStream("/org/example/apssemestre2/icons/light-bulb_1778126.png"));
             primaryStage.getIcons().add(applicationIcon);
             Scene scene = new Scene(root,750,550);
             //scene.getStylesheets().add(getClass().getResource("/styles/application.css").toExternalForm());

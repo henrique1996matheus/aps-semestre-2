@@ -97,7 +97,7 @@ public class CadastroAparelhosController implements Initializable {
 
     private void abrirJanelaCategoria() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/categorias.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/apssemestre2/view/categorias.fxml"));
             Parent root = loader.load();
 
             Stage stage = new Stage();
@@ -212,21 +212,21 @@ public class CadastroAparelhosController implements Initializable {
         
         TableViewAparelhos.setItems(aparelhos);
         
-		Image salvar = new Image(getClass().getResource("/icons/salvar.png").toExternalForm());
+		Image salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());
 		ImageView Salvar = new ImageView(salvar);
 		BtnSalvar.setGraphic(Salvar);
 		
-		Image excluir = new Image(getClass().getResource("/icons/excluir.png").toExternalForm());
+		Image excluir = new Image(getClass().getResource("/org/example/apssemestre2/icons/excluir.png").toExternalForm());
 		ImageView excl = new ImageView(excluir);
 		BtnExcluir.setGraphic(excl);
 		
-		Image nov = new Image(getClass().getResource("/icons/novoarq.png").toExternalForm());
+		Image nov = new Image(getClass().getResource("/org/example/apssemestre2/icons/novoarq.png").toExternalForm());
 		ImageView novo = new ImageView(nov);
 		novo.setFitWidth(16);
 		novo.setFitHeight(16);
 		BtnNovo.setGraphic(novo);
 		
-		Image alt = new Image(getClass().getResource("/icons/setas-flechas.png").toExternalForm());
+		Image alt = new Image(getClass().getResource("/org/example/apssemestre2/icons/setas-flechas.png").toExternalForm());
 		ImageView alterar = new ImageView(alt);
 		alterar.setFitWidth(16);
 		alterar.setFitHeight(16);

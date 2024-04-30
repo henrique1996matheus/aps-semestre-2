@@ -43,13 +43,13 @@ public class UsoAparelhoController implements Initializable{
 		TextFieldGastoHora.setEditable(false);
 		TextFieldAparelho.setEditable(false);
 		
-		Image salvar = new Image(getClass().getResource("/icons/salvar.png").toExternalForm());
+		Image salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());
 		ImageView Salvar = new ImageView(salvar);
 		Salvar.setFitHeight(13);
 		Salvar.setFitWidth(13);
 		BtnSalvar.setGraphic(Salvar);
 		
-		Image alt = new Image(getClass().getResource("/icons/setas-flechas.png").toExternalForm());
+		Image alt = new Image(getClass().getResource("/org/example/apssemestre2/icons/setas-flechas.png").toExternalForm());
 		ImageView alterar = new ImageView(alt);
 		alterar.setFitWidth(16);
 		alterar.setFitHeight(16);

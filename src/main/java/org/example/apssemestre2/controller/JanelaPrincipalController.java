@@ -161,7 +161,7 @@ public class JanelaPrincipalController implements Initializable {
     
     public void abrirTelas(String tela) throws IOException { 
 
-	    	Parent root = FXMLLoader.load(getClass().getResource("/view/" + tela + ".fxml"));
+	    	Parent root = FXMLLoader.load(getClass().getResource("/org/example/apssemestre2/view/" + tela + ".fxml"));
 	    	Stage stage = new Stage();
 	    	stage.setScene(new Scene(root));
 	    	stage.setTitle("tela");
@@ -185,7 +185,7 @@ public class JanelaPrincipalController implements Initializable {
 		/*Image é uma classe que serve para carregar e armazenar imagens,enquanto ImageView serve para renderizar uma imagem carregada pela
 		 * classe Image.
 		 * */
-		Image aparel = new Image(getClass().getResourceAsStream("/icons/aparelhos.png"));
+		Image aparel = new Image(getClass().getResourceAsStream("/org/example/apssemestre2/icons/aparelhos.png"));
 		ImageView aparelh = new ImageView(aparel);
 		MenuAparelhos.setGraphic(aparelh);
 		
@@ -193,7 +193,7 @@ public class JanelaPrincipalController implements Initializable {
 		
 		//monitoramento
 		
-		Image monitoramento = new Image(getClass().getResourceAsStream("/icons/monitoramento (1).png"));
+		Image monitoramento = new Image(getClass().getResourceAsStream("/org/example/apssemestre2/icons/monitoramento (1).png"));
 		ImageView monitor = new ImageView(monitoramento);
 		MenuMonitoramento.setGraphic(monitor);
 		
@@ -201,7 +201,7 @@ public class JanelaPrincipalController implements Initializable {
 		
 		//Consumo detalhado
 		
-		Image consumo = new Image(getClass().getResourceAsStream("/icons/consumo_detalhado.png"));
+		Image consumo = new Image(getClass().getResourceAsStream("/org/example/apssemestre2/icons/consumo_detalhado.png"));
 		ImageView detalhado = new ImageView(consumo);
 		MenuConsumoDetalhado.setGraphic(detalhado);
 		
@@ -209,7 +209,7 @@ public class JanelaPrincipalController implements Initializable {
 		
 		//sobre
 		
-		Image sobre = new Image(getClass().getResourceAsStream("/icons/sobre.png"));
+		Image sobre = new Image(getClass().getResourceAsStream("/org/example/apssemestre2/icons/sobre.png"));
 		ImageView sobre_1 = new ImageView(sobre);
 		MenuSobre.setGraphic(sobre_1);
 		
