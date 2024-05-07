@@ -4,6 +4,7 @@ module org.example.apssemestre {
 
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
+    requires java.sql;
 
     exports org.example.apssemestre2.controller;
     opens org.example.apssemestre2.controller to javafx.fxml;
