@@ -8,7 +8,7 @@ import org.example.apssemestre2.model.ContaLuz;
 
 public class ContaLuzRepository extends BaseRepository<ContaLuz> {
     @Override
-    public void cadastrar(ContaLuz contaluz) {
+    public boolean cadastrar(ContaLuz contaluz) {
         String sql = "INSERT INTO CONTALUZ (BANDEIRA,REFERENCIA,VENCIMENTO,CONSUMO,VALOR) VALUES (?,?,?,?,?)";
 
         PreparedStatement ps = null;
@@ -27,6 +27,7 @@ public class ContaLuzRepository extends BaseRepository<ContaLuz> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override
@@ -35,13 +36,13 @@ public class ContaLuzRepository extends BaseRepository<ContaLuz> {
     }
 
     @Override
-    public void atualizar(ContaLuz entidade) {
-
+    public boolean atualizar(ContaLuz model) {
+        return false;
     }
 
     @Override
-    public void excluir(ContaLuz entidade) {
-
+    public boolean excluir(ContaLuz model) {
+        return false;
     }
 
     @Override

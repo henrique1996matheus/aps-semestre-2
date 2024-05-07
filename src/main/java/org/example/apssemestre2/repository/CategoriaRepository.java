@@ -20,7 +20,7 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
     }
 
     @Override
-    public void cadastrar(Categoria categoria) {
+    public boolean cadastrar(Categoria categoria) {
         String sql = "INSERT INTO CATEGORIAS (NOME) VALUES (?)";
 
         PreparedStatement ps = null;
@@ -34,11 +34,15 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
 
         } catch (SQLException e) {
             e.printStackTrace();
+
+            return false;
         }
+
+        return true;
     }
 
     @Override
-    public void excluir(Categoria categoria) {
+    public boolean excluir(Categoria categoria) {
         String sql = "DELETE FROM CATEGORIAS WHERE idCategoria = ?";
         PreparedStatement ps = null;
 
@@ -50,11 +54,15 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
             ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
+
+            return false;
         }
+
+        return true;
     }
 
     @Override
-    public void atualizar(Categoria categoria) {
+    public boolean atualizar(Categoria categoria) {
         String sql = "UPDATE CATEGORIAS SET NOME=? WHERE idCategoria=?";
 
         PreparedStatement ps = null;
@@ -69,7 +77,11 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
 
         } catch (SQLException e) {
             e.printStackTrace();
+
+            return false;
         }
+
+        return true;
     }
 
     @Override

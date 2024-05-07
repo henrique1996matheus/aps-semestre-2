@@ -20,7 +20,7 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
     }
 
     @Override
-    public void cadastrar(Aparelho aparelho) {
+    public boolean cadastrar(Aparelho aparelho) {
         String sql = "INSERT INTO APARELHOS (NOME,MODELO,MARCA,POTENCIA) VALUES (?,?,?,?)";
 
         PreparedStatement ps = null;
@@ -37,11 +37,15 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
 
         } catch (SQLException e) {
             e.printStackTrace();
+
+            return false;
         }
+
+        return true;
     }
 
     @Override
-    public void excluir(Aparelho aparelho) {
+    public boolean excluir(Aparelho aparelho) {
         String sql = "DELETE FROM APARELHOS WHERE idAparelho = ?";
         PreparedStatement ps = null;
 
@@ -52,11 +56,15 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
             ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
+
+            return false;
         }
+
+        return true;
     }
 
     @Override
-    public void atualizar(Aparelho aparelho) {
+    public boolean atualizar(Aparelho aparelho) {
         String sql = "UPDATE APARELHOS SET NOME=?, MODELO=?, MARCA=?, POTENCIA=? WHERE idAparelho=?";
 
         PreparedStatement ps = null;
@@ -74,7 +82,11 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
 
         } catch (SQLException e) {
             e.printStackTrace();
+
+            return false;
         }
+
+        return true;
     }
 
     @Override

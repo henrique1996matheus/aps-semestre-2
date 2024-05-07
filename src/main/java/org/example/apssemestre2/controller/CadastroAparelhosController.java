@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import org.example.apssemestre2.model.Aparelho;
-import org.example.apssemestre2.repository.AparelhoRepository;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -26,6 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.fxml.Initializable;
+import org.example.apssemestre2.service.AparelhoService;
 
 
 public class CadastroAparelhosController implements Initializable {
@@ -75,6 +75,11 @@ public class CadastroAparelhosController implements Initializable {
     @FXML
     private TableView<Aparelho> TableViewAparelhos;
 
+    private AparelhoService aparelhoService;
+
+    public CadastroAparelhosController() {
+        this.aparelhoService = new AparelhoService();
+    }
 
     @FXML
     void adicionarAparelho(ActionEvent event) {
@@ -128,22 +133,27 @@ public class CadastroAparelhosController implements Initializable {
 
     @FXML
     void alterarAparelho(ActionEvent event) {
-
         Aparelho aparelhoSelecionado = TableViewAparelhos.getSelectionModel().getSelectedItem();
-        if (aparelhoSelecionado != null) {
-            String novoNome = TextFieldNome.getText();
-            String novoModelo = TextFieldModelo.getText();
-            String novaMarca = TextFieldMarca.getText();
-            String novaPotencia = TextFieldPotencia.getText();
 
-            aparelhoSelecionado.setNome(novoNome);
-            aparelhoSelecionado.setModelo(novoModelo);
-            aparelhoSelecionado.setMarca(novaMarca);
-            aparelhoSelecionado.setPotencia(novaPotencia);
+        String nome = TextFieldNome.getText();
+        String modelo = TextFieldModelo.getText();
+        String marca = TextFieldMarca.getText();
+        String potencia = TextFieldPotencia.getText();
+
+        if (aparelhoSelecionado != null && aparelhoService.atualizar(aparelhoSelecionado.id, new Aparelho(nome, modelo, marca, potencia))) {
+            TableViewAparelhos.refresh();
+        }
+
+        if (aparelhoSelecionado != null) {
+            Aparelho aparelhoAtualizado = new Aparelho(nome, modelo, marca, potencia);
+            aparelhoAtualizado.id = aparelhoSelecionado.id;
+
+            aparelhoSelecionado.setNome(nome);
+            aparelhoSelecionado.setModelo(modelo);
+            aparelhoSelecionado.setMarca(marca);
+            aparelhoSelecionado.setPotencia(potencia);
 
             new AparelhoRepository().atualizar(aparelhoSelecionado);
-
-            TableViewAparelhos.refresh();
         }
     }
 
@@ -154,20 +164,19 @@ public class CadastroAparelhosController implements Initializable {
     	String marca = TextFieldMarca.getText();
     	String potencia = TextFieldPotencia.getText();
 
-        Aparelho novoAparelho = new Aparelho(nome, modelo, marca, potencia);
-        aparelhos.add(novoAparelho);
+        Aparelho aparelho = new Aparelho(nome, modelo, marca, potencia);
 
-        new AparelhoRepository().cadastrar(novoAparelho);
+        if (aparelhoService.cadastrar(aparelho)) {
+            aparelhos.add(aparelho);
+        }
     }
 
     @FXML
     void excluirAparelho(ActionEvent event) {
-        AparelhoRepository aparelhoRepository = new AparelhoRepository();
-        Aparelho excluirAparelho = TableViewAparelhos.getSelectionModel().getSelectedItem();
+        Aparelho aparelho = TableViewAparelhos.getSelectionModel().getSelectedItem();
 
-        if (excluirAparelho != null) {
-            aparelhos.remove(excluirAparelho);
-            aparelhoRepository.excluir(excluirAparelho);
+        if (aparelho != null && aparelhoService.excluir(aparelho)) {
+            aparelhos.remove(aparelho);
         }
     }
 

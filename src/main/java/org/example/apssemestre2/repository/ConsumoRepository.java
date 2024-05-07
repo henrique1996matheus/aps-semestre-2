@@ -11,18 +11,19 @@ public class ConsumoRepository extends BaseRepository<Consumo> {
     }
 
     @Override
-    public void cadastrar(Consumo entidade) {
+    public boolean cadastrar(Consumo model) {
 
+        return false;
     }
 
     @Override
-    public void atualizar(Consumo entidade) {
-
+    public boolean atualizar(Consumo model) {
+        return false;
     }
 
     @Override
-    public void excluir(Consumo entidade) {
-
+    public boolean excluir(Consumo model) {
+        return false;
     }
 
     @Override
