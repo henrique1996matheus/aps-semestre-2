@@ -16,7 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import org.example.apssemestre2.model.ContaLuz;
-import org.example.apssemestre2.repository.ContaLuzDao;
+import org.example.apssemestre2.repository.ContaLuzRepository;
 
 public class CadastroLuzController implements Initializable{
 
@@ -96,7 +96,7 @@ public class CadastroLuzController implements Initializable{
 
 			ContaLuz novaConta = new ContaLuz(bandeira,referencia,vencimento,consumo,valor);
 			contaluz.add(novaConta);
-			new ContaLuzDao().cadastrarConta(novaConta);
+			new ContaLuzRepository().cadastrar(novaConta);
 	    }
 
 	    @FXML

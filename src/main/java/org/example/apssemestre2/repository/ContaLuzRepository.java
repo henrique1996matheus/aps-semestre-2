@@ -2,16 +2,18 @@ package org.example.apssemestre2.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.example.apssemestre2.model.ContaLuz;
 
-public class ContaLuzDao {
-    public void cadastrarConta(ContaLuz contaluz){
+public class ContaLuzRepository extends BaseRepository<ContaLuz> {
+    @Override
+    public void cadastrar(ContaLuz contaluz) {
         String sql = "INSERT INTO CONTALUZ (BANDEIRA,REFERENCIA,VENCIMENTO,CONSUMO,VALOR) VALUES (?,?,?,?,?)";
 
         PreparedStatement ps = null;
 
-        try{
+        try {
             ps = Conexao.getConexao().prepareStatement(sql);
             ps.setString(1, contaluz.getBandeira());
             ps.setString(2, contaluz.getReferencia());
@@ -22,9 +24,33 @@ public class ContaLuzDao {
             ps.execute();
             ps.close();
 
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    @Override
+    public ContaLuz buscar() {
+        return null;
+    }
+
+    @Override
+    public void atualizar(ContaLuz entidade) {
+
+    }
+
+    @Override
+    public void excluir(ContaLuz entidade) {
+
+    }
+
+    @Override
+    public boolean salvar() {
+        return false;
+    }
+
+    @Override
+    public List<ContaLuz> listar() {
+        return null;
+    }
 }

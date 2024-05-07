@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import org.example.apssemestre2.model.Aparelho;
-import org.example.apssemestre2.repository.AparelhoDAO;
+import org.example.apssemestre2.repository.AparelhoRepository;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -141,7 +141,7 @@ public class CadastroAparelhosController implements Initializable {
             aparelhoSelecionado.setMarca(novaMarca);
             aparelhoSelecionado.setPotencia(novaPotencia);
 
-            new AparelhoDAO().alterarAparelhos(aparelhoSelecionado);
+            new AparelhoRepository().atualizar(aparelhoSelecionado);
 
             TableViewAparelhos.refresh();
         }
@@ -157,17 +157,17 @@ public class CadastroAparelhosController implements Initializable {
         Aparelho novoAparelho = new Aparelho(nome, modelo, marca, potencia);
         aparelhos.add(novoAparelho);
 
-        new AparelhoDAO().cadastraraAparelho(novoAparelho);
+        new AparelhoRepository().cadastrar(novoAparelho);
     }
 
     @FXML
     void excluirAparelho(ActionEvent event) {
-        AparelhoDAO aparelhoDAO = new AparelhoDAO();
+        AparelhoRepository aparelhoRepository = new AparelhoRepository();
         Aparelho excluirAparelho = TableViewAparelhos.getSelectionModel().getSelectedItem();
 
         if (excluirAparelho != null) {
             aparelhos.remove(excluirAparelho);
-            aparelhoDAO.excluirAparelho(excluirAparelho);
+            aparelhoRepository.excluir(excluirAparelho);
         }
     }
 
@@ -199,7 +199,7 @@ public class CadastroAparelhosController implements Initializable {
         TableColumnMarca.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMarca()));
         TableColumnPotencia.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPotencia()));
 
-        List<Aparelho> aparelhosList = AparelhoDAO.ListaAparelhos();
+        List<Aparelho> aparelhosList = new AparelhoRepository().listar();
         aparelhos.addAll(aparelhosList);
         TableViewAparelhos.setItems(aparelhos);
 

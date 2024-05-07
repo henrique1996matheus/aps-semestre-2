@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import org.example.apssemestre2.model.Categoria;
-import org.example.apssemestre2.repository.CategoriaDAO;
+import org.example.apssemestre2.repository.CategoriaRepository;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -69,7 +69,7 @@ public class CategoriasController implements Initializable{
 
 			CategoriaSelecionada.setNome(novoNome);
 
-			new CategoriaDAO().alterarCategoria(CategoriaSelecionada);
+			new CategoriaRepository().atualizar(CategoriaSelecionada);
 
 			TableViewCategorias.refresh();
 		}
@@ -82,17 +82,17 @@ public class CategoriasController implements Initializable{
 
 		categorias.add(novaCategoria);
 
-		new CategoriaDAO().cadastraraCategoria(novaCategoria);
+		new CategoriaRepository().cadastrar(novaCategoria);
 	}
 
 	@FXML
 	void excluirCategoria(ActionEvent event) {
-		CategoriaDAO CategoriaDAO = new CategoriaDAO();
+		CategoriaRepository CategoriaRepository = new CategoriaRepository();
 		Categoria excluirCategoria = TableViewCategorias.getSelectionModel().getSelectedItem();
 
 		if (excluirCategoria != null) {
 			categorias.remove(excluirCategoria);
-			CategoriaDAO.excluirCategoria(excluirCategoria);
+			CategoriaRepository.excluir(excluirCategoria);
 		}
 	}
 
@@ -109,7 +109,7 @@ public class CategoriasController implements Initializable{
 		});
 		TableColumnCategorias.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNome()));
 
-		List<Categoria> aparelhosList = CategoriaDAO.ListaCategorias();
+		List<Categoria> aparelhosList = new CategoriaRepository().listar();
 		categorias.addAll(aparelhosList);
 		TableViewCategorias.setItems(categorias);
 
