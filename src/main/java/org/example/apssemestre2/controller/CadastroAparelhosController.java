@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import org.example.apssemestre2.model.Aparelho;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -30,11 +31,11 @@ import org.example.apssemestre2.service.AparelhoService;
 
 public class CadastroAparelhosController implements Initializable {
 
-	@FXML
+    @FXML
     private TextField TextFieldPotencia;
 
     @FXML
-    private TableColumn<Aparelho,String> TableColumnModelo;
+    private TableColumn<Aparelho, String> TableColumnModelo;
 
     @FXML
     private Button BtnSalvar;
@@ -58,43 +59,44 @@ public class CadastroAparelhosController implements Initializable {
     private TextField TextFieldNome;
 
     @FXML
-    private TableColumn<Aparelho,String> TableColumnNome;
+    private TableColumn<Aparelho, String> TableColumnNome;
 
     @FXML
     private Button BtnNovo;
 
     @FXML
-    private TableColumn<Aparelho,String> TableColumnPotencia;
+    private TableColumn<Aparelho, String> TableColumnPotencia;
 
     @FXML
     private TextField TextFieldModelo;
 
     @FXML
-    private TableColumn<Aparelho,String> TableColumnMarca;
+    private TableColumn<Aparelho, String> TableColumnMarca;
 
     @FXML
     private TableView<Aparelho> TableViewAparelhos;
 
-    private AparelhoService aparelhoService;
+    private AparelhoService service;
 
     public CadastroAparelhosController() {
-        this.aparelhoService = new AparelhoService();
+        this.service = new AparelhoService();
     }
 
     @FXML
     void adicionarAparelho(ActionEvent event) {
-		TextFieldPotencia.setEditable(true);
-		TextFieldPotencia.setText("");
-		TextFieldMarca.setEditable(true);
-		TextFieldMarca.setText("");
-		TextFieldModelo.setEditable(true);
-		TextFieldModelo.setText("");
-		TextFieldNome.setEditable(true);
-		TextFieldNome.setText("");
+        TextFieldPotencia.setEditable(true);
+        TextFieldPotencia.setText("");
+        TextFieldMarca.setEditable(true);
+        TextFieldMarca.setText("");
+        TextFieldModelo.setEditable(true);
+        TextFieldModelo.setText("");
+        TextFieldNome.setEditable(true);
+        TextFieldNome.setText("");
     }
 
     private void abrirCategoria() {
         String selecCat = ChoiceBoxCategoria.getValue();
+
         if (selecCat.equals("Nova Categoria...")) {
             abrirJanelaCategoria();
         }
@@ -140,33 +142,21 @@ public class CadastroAparelhosController implements Initializable {
         String marca = TextFieldMarca.getText();
         String potencia = TextFieldPotencia.getText();
 
-        if (aparelhoSelecionado != null && aparelhoService.atualizar(aparelhoSelecionado.id, new Aparelho(nome, modelo, marca, potencia))) {
+        if (aparelhoSelecionado != null && service.atualizar(aparelhoSelecionado, new Aparelho(nome, modelo, marca, potencia))) {
             TableViewAparelhos.refresh();
-        }
-
-        if (aparelhoSelecionado != null) {
-            Aparelho aparelhoAtualizado = new Aparelho(nome, modelo, marca, potencia);
-            aparelhoAtualizado.id = aparelhoSelecionado.id;
-
-            aparelhoSelecionado.setNome(nome);
-            aparelhoSelecionado.setModelo(modelo);
-            aparelhoSelecionado.setMarca(marca);
-            aparelhoSelecionado.setPotencia(potencia);
-
-            new AparelhoRepository().atualizar(aparelhoSelecionado);
         }
     }
 
     @FXML
     void salvarAparelho(ActionEvent event) {
-    	String nome = TextFieldNome.getText();
-    	String modelo = TextFieldModelo.getText();
-    	String marca = TextFieldMarca.getText();
-    	String potencia = TextFieldPotencia.getText();
+        String nome = TextFieldNome.getText();
+        String modelo = TextFieldModelo.getText();
+        String marca = TextFieldMarca.getText();
+        String potencia = TextFieldPotencia.getText();
 
         Aparelho aparelho = new Aparelho(nome, modelo, marca, potencia);
 
-        if (aparelhoService.cadastrar(aparelho)) {
+        if (service.cadastrar(aparelho)) {
             aparelhos.add(aparelho);
         }
     }
@@ -175,7 +165,7 @@ public class CadastroAparelhosController implements Initializable {
     void excluirAparelho(ActionEvent event) {
         Aparelho aparelho = TableViewAparelhos.getSelectionModel().getSelectedItem();
 
-        if (aparelho != null && aparelhoService.excluir(aparelho)) {
+        if (aparelho != null && service.excluir(aparelho)) {
             aparelhos.remove(aparelho);
         }
     }
@@ -183,7 +173,7 @@ public class CadastroAparelhosController implements Initializable {
     private ObservableList<Aparelho> aparelhos = FXCollections.observableArrayList();
 
     @Override
-	public void initialize(URL url,ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) {
 
         TextFieldPotencia.setEditable(false);
         TextFieldMarca.setEditable(false);
@@ -208,28 +198,28 @@ public class CadastroAparelhosController implements Initializable {
         TableColumnMarca.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMarca()));
         TableColumnPotencia.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPotencia()));
 
-        List<Aparelho> aparelhosList = new AparelhoRepository().listar();
+        List<Aparelho> aparelhosList = service.listar();
         aparelhos.addAll(aparelhosList);
         TableViewAparelhos.setItems(aparelhos);
 
-		Image salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());
-		ImageView Salvar = new ImageView(salvar);
-		BtnSalvar.setGraphic(Salvar);
+        Image salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());
+        ImageView Salvar = new ImageView(salvar);
+        BtnSalvar.setGraphic(Salvar);
 
-		Image excluir = new Image(getClass().getResource("/org/example/apssemestre2/icons/excluir.png").toExternalForm());
-		ImageView excl = new ImageView(excluir);
-		BtnExcluir.setGraphic(excl);
+        Image excluir = new Image(getClass().getResource("/org/example/apssemestre2/icons/excluir.png").toExternalForm());
+        ImageView excl = new ImageView(excluir);
+        BtnExcluir.setGraphic(excl);
 
-		Image nov = new Image(getClass().getResource("/org/example/apssemestre2/icons/novoarq.png").toExternalForm());
-		ImageView novo = new ImageView(nov);
-		novo.setFitWidth(16);
-		novo.setFitHeight(16);
-		BtnNovo.setGraphic(novo);
+        Image nov = new Image(getClass().getResource("/org/example/apssemestre2/icons/novoarq.png").toExternalForm());
+        ImageView novo = new ImageView(nov);
+        novo.setFitWidth(16);
+        novo.setFitHeight(16);
+        BtnNovo.setGraphic(novo);
 
-		Image alt = new Image(getClass().getResource("/org/example/apssemestre2/icons/setas-flechas.png").toExternalForm());
-		ImageView alterar = new ImageView(alt);
-		alterar.setFitWidth(16);
-		alterar.setFitHeight(16);
-		BtnAlterar.setGraphic(alterar);
-	}
+        Image alt = new Image(getClass().getResource("/org/example/apssemestre2/icons/setas-flechas.png").toExternalForm());
+        ImageView alterar = new ImageView(alt);
+        alterar.setFitWidth(16);
+        alterar.setFitHeight(16);
+        BtnAlterar.setGraphic(alterar);
+    }
 }

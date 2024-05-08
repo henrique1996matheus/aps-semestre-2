@@ -23,7 +23,18 @@ public class AparelhoService extends BaseService<Aparelho> {
     }
 
     @Override
-    public boolean atualizar(Aparelho model) {
+    public boolean atualizar(Aparelho aparelhoAntigo, Aparelho aparelhoNovo) {
+        aparelhoNovo.setId(aparelhoAntigo.getId());
+
+        if (repository.atualizar(aparelhoNovo)) {
+            aparelhoAntigo.setNome(aparelhoAntigo.getNome());
+            aparelhoAntigo.setModelo(aparelhoAntigo.getModelo());
+            aparelhoAntigo.setMarca(aparelhoAntigo.getMarca());
+            aparelhoAntigo.setPotencia(aparelhoAntigo.getPotencia());
+
+            return true;
+        }
+
         return false;
     }
 
