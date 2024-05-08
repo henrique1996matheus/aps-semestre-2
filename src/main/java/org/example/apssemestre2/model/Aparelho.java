@@ -3,12 +3,12 @@ package org.example.apssemestre2.model;
 import org.example.apssemestre2.model.enums.VoltagemEnum;
 
 public class Aparelho {
-    public int id;
-    public String nome;
-    public String modelo;
-    public String marca;
-    public String potencia;
-    public VoltagemEnum voltagem;
+    private int id;
+    private String nome;
+    private String modelo;
+    private String marca;
+    private String potencia;
+    private VoltagemEnum voltagem;
 
     public int getId() {
         return id;

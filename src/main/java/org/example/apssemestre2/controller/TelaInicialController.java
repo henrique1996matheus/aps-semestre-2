@@ -25,6 +25,6 @@ public class TelaInicialController {
             aparelho = lista.get(0);
         }
 
-        txtOla.setText("Aparelho encontrado: " + aparelho.nome);
+        txtOla.setText("Aparelho encontrado: " + aparelho.getNome());
     }
 }

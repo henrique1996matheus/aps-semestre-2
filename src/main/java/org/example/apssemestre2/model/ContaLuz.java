@@ -1,11 +1,11 @@
 package org.example.apssemestre2.model;
 
 public class ContaLuz {
-    public String bandeira;
-    public String referencia;
-    public String vencimento;
-    public String consumo;
-    public String valor;
+    private String bandeira;
+    private String referencia;
+    private String vencimento;
+    private String consumo;
+    private String valor;
 
     public String getValor() {
         return valor;

@@ -2,8 +2,8 @@ package org.example.apssemestre2.model;
 
 public class Categoria {
 
-    public int id;
-    public String nome;
+    private int id;
+    private String nome;
 
     public int getId() {
         return id;
