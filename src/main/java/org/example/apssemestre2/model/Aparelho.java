@@ -13,6 +13,7 @@ public class Aparelho {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -20,6 +21,7 @@ public class Aparelho {
     public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -27,6 +29,7 @@ public class Aparelho {
     public String getModelo() {
         return modelo;
     }
+
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
@@ -34,6 +37,7 @@ public class Aparelho {
     public String getMarca() {
         return marca;
     }
+
     public void setMarca(String marca) {
         this.marca = marca;
     }
@@ -41,6 +45,7 @@ public class Aparelho {
     public String getPotencia() {
         return potencia;
     }
+
     public void setPotencia(String potencia) {
         this.potencia = potencia;
     }
@@ -53,7 +58,8 @@ public class Aparelho {
         this.potencia = potencia;
     }
 
-    public Aparelho() {}
+    public Aparelho() {
+    }
 
     public Aparelho(String nome, VoltagemEnum voltagem) {
         this.nome = nome;

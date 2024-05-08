@@ -16,128 +16,135 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import org.example.apssemestre2.model.ContaLuz;
-import org.example.apssemestre2.repository.ContaLuzRepository;
+import org.example.apssemestre2.service.ContaLuzService;
 
-public class CadastroLuzController implements Initializable{
+public class CadastroLuzController implements Initializable {
 
-	 @FXML
-	    private TextField TextFieldBandeira;
+    @FXML
+    private TextField TextFieldBandeira;
 
-	    @FXML
-	    private TextField TextFieldReferencia;
+    @FXML
+    private TextField TextFieldReferencia;
 
-	    @FXML
-	    private Button BtnSalvar;
+    @FXML
+    private Button BtnSalvar;
 
-	    @FXML
-	    private ChoiceBox<?> ChoiceBoxAno;
+    @FXML
+    private ChoiceBox<?> ChoiceBoxAno;
 
-	    @FXML
-	    private Button BtnNovo;
+    @FXML
+    private Button BtnNovo;
 
-	    @FXML
-	    private TextField TextFieldVencimento;
+    @FXML
+    private TextField TextFieldVencimento;
 
-	    @FXML
-	    private TextField TextFieldConsumo;
+    @FXML
+    private TextField TextFieldConsumo;
 
-	    @FXML
-	    private Button BtnExcluir;
+    @FXML
+    private Button BtnExcluir;
 
-	    @FXML
-	    private TableView<?> TableViewContaLuz;
+    @FXML
+    private TableView<?> TableViewContaLuz;
 
-	    @FXML
-	    private TextField TextFieldValor;
+    @FXML
+    private TextField TextFieldValor;
 
-	    @FXML
-	    private Button BtnAlterar;
+    @FXML
+    private Button BtnAlterar;
 
-	    @FXML
-	    void novoCadastro(ActionEvent event) {
-	    	TextFieldBandeira.setEditable(true);
-			TextFieldBandeira.setText("");
-			TextFieldReferencia.setEditable(true);
-			TextFieldReferencia.setText("");
-			TextFieldVencimento.setEditable(true);
-			TextFieldVencimento.setText("");
-			TextFieldConsumo.setEditable(true);
-			TextFieldConsumo.setText("");
-			TextFieldValor.setEditable(true);
-			TextFieldValor.setText("");
-	    }
+    private ObservableList<ContaLuz> contaluz = FXCollections.observableArrayList();
 
-		@FXML
-		void selecionarContaLuz(MouseEvent event) {
-			if (event.getClickCount() == 1) {
-				ContaLuz ContaSelecionada= (ContaLuz) TableViewContaLuz.getSelectionModel().getSelectedItem();
-				if (ContaSelecionada != null) {
-					TextFieldBandeira.setText(ContaSelecionada.getBandeira());
-					TextFieldReferencia.setText(ContaSelecionada.getReferencia());
-					TextFieldVencimento.setText(ContaSelecionada.getVencimento());
-					TextFieldConsumo.setText(ContaSelecionada.getConsumo());
-					TextFieldValor.setText(ContaSelecionada.getValor());
-				}
-			}
-		}
-	    @FXML
-	    void alterarCadastro(ActionEvent event) {
+    private final ContaLuzService service;
 
-	    }
+    public CadastroLuzController() {
+        this.service = new ContaLuzService();
+    }
 
-	    @FXML
-	    void salvarCadastro(ActionEvent event) {
+    @FXML
+    void novoCadastro(ActionEvent event) {
+        TextFieldBandeira.setEditable(true);
+        TextFieldBandeira.setText("");
+        TextFieldReferencia.setEditable(true);
+        TextFieldReferencia.setText("");
+        TextFieldVencimento.setEditable(true);
+        TextFieldVencimento.setText("");
+        TextFieldConsumo.setEditable(true);
+        TextFieldConsumo.setText("");
+        TextFieldValor.setEditable(true);
+        TextFieldValor.setText("");
+    }
 
-			String bandeira = TextFieldBandeira.getText();
-			String referencia = TextFieldReferencia.getText();
-			String vencimento = TextFieldVencimento.getText();
-			String consumo = TextFieldConsumo.getText();
-			String valor = TextFieldValor.getText();
+    @FXML
+    void selecionarContaLuz(MouseEvent event) {
+        if (event.getClickCount() == 1) {
+            ContaLuz ContaSelecionada = (ContaLuz) TableViewContaLuz.getSelectionModel().getSelectedItem();
+            if (ContaSelecionada != null) {
+                TextFieldBandeira.setText(ContaSelecionada.getBandeira());
+                TextFieldReferencia.setText(ContaSelecionada.getReferencia());
+                TextFieldVencimento.setText(ContaSelecionada.getVencimento());
+                TextFieldConsumo.setText(ContaSelecionada.getConsumo());
+                TextFieldValor.setText(ContaSelecionada.getValor());
+            }
+        }
+    }
 
-			ContaLuz novaConta = new ContaLuz(bandeira,referencia,vencimento,consumo,valor);
-			contaluz.add(novaConta);
-			new ContaLuzRepository().cadastrar(novaConta);
-	    }
+    @FXML
+    void alterarCadastro(ActionEvent event) {
 
-	    @FXML
-	    void excluirCadastroLuz(ActionEvent event) {
-	    }
+    }
 
-	private ObservableList<ContaLuz> contaluz = FXCollections.observableArrayList();
+    @FXML
+    void salvarCadastro(ActionEvent event) {
+        String bandeira = TextFieldBandeira.getText();
+        String referencia = TextFieldReferencia.getText();
+        String vencimento = TextFieldVencimento.getText();
+        String consumo = TextFieldConsumo.getText();
+        String valor = TextFieldValor.getText();
 
+        ContaLuz novaConta = new ContaLuz(bandeira, referencia, vencimento, consumo, valor);
 
-	@Override
-	public void initialize(URL url,ResourceBundle rb) {
-		TextFieldBandeira.setEditable(false);
-		TextFieldReferencia.setEditable(false);
-		TextFieldVencimento.setEditable(false);
-		TextFieldConsumo.setEditable(false);
-		TextFieldValor.setEditable(false);
+        if (service.cadastrar(novaConta)) {
+            contaluz.add(novaConta);
+        }
+    }
 
-		TableViewContaLuz.setOnMouseClicked(event -> {
-			if (event.getClickCount() == 1) {
-				selecionarContaLuz(event);
-			}
-		});
+    @FXML
+    void excluirCadastroLuz(ActionEvent event) {
+    }
 
-		Image salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());
-		ImageView Salvar = new ImageView(salvar);
-		BtnSalvar.setGraphic(Salvar);
-		
-		Image excluir = new Image(getClass().getResource("/org/example/apssemestre2/icons/excluir.png").toExternalForm());
-		ImageView excl = new ImageView(excluir);
-		BtnExcluir.setGraphic(excl);
-		
-		Image nov = new Image(getClass().getResource("/org/example/apssemestre2/icons/novoarq.png").toExternalForm());
-		ImageView novo = new ImageView(nov);
-		novo.setFitWidth(14);
-		novo.setFitHeight(14);
-		BtnNovo.setGraphic(novo);
-		
-		Image alt = new Image(getClass().getResource("/org/example/apssemestre2/icons/setas-flechas.png").toExternalForm());
-		ImageView alterar = new ImageView(alt);
-		alterar.setFitWidth(14);
-		alterar.setFitHeight(14);
-		BtnAlterar.setGraphic(alterar);
-	}
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        TextFieldBandeira.setEditable(false);
+        TextFieldReferencia.setEditable(false);
+        TextFieldVencimento.setEditable(false);
+        TextFieldConsumo.setEditable(false);
+        TextFieldValor.setEditable(false);
+
+        TableViewContaLuz.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                selecionarContaLuz(event);
+            }
+        });
+
+        Image salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());
+        ImageView Salvar = new ImageView(salvar);
+        BtnSalvar.setGraphic(Salvar);
+
+        Image excluir = new Image(getClass().getResource("/org/example/apssemestre2/icons/excluir.png").toExternalForm());
+        ImageView excl = new ImageView(excluir);
+        BtnExcluir.setGraphic(excl);
+
+        Image nov = new Image(getClass().getResource("/org/example/apssemestre2/icons/novoarq.png").toExternalForm());
+        ImageView novo = new ImageView(nov);
+        novo.setFitWidth(14);
+        novo.setFitHeight(14);
+        BtnNovo.setGraphic(novo);
+
+        Image alt = new Image(getClass().getResource("/org/example/apssemestre2/icons/setas-flechas.png").toExternalForm());
+        ImageView alterar = new ImageView(alt);
+        alterar.setFitWidth(14);
+        alterar.setFitHeight(14);
+        BtnAlterar.setGraphic(alterar);
+    }
 }
