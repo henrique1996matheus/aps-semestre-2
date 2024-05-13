@@ -46,6 +46,10 @@ public class CategoriasController implements Initializable {
 
     private CategoriaService service;
 
+    public CategoriasController() {
+        this.service = new CategoriaService();
+    }
+
     @FXML
     void adicionarCategoria(ActionEvent event) {
         TextFieldNome.setEditable(true);

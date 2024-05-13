@@ -3,6 +3,7 @@ package org.example.apssemestre2.service;
 import org.example.apssemestre2.model.Categoria;
 import org.example.apssemestre2.repository.CategoriaRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriaService extends BaseService<Categoria> {
@@ -46,6 +47,6 @@ public class CategoriaService extends BaseService<Categoria> {
 
     @Override
     public List<Categoria> listar() {
-        return null;
+        return new ArrayList<>();
     }
 }
