@@ -11,16 +11,16 @@ public class Conexao {
 
     private static Connection conn;
 
-    public static Connection getConexao(){
+    public static Connection getConexao() {
 
-        try{
-            if (conn == null){
-                conn = DriverManager.getConnection(url,user,password);
+        try {
+            if (conn == null) {
+                conn = DriverManager.getConnection(url, user, password);
                 return conn;
-            }else{
+            } else {
                 return conn;
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
