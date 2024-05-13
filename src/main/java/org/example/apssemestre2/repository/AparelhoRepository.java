@@ -9,6 +9,8 @@ import java.util.List;
 import org.example.apssemestre2.model.Aparelho;
 
 public class AparelhoRepository extends BaseRepository<Aparelho> {
+    private final String TABELA = "aparelho";
+
     @Override
     public Aparelho buscar() {
         return null;
@@ -21,7 +23,7 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
 
     @Override
     public boolean cadastrar(Aparelho aparelho) {
-        String sql = "INSERT INTO APARELHOS (NOME,MODELO,MARCA,POTENCIA) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO " + TABELA + " (nome, modelo, marca, potencia) VALUES (?,?,?,?)";
 
         PreparedStatement ps = null;
 
@@ -46,7 +48,7 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
 
     @Override
     public boolean excluir(Aparelho aparelho) {
-        String sql = "DELETE FROM APARELHOS WHERE idAparelho = ?";
+        String sql = "DELETE FROM " + TABELA + " WHERE id = ?";
         PreparedStatement ps = null;
 
         try {
@@ -65,7 +67,7 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
 
     @Override
     public boolean atualizar(Aparelho aparelho) {
-        String sql = "UPDATE APARELHOS SET NOME=?, MODELO=?, MARCA=?, POTENCIA=? WHERE idAparelho=?";
+        String sql = "UPDATE " + TABELA + " SET nome = ?, modelo = ?, marca = ?, potencia = ? WHERE id = ?";
 
         PreparedStatement ps = null;
 
@@ -92,7 +94,7 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
     @Override
     public List<Aparelho> listar() {
 
-        String sql = "SELECT * FROM APARELHOS";
+        String sql = "SELECT * FROM " + TABELA;
 
         List<Aparelho> aparelhos = new ArrayList<Aparelho>();
 
@@ -107,7 +109,7 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
 
                 Aparelho aparelho = new Aparelho();
 
-                aparelho.setId(rset.getInt("idAparelho"));
+                aparelho.setId(rset.getInt("id"));
                 aparelho.setNome(rset.getString("nome"));
                 aparelho.setModelo(rset.getString("modelo"));
                 aparelho.setMarca(rset.getString("marca"));

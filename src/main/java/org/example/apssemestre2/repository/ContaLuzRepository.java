@@ -7,9 +7,11 @@ import java.util.List;
 import org.example.apssemestre2.model.ContaLuz;
 
 public class ContaLuzRepository extends BaseRepository<ContaLuz> {
+    private final String TABELA = "conta_luz";
+
     @Override
     public boolean cadastrar(ContaLuz contaluz) {
-        String sql = "INSERT INTO CONTALUZ (BANDEIRA,REFERENCIA,VENCIMENTO,CONSUMO,VALOR) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO " + TABELA + " (bandeira, referencia, vencimento, consumo, valor) VALUES (?, ?, ?, ?, ?)";
 
         PreparedStatement ps = null;
 

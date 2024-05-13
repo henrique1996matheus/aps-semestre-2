@@ -9,6 +9,8 @@ import java.util.List;
 import org.example.apssemestre2.model.Categoria;
 
 public class CategoriaRepository extends BaseRepository<Categoria> {
+    private final String TABELA = "categoria";
+
     @Override
     public Categoria buscar() {
         return null;
@@ -21,7 +23,7 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
 
     @Override
     public boolean cadastrar(Categoria categoria) {
-        String sql = "INSERT INTO CATEGORIAS (NOME) VALUES (?)";
+        String sql = "INSERT INTO " + TABELA + " (nome) VALUES (?)";
 
         PreparedStatement ps = null;
 
@@ -43,7 +45,7 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
 
     @Override
     public boolean excluir(Categoria categoria) {
-        String sql = "DELETE FROM CATEGORIAS WHERE idCategoria = ?";
+        String sql = "DELETE FROM " + TABELA + " WHERE id = ?";
         PreparedStatement ps = null;
 
         try {
@@ -63,7 +65,7 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
 
     @Override
     public boolean atualizar(Categoria categoria) {
-        String sql = "UPDATE CATEGORIAS SET NOME=? WHERE idCategoria=?";
+        String sql = "UPDATE " + TABELA + " SET nome = ? WHERE id = ?";
 
         PreparedStatement ps = null;
 
@@ -87,7 +89,7 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
     @Override
     public List<Categoria> listar() {
 
-        String sql = "SELECT * FROM CATEGORIAS";
+        String sql = "SELECT * FROM " + TABELA;
 
         List<Categoria> categorias = new ArrayList<Categoria>();
 
@@ -102,7 +104,7 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
 
                 Categoria categoria = new Categoria();
 
-                categoria.setId(rset.getInt("idCategoria"));
+                categoria.setId(rset.getInt("id"));
                 categoria.setNome(rset.getString("nome"));
 
                 categorias.add(categoria);

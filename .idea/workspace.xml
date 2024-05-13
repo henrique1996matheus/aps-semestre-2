@@ -5,7 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e49fe05d-562a-4638-a2b3-b0c86a05535e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/mysql-connector-j-8.4.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/MigracaoDBRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/MigracaoDBService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/migration/V1_inicializar_tabelas.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/migration/V2_criar_categoria.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/migration/V3_criar_conta_luz.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/AparelhoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/AparelhoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/CategoriaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/CategoriaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/Conexao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/Conexao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/ContaLuzRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/ContaLuzRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,13 +34,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -42,19 +46,23 @@
   "keyToString": {
     "Application.HelloApplication.executor": "Run",
     "Application.MainApplication.executor": "Run",
+    "Application.RunMainApplicationIntellij.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Projetos/Java/APS_Energia",
-    "project.structure.last.edited": "Project",
+    "last_opened_file_path": "D:/Projetos/Java/aps-semestre-2/lib/mysql-connector-j-8.4.0.jar",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projetos\Java\aps-semestre-2" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="org.example.apssemestre2" />
     </key>
@@ -82,7 +90,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-21.0.1-temurin-21.0.1-4caba194b151-b7b86d5d" />
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
       </set>
     </attachedChunks>
   </component>
