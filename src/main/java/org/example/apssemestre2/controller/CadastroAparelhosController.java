@@ -27,15 +27,20 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.fxml.Initializable;
 import org.example.apssemestre2.service.AparelhoService;
+import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
 
 
 public class CadastroAparelhosController implements Initializable {
 
     @FXML
+    private Button BtnCancelar;
+
+    @FXML
     private TextField TextFieldPotencia;
 
     @FXML
-    private TableColumn<Aparelho, String> TableColumnModelo;
+    private TableColumn<?, ?> TableColumnModelo;
 
     @FXML
     private Button BtnSalvar;
@@ -44,7 +49,16 @@ public class CadastroAparelhosController implements Initializable {
     private TextField TextFieldMarca;
 
     @FXML
-    private ChoiceBox<String> ChoiceBoxCategoria;
+    private TextField TextFieldUsoMedio;
+
+    @FXML
+    private Label IdAparelho;
+
+    @FXML
+    private ChoiceBox<?> ChoiceBoxCategoria;
+
+    @FXML
+    private Button BtnLimpar;
 
     @FXML
     private Button BtnExcluir;
@@ -53,28 +67,84 @@ public class CadastroAparelhosController implements Initializable {
     private ChoiceBox<?> ChoiceBoxFiltro;
 
     @FXML
-    private Button BtnAlterar;
-
-    @FXML
     private TextField TextFieldNome;
 
     @FXML
-    private TableColumn<Aparelho, String> TableColumnNome;
+    private Button BtnAlterar;
 
     @FXML
-    private Button BtnNovo;
+    private TableColumn<?, ?> TableColumnNome;
 
     @FXML
-    private TableColumn<Aparelho, String> TableColumnPotencia;
+    private TableColumn<?, ?> TableColumnPotencia;
 
     @FXML
     private TextField TextFieldModelo;
 
     @FXML
-    private TableColumn<Aparelho, String> TableColumnMarca;
+    private TableColumn<?, ?> TableColumnMarca;
 
     @FXML
-    private TableView<Aparelho> TableViewAparelhos;
+    private TableView<?> TableViewAparelhos;
+
+    @FXML
+    void CancelarEdicao(ActionEvent event) {
+        BtnAlterar.setVisible(true);
+        BtnExcluir.setVisible(true);
+        BtnCancelar.setVisible(false);
+    }
+
+    @FXML
+    void SalvarAparelho(ActionEvent event) {
+        String nome = TextFieldNome.getText();
+        String modelo = TextFieldModelo.getText();
+        String marca = TextFieldMarca.getText();
+        String potencia = TextFieldPotencia.getText();
+
+        Aparelho aparelho = new Aparelho(nome, modelo, marca, potencia);
+
+        if (service.cadastrar(aparelho)) {
+            aparelhos.add(aparelho);
+        }
+    }
+
+    @FXML
+    void LimparCampos(ActionEvent event) {
+        TextFieldPotencia.setText("");
+        TextFieldMarca.setText("");
+        TextFieldModelo.setText("");
+        TextFieldNome.setText("");
+    }
+
+    @FXML
+    void AlterarAparelho(ActionEvent event) {
+        BtnAlterar.setVisible(false);
+        BtnExcluir.setVisible(false);
+        BtnCancelar.setVisible(true);
+        IdAparelho.setText("Alterar" );
+
+
+    }
+
+    @FXML
+    void ExcluirAparelho(ActionEvent event) {
+        Aparelho aparelho = TableViewAparelhos.getSelectionModel().getSelectedItem();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmação de Exclusão");
+        alert.setHeaderText("Tem certeza que deseja excluir esse aparelho?");
+        alert.setContentText("Esta ação não poderá ser desfeita.");
+
+        ButtonType buttonTypeConfirmar = new ButtonType("Confirmar");
+        ButtonType buttonTypeCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonTypeConfirmar, buttonTypeCancelar);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == buttonTypeConfirmar) {
+
+            aparelhos.remove(aparelho);
+        }
+    }
+
 
     private AparelhoService service;
 
@@ -82,17 +152,6 @@ public class CadastroAparelhosController implements Initializable {
         this.service = new AparelhoService();
     }
 
-    @FXML
-    void adicionarAparelho(ActionEvent event) {
-        TextFieldPotencia.setEditable(true);
-        TextFieldPotencia.setText("");
-        TextFieldMarca.setEditable(true);
-        TextFieldMarca.setText("");
-        TextFieldModelo.setEditable(true);
-        TextFieldModelo.setText("");
-        TextFieldNome.setEditable(true);
-        TextFieldNome.setText("");
-    }
 
     private void abrirCategoria() {
         String selecCat = ChoiceBoxCategoria.getValue();
@@ -117,68 +176,11 @@ public class CadastroAparelhosController implements Initializable {
         }
     }
 
-
-    @FXML
-    void selecionarAparelho(MouseEvent event) {
-
-        if (event.getClickCount() == 1) {
-
-            Aparelho aparelhoSelecionado = TableViewAparelhos.getSelectionModel().getSelectedItem();
-            if (aparelhoSelecionado != null) {
-                TextFieldNome.setText(aparelhoSelecionado.getNome());
-                TextFieldModelo.setText(aparelhoSelecionado.getModelo());
-                TextFieldMarca.setText(aparelhoSelecionado.getMarca());
-                TextFieldPotencia.setText(aparelhoSelecionado.getPotencia());
-            }
-        }
-    }
-
-    @FXML
-    void alterarAparelho(ActionEvent event) {
-        Aparelho aparelhoSelecionado = TableViewAparelhos.getSelectionModel().getSelectedItem();
-
-        String nome = TextFieldNome.getText();
-        String modelo = TextFieldModelo.getText();
-        String marca = TextFieldMarca.getText();
-        String potencia = TextFieldPotencia.getText();
-
-        if (aparelhoSelecionado != null && service.atualizar(aparelhoSelecionado, new Aparelho(nome, modelo, marca, potencia))) {
-            TableViewAparelhos.refresh();
-        }
-    }
-
-    @FXML
-    void salvarAparelho(ActionEvent event) {
-        String nome = TextFieldNome.getText();
-        String modelo = TextFieldModelo.getText();
-        String marca = TextFieldMarca.getText();
-        String potencia = TextFieldPotencia.getText();
-
-        Aparelho aparelho = new Aparelho(nome, modelo, marca, potencia);
-
-        if (service.cadastrar(aparelho)) {
-            aparelhos.add(aparelho);
-        }
-    }
-
-    @FXML
-    void excluirAparelho(ActionEvent event) {
-        Aparelho aparelho = TableViewAparelhos.getSelectionModel().getSelectedItem();
-
-        if (aparelho != null && service.excluir(aparelho)) {
-            aparelhos.remove(aparelho);
-        }
-    }
-
     private ObservableList<Aparelho> aparelhos = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        TextFieldPotencia.setEditable(false);
-        TextFieldMarca.setEditable(false);
-        TextFieldModelo.setEditable(false);
-        TextFieldNome.setEditable(false);
+        BtnCancelar.setVisible(false);
 
         //add infos ao choicebox de categoria
         ObservableList<String> items = FXCollections.observableArrayList();
@@ -223,3 +225,4 @@ public class CadastroAparelhosController implements Initializable {
         BtnAlterar.setGraphic(alterar);
     }
 }
+

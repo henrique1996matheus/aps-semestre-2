@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #6495ED;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.apssemestre2.controller.CadastroAparelhosController">
    <children>
       <HBox alignment="CENTER" layoutX="14.0" layoutY="7.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #6495ED;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Aparelhos">
+            <Label fx:id="IdAparelho" text="Adicionar Aparelho">
                <font>
                   <Font size="26.0" />
                </font>
@@ -22,34 +20,34 @@
          <children>
             <HBox alignment="CENTER" layoutX="106.0" layoutY="50.0" prefHeight="50.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Button fx:id="BtnNovo" mnemonicParsing="false" onAction="#adicionarAparelho" text="Novo">
+                  <Button fx:id="BtnSalvar" mnemonicParsing="false" onAction="#SalvarAparelho" text="Salvar">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets right="40.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="BtnCancelar" mnemonicParsing="false" onAction="#CancelarEdicao" text="Cancelar" />
+                  <Button fx:id="BtnLimpar" mnemonicParsing="false" onAction="#LimparCampos" text="Limpar">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="BtnAlterar" mnemonicParsing="false" onAction="#alterarAparelho" text="Alterar">
-                     <HBox.margin>
-                        <Insets right="60.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="BtnSalvar" mnemonicParsing="false" onAction="#salvarAparelho" text="Salvar">
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="BtnExcluir" alignment="CENTER" mnemonicParsing="false" onAction="#excluirAparelho" text="Excluir" />
                </children>
             </HBox>
             <Label layoutX="14.0" layoutY="15.0" text="Nome" />
             <Label layoutX="176.0" layoutY="15.0" text="Marca" />
             <Label layoutX="176.0" layoutY="64.0" text="Modelo" />
-            <Label layoutX="14.0" layoutY="68.0" text="Potencia" />
+            <Label layoutX="14.0" layoutY="65.0" text="Potencia" />
             <TextField fx:id="TextFieldNome" layoutX="14.0" layoutY="32.0" prefHeight="25.0" prefWidth="131.0" style="-fx-background-radius: 5;" />
-            <TextField fx:id="TextFieldMarca" layoutX="176.0" layoutY="32.0" style="-fx-background-radius: 5;" />
-            <TextField fx:id="TextFieldModelo" layoutX="176.0" layoutY="81.0" style="-fx-background-radius: 5;" />
-            <TextField fx:id="TextFieldPotencia" layoutX="14.0" layoutY="85.0" style="-fx-background-radius: 5;" />
-            <ChoiceBox fx:id="ChoiceBoxCategoria" layoutX="395.0" layoutY="32.0" prefHeight="25.0" prefWidth="149.0" />
-            <Label layoutX="395.0" layoutY="15.0" text="Categoria" />
+            <TextField fx:id="TextFieldMarca" layoutX="176.0" layoutY="32.0" prefHeight="25.0" prefWidth="100.0" style="-fx-background-radius: 5;" />
+            <TextField fx:id="TextFieldModelo" layoutX="176.0" layoutY="81.0" prefHeight="25.0" prefWidth="100.0" style="-fx-background-radius: 5;" />
+            <TextField fx:id="TextFieldPotencia" layoutX="14.0" layoutY="81.0" prefHeight="25.0" prefWidth="131.0" style="-fx-background-radius: 5;" />
+            <ChoiceBox fx:id="ChoiceBoxCategoria" layoutX="356.0" layoutY="28.0" prefHeight="25.0" prefWidth="149.0" />
+            <Label layoutX="356.0" layoutY="11.0" text="Categoria" />
+            <Label layoutX="356.0" layoutY="61.0" text="Uso Médio" />
+            <TextField fx:id="TextFieldUsoMedio" layoutX="356.0" layoutY="78.0" prefHeight="25.0" prefWidth="116.0" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="35.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #6495ED;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
@@ -63,6 +61,8 @@
               </columns>
             </TableView>
             <ChoiceBox fx:id="ChoiceBoxFiltro" layoutX="474.0" layoutY="10.0" prefHeight="25.0" prefWidth="109.0" />
+            <Button fx:id="BtnAlterar" layoutX="42.0" layoutY="10.0" mnemonicParsing="false" onAction="#AlterarAparelho" text="Alterar" />
+            <Button fx:id="BtnExcluir" alignment="CENTER" layoutX="110.0" layoutY="10.0" mnemonicParsing="false" onAction="#ExcluirAparelho" text="Excluir" />
          </children></AnchorPane>
    </children>
 </AnchorPane>
