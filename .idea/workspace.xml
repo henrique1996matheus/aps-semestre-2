@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e49fe05d-562a-4638-a2b3-b0c86a05535e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CadastroAparelhosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CadastroAparelhosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/CadastroAparelhos.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/CadastroAparelhos.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="e49fe05d-562a-4638-a2b3-b0c86a05535e" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,7 +36,7 @@
     "Application.RunMainApplicationIntellij.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Front-End-Final",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Program Files (x86)/Oracle/JavaFX Scene Builder 2.0/JavaFX Scene Builder 2.0.exe",
