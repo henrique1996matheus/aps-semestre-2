@@ -2,6 +2,7 @@ package org.example.apssemestre2.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -26,6 +27,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.fxml.Initializable;
+import org.example.apssemestre2.repository.AparelhoRepository;
 import org.example.apssemestre2.service.AparelhoService;
 
 
@@ -35,7 +37,10 @@ public class CadastroAparelhosController implements Initializable {
     private TextField TextFieldPotencia;
 
     @FXML
-    private TableColumn<Aparelho, String> TableColumnModelo;
+    private TableColumn<Aparelho,String> TableColumnModelo;
+
+    @FXML
+    private TableColumn<Aparelho,String> TableColumnCategoria;
 
     @FXML
     private Button BtnSalvar;
@@ -50,7 +55,7 @@ public class CadastroAparelhosController implements Initializable {
     private Button BtnExcluir;
 
     @FXML
-    private ChoiceBox<?> ChoiceBoxFiltro;
+    private ChoiceBox<String> ChoiceBoxFiltro;
 
     @FXML
     private Button BtnAlterar;
@@ -59,19 +64,19 @@ public class CadastroAparelhosController implements Initializable {
     private TextField TextFieldNome;
 
     @FXML
-    private TableColumn<Aparelho, String> TableColumnNome;
+    private TableColumn<Aparelho,String> TableColumnNome;
 
     @FXML
     private Button BtnNovo;
 
     @FXML
-    private TableColumn<Aparelho, String> TableColumnPotencia;
+    private TableColumn<Aparelho,String> TableColumnPotencia;
 
     @FXML
     private TextField TextFieldModelo;
 
     @FXML
-    private TableColumn<Aparelho, String> TableColumnMarca;
+    private TableColumn<Aparelho,String> TableColumnMarca;
 
     @FXML
     private TableView<Aparelho> TableViewAparelhos;
@@ -97,19 +102,20 @@ public class CadastroAparelhosController implements Initializable {
     private void abrirCategoria() {
         String selecCat = ChoiceBoxCategoria.getValue();
 
-        if (selecCat.equals("Nova Categoria...")) {
+        if (selecCat != null && selecCat.equals("Nova Categoria...")) {
             abrirJanelaCategoria();
         }
     }
 
     private void abrirJanelaCategoria() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/apssemestre2/view/categorias.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/apssemestre2/view/Categorias.fxml"));
             Parent root = loader.load();
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Categorias");
+            stage.setOnHiding(event -> atualizarCategorias());
             stage.setScene(new Scene(root));
             stage.showAndWait();
         } catch (IOException e) {
@@ -117,9 +123,21 @@ public class CadastroAparelhosController implements Initializable {
         }
     }
 
+    private void atualizarCategorias() {
+        ChoiceBoxCategoria.getItems().clear();
+
+        List<String> categorias = service.listarString();
+        categorias.add("Nova Categoria...");
+        ChoiceBoxCategoria.setItems(FXCollections.observableArrayList(categorias));
+    }
 
     @FXML
     void selecionarAparelho(MouseEvent event) {
+
+        TextFieldPotencia.setEditable(true);
+        TextFieldMarca.setEditable(true);
+        TextFieldModelo.setEditable(true);
+        TextFieldNome.setEditable(true);
 
         if (event.getClickCount() == 1) {
 
@@ -129,6 +147,7 @@ public class CadastroAparelhosController implements Initializable {
                 TextFieldModelo.setText(aparelhoSelecionado.getModelo());
                 TextFieldMarca.setText(aparelhoSelecionado.getMarca());
                 TextFieldPotencia.setText(aparelhoSelecionado.getPotencia());
+                ChoiceBoxCategoria.setValue(aparelhoSelecionado.getNomeCategoria());
             }
         }
     }
@@ -141,10 +160,12 @@ public class CadastroAparelhosController implements Initializable {
         String modelo = TextFieldModelo.getText();
         String marca = TextFieldMarca.getText();
         String potencia = TextFieldPotencia.getText();
+        String novaCategoria = ChoiceBoxCategoria.getValue();
+        int idCategoria = obterIdCategoria(novaCategoria);
 
-        if (aparelhoSelecionado != null && service.atualizar(aparelhoSelecionado, new Aparelho(nome, modelo, marca, potencia))) {
-            TableViewAparelhos.refresh();
+        if (aparelhoSelecionado != null && service.atualizar(aparelhoSelecionado, new Aparelho(nome, modelo, marca, potencia, idCategoria))) {
         }
+        atualizarTabela();
     }
 
     @FXML
@@ -153,12 +174,23 @@ public class CadastroAparelhosController implements Initializable {
         String modelo = TextFieldModelo.getText();
         String marca = TextFieldMarca.getText();
         String potencia = TextFieldPotencia.getText();
+        String nomeCategoria = ChoiceBoxCategoria.getValue();
+        int idCategoria = obterIdCategoria(nomeCategoria);
 
-        Aparelho aparelho = new Aparelho(nome, modelo, marca, potencia);
+        Aparelho aparelho = new Aparelho(nome, modelo, marca, potencia, idCategoria);
 
         if (service.cadastrar(aparelho)) {
             aparelhos.add(aparelho);
         }
+        atualizarTabela();
+    }
+
+    private int obterIdCategoria(String nomeCategoria) {
+        int idCategoria = 0;
+        if (nomeCategoria != null) {
+            idCategoria = new AparelhoRepository().buscarCategoriaPeloId(nomeCategoria);
+        }
+        return idCategoria;
     }
 
     @FXML
@@ -168,6 +200,29 @@ public class CadastroAparelhosController implements Initializable {
         if (aparelho != null && service.excluir(aparelho)) {
             aparelhos.remove(aparelho);
         }
+    }
+
+    @FXML
+    void filtroCategoria(ActionEvent event) {
+        String categoriaSelecionada = (String) ChoiceBoxFiltro.getValue();
+        List<Aparelho> aparelhosFiltrados = new ArrayList<>();
+
+        if (!categoriaSelecionada.equals("Todas as Categorias")) {
+            for (Aparelho aparelho : service.listar()) {
+                if (aparelho.getNomeCategoria().equals(categoriaSelecionada)) {
+                    aparelhosFiltrados.add(aparelho);
+                }
+            }
+            TableViewAparelhos.setItems(FXCollections.observableArrayList(aparelhosFiltrados));
+        } else {
+            atualizarTabela();
+        }
+    }
+
+    private void atualizarTabela() {
+        List<Aparelho> aparelhosList = service.listar();
+        aparelhos.setAll(aparelhosList);
+        TableViewAparelhos.setItems(aparelhos);
     }
 
     private ObservableList<Aparelho> aparelhos = FXCollections.observableArrayList();
@@ -180,16 +235,11 @@ public class CadastroAparelhosController implements Initializable {
         TextFieldModelo.setEditable(false);
         TextFieldNome.setEditable(false);
 
-        //add infos ao choicebox de categoria
-        ObservableList<String> items = FXCollections.observableArrayList();
-
         TableViewAparelhos.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
                 selecionarAparelho(event);
             }
         });
-
-        ChoiceBoxCategoria.setItems(items);
 
         ChoiceBoxCategoria.setOnAction(event -> abrirCategoria());
 
@@ -197,10 +247,17 @@ public class CadastroAparelhosController implements Initializable {
         TableColumnModelo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getModelo()));
         TableColumnMarca.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMarca()));
         TableColumnPotencia.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPotencia()));
+        TableColumnCategoria.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNomeCategoria()));
 
-        List<Aparelho> aparelhosList = service.listar();
-        aparelhos.addAll(aparelhosList);
-        TableViewAparelhos.setItems(aparelhos);
+        atualizarTabela();
+        atualizarCategorias();
+
+        ChoiceBoxFiltro.setValue("Todas as Categorias");
+        ChoiceBoxFiltro.setOnAction(this::filtroCategoria);
+        ObservableList<String> categorias = FXCollections.observableArrayList();
+        categorias.add("Todas as Categorias");
+        categorias.addAll(service.listarString());
+        ChoiceBoxFiltro.setItems(categorias);
 
         Image salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());
         ImageView Salvar = new ImageView(salvar);

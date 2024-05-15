@@ -3,20 +3,13 @@ package org.example.apssemestre2.service;
 import org.example.apssemestre2.model.Categoria;
 import org.example.apssemestre2.repository.CategoriaRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriaService extends BaseService<Categoria> {
-
-    private final CategoriaRepository repository;
+    CategoriaRepository repository;
 
     public CategoriaService() {
         this.repository = new CategoriaRepository();
-    }
-
-    @Override
-    public Categoria buscar() {
-        return null;
     }
 
     @Override
@@ -35,9 +28,11 @@ public class CategoriaService extends BaseService<Categoria> {
         return false;
     }
 
+
+
     @Override
     public boolean excluir(Categoria model) {
-        return false;
+        return repository.excluir(model);
     }
 
     @Override
@@ -47,6 +42,17 @@ public class CategoriaService extends BaseService<Categoria> {
 
     @Override
     public List<Categoria> listar() {
-        return new ArrayList<>();
+        var lista = repository.listar();
+        return lista;
+    }
+
+    @Override
+    public Categoria buscar() {
+        return null;
+    }
+
+    @Override
+    public List<String> listarString() {
+        return List.of();
     }
 }

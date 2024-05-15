@@ -19,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.Initializable;
+import org.example.apssemestre2.service.AparelhoService;
 import org.example.apssemestre2.service.CategoriaService;
 
 public class CategoriasController implements Initializable {
@@ -46,9 +47,7 @@ public class CategoriasController implements Initializable {
 
     private CategoriaService service;
 
-    public CategoriasController() {
-        this.service = new CategoriaService();
-    }
+    public CategoriasController() {this.service = new CategoriaService(); }
 
     @FXML
     void adicionarCategoria(ActionEvent event) {
@@ -58,6 +57,8 @@ public class CategoriasController implements Initializable {
 
     @FXML
     void selecionarCategoria(MouseEvent event) {
+
+        TextFieldNome.setEditable(true);
 
         if (event.getClickCount() == 1) {
             Categoria CategoriaSelecionada = (Categoria) TableViewCategorias.getSelectionModel().getSelectedItem();
@@ -74,8 +75,8 @@ public class CategoriasController implements Initializable {
             String nome = TextFieldNome.getText();
 
             if (service.atualizar(categoriaSelecionada, new Categoria(nome))) {
-                TableViewCategorias.refresh();
             }
+            TableViewCategorias.refresh();
         }
     }
 
@@ -84,7 +85,6 @@ public class CategoriasController implements Initializable {
         String nome = TextFieldNome.getText();
 
         Categoria novaCategoria = new Categoria(nome);
-
 
         if (service.cadastrar(novaCategoria)) {
             categorias.add(novaCategoria);

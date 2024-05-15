@@ -35,4 +35,9 @@ public class ConsumoRepository extends BaseRepository<Consumo> {
     public List<Consumo> listar() {
         return null;
     }
+
+    @Override
+    public List<String> listarString() {
+        return List.of();
+    }
 }

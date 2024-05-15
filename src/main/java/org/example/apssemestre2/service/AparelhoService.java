@@ -31,6 +31,7 @@ public class AparelhoService extends BaseService<Aparelho> {
             antigo.setModelo(antigo.getModelo());
             antigo.setMarca(antigo.getMarca());
             antigo.setPotencia(antigo.getPotencia());
+            antigo.setIdCategoria(antigo.getIdCategoria());
 
             return true;
         }
@@ -51,6 +52,13 @@ public class AparelhoService extends BaseService<Aparelho> {
     @Override
     public List<Aparelho> listar() {
         var lista = repository.listar();
+
+        return lista;
+    }
+
+    @Override
+    public List<String> listarString() {
+        var lista = repository.listarString();
 
         return lista;
     }

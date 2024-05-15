@@ -9,6 +9,8 @@ public class Aparelho {
     private String marca;
     private String potencia;
     private VoltagemEnum voltagem;
+    private int idCategoria;
+    private String nomeCategoria;
 
     public int getId() {
         return id;
@@ -50,12 +52,21 @@ public class Aparelho {
         this.potencia = potencia;
     }
 
-    public Aparelho(String nome, String modelo, String marca, String potencia) {
+    public int getIdCategoria() {return idCategoria;}
+
+    public void setIdCategoria(int idCategoria) {this.idCategoria = idCategoria;}
+
+    public String getNomeCategoria() {return nomeCategoria;}
+
+    public void setNomeCategoria(String nomeCategoria) {this.nomeCategoria = nomeCategoria;}
+
+    public Aparelho(String nome, String modelo, String marca, String potencia, int idCategoria) {
         super();
         this.nome = nome;
         this.modelo = modelo;
         this.marca = marca;
         this.potencia = potencia;
+        this.idCategoria = idCategoria;
     }
 
     public Aparelho() {

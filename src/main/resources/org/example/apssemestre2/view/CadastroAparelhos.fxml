@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #6495ED;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.apssemestre2.controller.CadastroAparelhosController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #6495ED;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.apssemestre2.controller.CadastroAparelhosController">
    <children>
       <HBox alignment="CENTER" layoutX="14.0" layoutY="7.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #6495ED;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -46,23 +43,24 @@
             <Label layoutX="14.0" layoutY="68.0" text="Potencia" />
             <TextField fx:id="TextFieldNome" layoutX="14.0" layoutY="32.0" prefHeight="25.0" prefWidth="131.0" style="-fx-background-radius: 5;" />
             <TextField fx:id="TextFieldMarca" layoutX="176.0" layoutY="32.0" style="-fx-background-radius: 5;" />
-            <TextField fx:id="TextFieldModelo" layoutX="176.0" layoutY="81.0" style="-fx-background-radius: 5;" />
+            <TextField fx:id="TextFieldModelo" layoutX="176.0" layoutY="85.0" style="-fx-background-radius: 5;" />
             <TextField fx:id="TextFieldPotencia" layoutX="14.0" layoutY="85.0" style="-fx-background-radius: 5;" />
-            <ChoiceBox fx:id="ChoiceBoxCategoria" layoutX="395.0" layoutY="32.0" prefHeight="25.0" prefWidth="149.0" />
-            <Label layoutX="395.0" layoutY="15.0" text="Categoria" />
+            <ChoiceBox fx:id="ChoiceBoxCategoria" layoutX="371.0" layoutY="32.0" prefHeight="25.0" prefWidth="166.0" />
+            <Label layoutX="428.0" layoutY="15.0" text="Categoria" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="35.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #6495ED;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
          <children>
             <TableView fx:id="TableViewAparelhos" layoutX="54.0" layoutY="53.0" prefHeight="133.0" prefWidth="525.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="45.0">
-              <columns>
-                  <TableColumn fx:id="TableColumnNome" prefWidth="179.0" text="Nome" />
-                  <TableColumn fx:id="TableColumnMarca" prefWidth="99.0" text="Marca" />
-                  <TableColumn fx:id="TableColumnModelo" prefWidth="132.0" text="Modelo" />
-                  <TableColumn fx:id="TableColumnPotencia" prefWidth="179.0" text="Potencia" />
-              </columns>
+               <columns>
+                  <TableColumn fx:id="TableColumnNome" prefWidth="129.0" text="Nome" />
+                  <TableColumn fx:id="TableColumnMarca" prefWidth="100.0" text="Marca" />
+                  <TableColumn fx:id="TableColumnModelo" prefWidth="120.0" text="Modelo" />
+                  <TableColumn fx:id="TableColumnPotencia" prefWidth="120.0" text="Potencia" />
+                  <TableColumn fx:id="TableColumnCategoria" prefWidth="120.0" text="Categoria" />
+               </columns>
             </TableView>
-            <ChoiceBox fx:id="ChoiceBoxFiltro" layoutX="474.0" layoutY="10.0" prefHeight="25.0" prefWidth="109.0" />
+            <ChoiceBox fx:id="ChoiceBoxFiltro" layoutX="417.0" layoutY="10.0" prefHeight="25.0" prefWidth="166.0" />
          </children></AnchorPane>
    </children>
 </AnchorPane>

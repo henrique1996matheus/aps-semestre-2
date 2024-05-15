@@ -5,18 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e49fe05d-562a-4638-a2b3-b0c86a05535e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/mysql-connector-j-8.4.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/MigracaoDBRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/MigracaoDBService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/migration/V1_inicializar_tabelas.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/migration/V2_criar_categoria.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/migration/V3_criar_conta_luz.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CadastroAparelhosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CadastroAparelhosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CadastroLuzController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CadastroLuzController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CategoriasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CategoriasController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/JanelaPrincipalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/JanelaPrincipalController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/model/Aparelho.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/model/Aparelho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/model/ContaLuz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/model/ContaLuz.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/AparelhoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/AparelhoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/BaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/BaseRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/CategoriaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/CategoriaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/Conexao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/Conexao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/ConsumoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/ConsumoRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/ContaLuzRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/ContaLuzRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/AparelhoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/AparelhoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/BaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/BaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/CategoriaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/CategoriaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/ContaLuzService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/ContaLuzService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/CadastroAparelhos.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/CadastroAparelhos.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/Cadastro_Luz.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/Cadastro_Luz.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/categorias.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/Categorias.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +41,25 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;gui1hermereis&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/henrique1996matheus/aps-semestre-2.git&quot;,
+    &quot;accountId&quot;: &quot;522fc7e7-7226-45ae-b734-643f4a50c53c&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -42,23 +68,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.HelloApplication.executor": "Run",
-    "Application.MainApplication.executor": "Run",
-    "Application.RunMainApplicationIntellij.executor": "Debug",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Projetos/Java/aps-semestre-2/lib/mysql-connector-j-8.4.0.jar",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MainApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RunMainApplicationIntellij.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/sjcgu/OneDrive/Desktop/aps-semestre&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Projetos\Java\aps-semestre-2" />
@@ -86,13 +112,6 @@
         <item itemvalue="Application.RunMainApplicationIntellij" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

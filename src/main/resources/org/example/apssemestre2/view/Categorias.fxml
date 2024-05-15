@@ -20,9 +20,9 @@
          </children>
       </HBox>
       <TableView fx:id="TableViewCategorias" layoutX="291.0" layoutY="65.0" prefHeight="249.0" prefWidth="190.0">
-        <columns>
-          <TableColumn fx:id="TableColumnCategorias" prefWidth="199.0" text="Categorias" />
-        </columns>
+         <columns>
+            <TableColumn fx:id="TableColumnCategorias" prefWidth="199.0" text="Categorias" />
+         </columns>
       </TableView>
       <Pane layoutX="6.0" layoutY="65.0" prefHeight="200.0" prefWidth="279.0" style="-fx-background-color: #FFD700; -fx-background-radius: 12;">
          <children>

@@ -11,8 +11,9 @@ public abstract class BaseRepository<T> {
 
     public abstract boolean excluir(T model);
 
-
     public abstract boolean salvar();
 
     public abstract List<T> listar();
+
+    public abstract List<String> listarString();
 }

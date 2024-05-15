@@ -16,4 +16,6 @@ public abstract class BaseService<T> {
     public abstract boolean salvar(T model);
 
     public abstract List<T> listar();
+
+    public abstract List<String> listarString();
 }

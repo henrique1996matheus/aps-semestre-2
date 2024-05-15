@@ -9,8 +9,6 @@ import java.util.List;
 import org.example.apssemestre2.model.Categoria;
 
 public class CategoriaRepository extends BaseRepository<Categoria> {
-    private final String TABELA = "categoria";
-
     @Override
     public Categoria buscar() {
         return null;
@@ -23,7 +21,7 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
 
     @Override
     public boolean cadastrar(Categoria categoria) {
-        String sql = "INSERT INTO " + TABELA + " (nome) VALUES (?)";
+        String sql = "INSERT INTO CATEGORIAS (NOMECATEGORIA) VALUES (?)";
 
         PreparedStatement ps = null;
 
@@ -45,15 +43,23 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
 
     @Override
     public boolean excluir(Categoria categoria) {
-        String sql = "DELETE FROM " + TABELA + " WHERE id = ?";
-        PreparedStatement ps = null;
+        String sqlUpdateAparelhos = "UPDATE APARELHOS SET idCategoria = null WHERE idCategoria = ?";
+        String sqlDeleteCategoria = "DELETE FROM CATEGORIAS WHERE idCategoria = ?";
+
+        PreparedStatement psUpdateAparelhos = null;
+        PreparedStatement psDeleteCategoria = null;
 
         try {
-            ps = Conexao.getConexao().prepareStatement(sql);
-            ps.setInt(1, categoria.getId());
+            psUpdateAparelhos = Conexao.getConexao().prepareStatement(sqlUpdateAparelhos);
+            psUpdateAparelhos.setInt(1, categoria.getId());
+            psUpdateAparelhos.executeUpdate();
 
-            ps.execute();
-            ps.close();
+            psDeleteCategoria = Conexao.getConexao().prepareStatement(sqlDeleteCategoria);
+            psDeleteCategoria.setInt(1, categoria.getId());
+            psDeleteCategoria.executeUpdate();
+
+            psUpdateAparelhos.close();
+            psDeleteCategoria.close();
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -65,11 +71,11 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
 
     @Override
     public boolean atualizar(Categoria categoria) {
-        String sql = "UPDATE " + TABELA + " SET nome = ? WHERE id = ?";
+        String sql = "UPDATE CATEGORIAS SET nomeCategoria=? WHERE idCategoria=?";
 
         PreparedStatement ps = null;
 
-        try {
+        try{
             ps = Conexao.getConexao().prepareStatement(sql);
             ps.setString(1, categoria.getNome());
             ps.setInt(2, categoria.getId());
@@ -89,7 +95,7 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
     @Override
     public List<Categoria> listar() {
 
-        String sql = "SELECT * FROM " + TABELA;
+        String sql = "SELECT * FROM CATEGORIAS";
 
         List<Categoria> categorias = new ArrayList<Categoria>();
 
@@ -104,8 +110,8 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
 
                 Categoria categoria = new Categoria();
 
-                categoria.setId(rset.getInt("id"));
-                categoria.setNome(rset.getString("nome"));
+                categoria.setId(rset.getInt("idCategoria"));
+                categoria.setNome(rset.getString("nomeCategoria"));
 
                 categorias.add(categoria);
             }
@@ -114,5 +120,10 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
             e.printStackTrace();
         }
         return categorias;
+    }
+
+    @Override
+    public List<String> listarString() {
+        return List.of();
     }
 }
