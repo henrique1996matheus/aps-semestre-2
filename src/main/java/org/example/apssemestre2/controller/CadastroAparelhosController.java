@@ -3,8 +3,10 @@ package org.example.apssemestre2.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.scene.control.*;
 import org.example.apssemestre2.model.Aparelho;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -15,11 +17,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -27,8 +24,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.fxml.Initializable;
 import org.example.apssemestre2.service.AparelhoService;
-import javafx.scene.control.Label;
-import javafx.scene.control.Alert;
 
 
 public class CadastroAparelhosController implements Initializable {
@@ -40,7 +35,7 @@ public class CadastroAparelhosController implements Initializable {
     private TextField TextFieldPotencia;
 
     @FXML
-    private TableColumn<?, ?> TableColumnModelo;
+    private TableColumn<Aparelho,String> TableColumnModelo;
 
     @FXML
     private Button BtnSalvar;
@@ -55,7 +50,7 @@ public class CadastroAparelhosController implements Initializable {
     private Label IdAparelho;
 
     @FXML
-    private ChoiceBox<?> ChoiceBoxCategoria;
+    private ChoiceBox<String> ChoiceBoxCategoria;
 
     @FXML
     private Button BtnLimpar;
@@ -73,25 +68,26 @@ public class CadastroAparelhosController implements Initializable {
     private Button BtnAlterar;
 
     @FXML
-    private TableColumn<?, ?> TableColumnNome;
+    private TableColumn<Aparelho,String> TableColumnNome;
 
     @FXML
-    private TableColumn<?, ?> TableColumnPotencia;
+    private TableColumn<Aparelho,String> TableColumnPotencia;
 
     @FXML
     private TextField TextFieldModelo;
 
     @FXML
-    private TableColumn<?, ?> TableColumnMarca;
+    private TableColumn<Aparelho,String> TableColumnMarca;
 
     @FXML
-    private TableView<?> TableViewAparelhos;
+    private TableView<Aparelho> TableViewAparelhos;
 
     @FXML
     void CancelarEdicao(ActionEvent event) {
         BtnAlterar.setVisible(true);
         BtnExcluir.setVisible(true);
         BtnCancelar.setVisible(false);
+        BtnLimpar.setVisible(true);
     }
 
     @FXML
@@ -119,9 +115,10 @@ public class CadastroAparelhosController implements Initializable {
     @FXML
     void AlterarAparelho(ActionEvent event) {
         BtnAlterar.setVisible(false);
+        BtnLimpar.setVisible(false);
         BtnExcluir.setVisible(false);
         BtnCancelar.setVisible(true);
-        IdAparelho.setText("Alterar" );
+        IdAparelho.setText("Alterando Aparelho" );
 
 
     }
@@ -204,25 +201,30 @@ public class CadastroAparelhosController implements Initializable {
         aparelhos.addAll(aparelhosList);
         TableViewAparelhos.setItems(aparelhos);
 
-        Image salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());
-        ImageView Salvar = new ImageView(salvar);
-        BtnSalvar.setGraphic(Salvar);
+        Image Salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());
+        ImageView salvo = new ImageView(Salvar);
+        BtnSalvar.setGraphic(salvo);
 
-        Image excluir = new Image(getClass().getResource("/org/example/apssemestre2/icons/excluir.png").toExternalForm());
-        ImageView excl = new ImageView(excluir);
-        BtnExcluir.setGraphic(excl);
+        Image Cancelar = new Image(getClass().getResource("/org/example/apssemestre2/icons/cancelar.png").toExternalForm());
+        ImageView cancelado = new ImageView(Cancelar);
+        BtnCancelar.setGraphic(cancelado);
 
-        Image nov = new Image(getClass().getResource("/org/example/apssemestre2/icons/novoarq.png").toExternalForm());
-        ImageView novo = new ImageView(nov);
-        novo.setFitWidth(16);
-        novo.setFitHeight(16);
-        BtnNovo.setGraphic(novo);
+        Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
+        ImageView limpo = new ImageView(Limpar);
+        BtnLimpar.setGraphic(limpo);
 
-        Image alt = new Image(getClass().getResource("/org/example/apssemestre2/icons/setas-flechas.png").toExternalForm());
-        ImageView alterar = new ImageView(alt);
-        alterar.setFitWidth(16);
-        alterar.setFitHeight(16);
-        BtnAlterar.setGraphic(alterar);
+        Image Alterar = new Image(getClass().getResource("/org/example/apssemestre2/icons/setas-flechas.png").toExternalForm());
+        ImageView alterado = new ImageView(Alterar);
+        alterado.setFitWidth(16);
+        alterado.setFitHeight(16);
+        BtnAlterar.setGraphic(alterado);
+
+        Image Excluir = new Image(getClass().getResource("/org/example/apssemestre2/icons/excluir.png").toExternalForm());
+        ImageView excluido = new ImageView(Excluir);
+        BtnExcluir.setGraphic(excluido);
+    }
+
+    private void selecionarAparelho(MouseEvent event) {
     }
 }
 

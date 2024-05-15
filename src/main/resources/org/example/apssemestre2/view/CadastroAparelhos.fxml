@@ -61,8 +61,8 @@
               </columns>
             </TableView>
             <ChoiceBox fx:id="ChoiceBoxFiltro" layoutX="474.0" layoutY="10.0" prefHeight="25.0" prefWidth="109.0" />
-            <Button fx:id="BtnAlterar" layoutX="42.0" layoutY="10.0" mnemonicParsing="false" onAction="#AlterarAparelho" text="Alterar" />
-            <Button fx:id="BtnExcluir" alignment="CENTER" layoutX="110.0" layoutY="10.0" mnemonicParsing="false" onAction="#ExcluirAparelho" text="Excluir" />
+            <Button fx:id="BtnAlterar" layoutX="23.0" layoutY="10.0" mnemonicParsing="false" onAction="#AlterarAparelho" text="Alterar" />
+            <Button fx:id="BtnExcluir" alignment="CENTER" layoutX="96.0" layoutY="10.0" mnemonicParsing="false" onAction="#ExcluirAparelho" text="Excluir" />
          </children></AnchorPane>
    </children>
 </AnchorPane>
