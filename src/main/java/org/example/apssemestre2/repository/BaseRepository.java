@@ -14,5 +14,5 @@ public abstract class BaseRepository<T> {
 
     public abstract boolean salvar();
 
-    public abstract List<T> listar();
+    public abstract List<T> listar(T filtroModel);
 }

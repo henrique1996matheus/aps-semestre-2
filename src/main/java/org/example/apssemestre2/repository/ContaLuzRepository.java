@@ -53,7 +53,7 @@ public class ContaLuzRepository extends BaseRepository<ContaLuz> {
     }
 
     @Override
-    public List<ContaLuz> listar() {
+    public List<ContaLuz> listar(ContaLuz filtroModel) {
         return null;
     }
 }
