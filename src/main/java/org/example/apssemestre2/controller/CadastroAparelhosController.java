@@ -33,7 +33,7 @@ public class CadastroAparelhosController implements Initializable {
     private TextField TextFieldPotencia;
 
     @FXML
-    private TableColumn<Aparelho,String> TableColumnModelo;
+    private TableColumn<Aparelho, String> TableColumnModelo;
 
     @FXML
     private Button BtnSalvar;
@@ -66,21 +66,21 @@ public class CadastroAparelhosController implements Initializable {
     private Button BtnAlterar;
 
     @FXML
-    private TableColumn<Aparelho,String> TableColumnNome;
+    private TableColumn<Aparelho, String> TableColumnNome;
 
     @FXML
-    private TableColumn<Aparelho,String> TableColumnPotencia;
+    private TableColumn<Aparelho, String> TableColumnPotencia;
 
     @FXML
     private TextField TextFieldModelo;
 
     @FXML
-    private TableColumn<Aparelho,String> TableColumnMarca;
+    private TableColumn<Aparelho, String> TableColumnMarca;
 
     @FXML
     private TableView<Aparelho> TableViewAparelhos;
 
-
+    private boolean novoCadastro = true;
 
     @FXML
     void SalvarAparelho(ActionEvent event) {
@@ -93,6 +93,8 @@ public class CadastroAparelhosController implements Initializable {
 
         if (service.cadastrar(aparelho)) {
             aparelhos.add(aparelho);
+
+            LimparCampos(new ActionEvent());
         }
     }
 
@@ -103,35 +105,34 @@ public class CadastroAparelhosController implements Initializable {
         TextFieldModelo.setText("");
         TextFieldNome.setText("");
 
-        Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
-        ImageView limpo = new ImageView(Limpar);
-        BtnLimpar.setGraphic(limpo);
+        if (!novoCadastro) {
+            novoCadastro = true;
 
-        BtnLimpar.setText("Limpar");
-        IdAparelho.setText("Novo Aparelho" );
+            Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
+            ImageView limpo = new ImageView(Limpar);
+            BtnLimpar.setGraphic(limpo);
 
-        BtnAlterar.setVisible(true);
-        BtnExcluir.setVisible(true);
+            BtnLimpar.setText("Limpar");
+            IdAparelho.setText("Novo Aparelho");
 
-        BtnAlterar.setOpacity(1);
-        BtnExcluir.setOpacity(1);
-
-
+            BtnExcluir.setDisable(false);
+            BtnAlterar.setDisable(false);
+        }
     }
 
     @FXML
     void AlterarAparelho(ActionEvent event) {
-        BtnAlterar.setOpacity(0.25);
-        BtnExcluir.setOpacity(0.25);
-        IdAparelho.setText("Alterando Aparelho" );
+        novoCadastro = false;
+
+        BtnAlterar.setDisable(true);
+        BtnExcluir.setDisable(true);
+        IdAparelho.setText("Alterando Aparelho");
 
         BtnLimpar.setText("Cancelar");
 
         Image Cancelar = new Image(getClass().getResource("/org/example/apssemestre2/icons/cancelar.png").toExternalForm());
         ImageView cancelado = new ImageView(Cancelar);
         BtnLimpar.setGraphic(cancelado);
-
-
     }
 
     @FXML
@@ -148,7 +149,6 @@ public class CadastroAparelhosController implements Initializable {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == buttonTypeConfirmar) {
-
             aparelhos.remove(aparelho);
         }
     }
