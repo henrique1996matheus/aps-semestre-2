@@ -3,6 +3,14 @@ package org.example.apssemestre2.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,10 +21,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -26,159 +31,166 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
 public class JanelaPrincipalController implements Initializable {
-	
+
 	@FXML
-    private MenuBar BarraMenu;
+	private MenuBar BarraMenu;
 
-    @FXML
-    private TextField TextFieldFat;
+	@FXML
+	private TextField TextFieldFat;
 
-    @FXML
-    private Menu MenuConsumoDetalhado;
+	@FXML
+	private Menu MenuConsumoDetalhado;
 
-    @FXML
-    private MenuItem menuitemMonitoramentoMetas;
+	@FXML
+	private MenuItem menuitemMonitoramentoMetas;
 
-    @FXML
-    private MenuItem menuitemMonitoramentoAnaliseCategoria;
+	@FXML
+	private MenuItem menuitemMonitoramentoAnaliseCategoria;
 
-    @FXML
-    private MenuItem menuitemConsumoContaLuz;
+	@FXML
+	private MenuItem menuitemConsumoContaLuz;
 
-    @FXML
-    private MenuItem menuitemCategorias;
+	@FXML
+	private MenuItem menuitemCategorias;
 
-    @FXML
-    private MenuItem menuitemListaAparelhos;
+	@FXML
+	private MenuItem menuitemListaAparelhos;
 
-    @FXML
-    private BarChart<?, ?> GraficoBarra;
+	@FXML
+	private BarChart<?, ?> GraficoBarra;
 
-    @FXML
-    private MenuItem menuitemConsumoConsumoporDia;
+	@FXML
+	private MenuItem menuitemConsumoConsumoporDia;
 
-    @FXML
-    private MenuItem menuitemConsumoConsumoporMes;
+	@FXML
+	private MenuItem menuitemConsumoConsumoporMes;
 
-    @FXML
-    private NumberAxis GraficoVoltagem;
+	@FXML
+	private NumberAxis GraficoVoltagem;
 
-    @FXML
-    private TextField TextFieldAnt;
+	@FXML
+	private TextField TextFieldAnt;
 
-    @FXML
-    private MenuItem MenuitemSobreSistema;
+	@FXML
+	private MenuItem MenuitemSobreSistema;
 
-    @FXML
-    private Menu MenuMonitoramento;
+	@FXML
+	private Label LabelTitulo;
 
-    @FXML
-    private Menu MenuAparelhos;
+	@FXML
+	private Menu MenuMonitoramento;
 
-    @FXML
-    private MenuItem menuitemConsumoAparelho;
+	@FXML
+	private Menu MenuAparelhos;
 
-    @FXML
-    private Menu MenuSobre;
+	@FXML
+	private MenuItem menuitemConsumoAparelho;
 
-    @FXML
-    private CategoryAxis GraficoDias;
+	@FXML
+	private Menu MenuSobre;
 
-    @FXML
-    void acessarListaAparelhos(ActionEvent event) {
-    	try {
+	@FXML
+	private CategoryAxis GraficoDias;
+
+
+	@FXML
+	void acessarListaAparelhos(ActionEvent event) {
+		try {
 			abrirTelas("CadastroAparelhos");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
+	}
 
-    @FXML
-    void acessarConsumoAparelho(ActionEvent event) {
-    	try {
+	@FXML
+	void acessarConsumoAparelho(ActionEvent event) {
+		try {
 			abrirTelas("Uso_Aparelho");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
+	}
 
-    @FXML
-    void acessarCategorias(ActionEvent event) {
-    	try {
+	@FXML
+	void acessarCategorias(ActionEvent event) {
+		try {
 			abrirTelas("categorias");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
+	}
 
-    @FXML
-    void acessarMetas(ActionEvent event) {
+	@FXML
+	void acessarMetas(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void acessarAnaliseCategoria(ActionEvent event) {
+	@FXML
+	void acessarAnaliseCategoria(ActionEvent event) {
+		try {
+			abrirTelas("Analise_Categoria");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-    }
-
-    @FXML
-    void acessarConsumoDia(ActionEvent event) {
-    	try {
+	@FXML
+	void acessarConsumoDia(ActionEvent event) {
+		try {
 			abrirTelas("Consumo_Dia");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
+	}
 
-    @FXML
-    void acessarConsumoMes(ActionEvent event) {
-    	try {
+	@FXML
+	void acessarConsumoMes(ActionEvent event) {
+		try {
 			abrirTelas("Consumo_Mes");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
+	}
 
-    @FXML
-    void acessarContaLuz(ActionEvent event) {
-    	try {
+	@FXML
+	void acessarContaLuz(ActionEvent event) {
+		try {
 			abrirTelas("Cadastro_Luz");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
+	}
 
-    @FXML
-    void acessarSistema(ActionEvent event) {
-    	
-    }
-    
-    public void abrirTelas(String tela) throws IOException { 
+	@FXML
+	void acessarSistema(ActionEvent event) {
 
-	    	Parent root = FXMLLoader.load(getClass().getResource("/org/example/apssemestre2/view/" + tela + ".fxml"));
-	    	Stage stage = new Stage();
-	    	stage.setScene(new Scene(root));
-	    	stage.setTitle("tela");
-	    	stage.setResizable(false);
-	    	stage.initModality(Modality.APPLICATION_MODAL);
-	    	stage.show();
-    	
-  	
-    	
-    		
-    }
-    
-    
+	}
+
+	public void abrirTelas(String tela) throws IOException {
+
+		Parent root = FXMLLoader.load(getClass().getResource("/org/example/apssemestre2/view/" + tela + ".fxml"));
+		Stage stage = new Stage();
+		stage.setScene(new Scene(root));
+		stage.setTitle(tela);
+		stage.setResizable(false);
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.show();
+
+
+	}
+
+
 	@Override
-	public void initialize(URL url,ResourceBundle rb) {
-		
-		
+	public void initialize(URL url, ResourceBundle rb) {
+
+
 		//aparelhos
 		
 		

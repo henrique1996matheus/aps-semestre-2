@@ -8,10 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -33,13 +30,16 @@ public class CadastroLuzController implements Initializable {
     private ChoiceBox<?> ChoiceBoxAno;
 
     @FXML
-    private Button BtnNovo;
-
-    @FXML
     private TextField TextFieldVencimento;
 
     @FXML
     private TextField TextFieldConsumo;
+
+    @FXML
+    private Button BtnLimpar;
+
+    @FXML
+    private Label LabelCadastro;
 
     @FXML
     private Button BtnExcluir;
@@ -53,6 +53,66 @@ public class CadastroLuzController implements Initializable {
     @FXML
     private Button BtnAlterar;
 
+    @FXML
+    void salvarCadastro(ActionEvent event) {
+
+        String bandeira = TextFieldBandeira.getText();
+        String referencia = TextFieldReferencia.getText();
+        String vencimento = TextFieldVencimento.getText();
+        String consumo = TextFieldConsumo.getText();
+        String valor = TextFieldValor.getText();
+
+        ContaLuz novaConta = new ContaLuz(bandeira, referencia, vencimento, consumo, valor);
+
+        if (service.cadastrar(novaConta)) {
+            contaluz.add(novaConta);
+        }
+    }
+
+    @FXML
+    void LimparDados(ActionEvent event) {
+
+        TextFieldBandeira.setText("");
+        TextFieldReferencia.setText("");
+        TextFieldVencimento.setText("");
+        TextFieldConsumo.setText("");
+        TextFieldValor.setText("");
+
+        Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
+        ImageView limpo = new ImageView(Limpar);
+        BtnLimpar.setGraphic(limpo);
+
+        BtnLimpar.setText("Limpar");
+        LabelCadastro.setText("Nova Conta de Luz" );
+
+        BtnAlterar.setVisible(true);
+        BtnExcluir.setVisible(true);
+
+        BtnAlterar.setOpacity(1);
+        BtnExcluir.setOpacity(1);
+    }
+
+    @FXML
+    void alterarCadastro(ActionEvent event) {
+
+        BtnAlterar.setOpacity(0.25);
+        BtnExcluir.setOpacity(0.25);
+        LabelCadastro.setText("Editando Conta de Luz" );
+
+        BtnLimpar.setText("Cancelar");
+
+        Image Cancelar = new Image(getClass().getResource("/org/example/apssemestre2/icons/cancelar.png").toExternalForm());
+        ImageView cancelado = new ImageView(Cancelar);
+        BtnLimpar.setGraphic(cancelado);
+
+    }
+
+    @FXML
+    void excluirCadastroLuz(ActionEvent event) {
+
+    }
+
+
     private ObservableList<ContaLuz> contaluz = FXCollections.observableArrayList();
 
     private final ContaLuzService service;
@@ -61,19 +121,6 @@ public class CadastroLuzController implements Initializable {
         this.service = new ContaLuzService();
     }
 
-    @FXML
-    void novoCadastro(ActionEvent event) {
-        TextFieldBandeira.setEditable(true);
-        TextFieldBandeira.setText("");
-        TextFieldReferencia.setEditable(true);
-        TextFieldReferencia.setText("");
-        TextFieldVencimento.setEditable(true);
-        TextFieldVencimento.setText("");
-        TextFieldConsumo.setEditable(true);
-        TextFieldConsumo.setText("");
-        TextFieldValor.setEditable(true);
-        TextFieldValor.setText("");
-    }
 
     @FXML
     void selecionarContaLuz(MouseEvent event) {
@@ -89,29 +136,8 @@ public class CadastroLuzController implements Initializable {
         }
     }
 
-    @FXML
-    void alterarCadastro(ActionEvent event) {
 
-    }
 
-    @FXML
-    void salvarCadastro(ActionEvent event) {
-        String bandeira = TextFieldBandeira.getText();
-        String referencia = TextFieldReferencia.getText();
-        String vencimento = TextFieldVencimento.getText();
-        String consumo = TextFieldConsumo.getText();
-        String valor = TextFieldValor.getText();
-
-        ContaLuz novaConta = new ContaLuz(bandeira, referencia, vencimento, consumo, valor);
-
-        if (service.cadastrar(novaConta)) {
-            contaluz.add(novaConta);
-        }
-    }
-
-    @FXML
-    void excluirCadastroLuz(ActionEvent event) {
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -127,24 +153,25 @@ public class CadastroLuzController implements Initializable {
             }
         });
 
-        Image salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());
-        ImageView Salvar = new ImageView(salvar);
-        BtnSalvar.setGraphic(Salvar);
+        Image Salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());
+        ImageView salvo = new ImageView(Salvar);
+        salvo.setFitWidth(14);
+        salvo.setFitHeight(14);
+        BtnSalvar.setGraphic(salvo);
 
-        Image excluir = new Image(getClass().getResource("/org/example/apssemestre2/icons/excluir.png").toExternalForm());
-        ImageView excl = new ImageView(excluir);
-        BtnExcluir.setGraphic(excl);
 
-        Image nov = new Image(getClass().getResource("/org/example/apssemestre2/icons/novoarq.png").toExternalForm());
-        ImageView novo = new ImageView(nov);
-        novo.setFitWidth(14);
-        novo.setFitHeight(14);
-        BtnNovo.setGraphic(novo);
+        Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
+        ImageView limpo = new ImageView(Limpar);
+        BtnLimpar.setGraphic(limpo);
 
-        Image alt = new Image(getClass().getResource("/org/example/apssemestre2/icons/setas-flechas.png").toExternalForm());
-        ImageView alterar = new ImageView(alt);
-        alterar.setFitWidth(14);
-        alterar.setFitHeight(14);
-        BtnAlterar.setGraphic(alterar);
+        Image Alterar = new Image(getClass().getResource("/org/example/apssemestre2/icons/setas-flechas.png").toExternalForm());
+        ImageView alterado = new ImageView(Alterar);
+        alterado.setFitWidth(16);
+        alterado.setFitHeight(16);
+        BtnAlterar.setGraphic(alterado);
+
+        Image Excluir = new Image(getClass().getResource("/org/example/apssemestre2/icons/excluir.png").toExternalForm());
+        ImageView excluido = new ImageView(Excluir);
+        BtnExcluir.setGraphic(excluido);
     }
 }

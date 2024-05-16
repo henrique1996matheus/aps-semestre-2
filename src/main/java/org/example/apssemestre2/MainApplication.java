@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.apssemestre2.controller.JanelaPrincipalController;
 import org.example.apssemestre2.service.MigracaoDBService;
 
 import java.io.IOException;
@@ -13,6 +14,8 @@ import java.io.IOException;
 public class MainApplication extends Application {
     @Override
     public void start(Stage primaryStage) {
+
+
         try {
             MigracaoDBService.getInstancia().migrar();
 
@@ -28,7 +31,10 @@ public class MainApplication extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
+
+
 
     public static void main(String[] args) {
         launch();

@@ -28,8 +28,6 @@ import org.example.apssemestre2.service.AparelhoService;
 
 public class CadastroAparelhosController implements Initializable {
 
-    @FXML
-    private Button BtnCancelar;
 
     @FXML
     private TextField TextFieldPotencia;
@@ -82,13 +80,7 @@ public class CadastroAparelhosController implements Initializable {
     @FXML
     private TableView<Aparelho> TableViewAparelhos;
 
-    @FXML
-    void CancelarEdicao(ActionEvent event) {
-        BtnAlterar.setVisible(true);
-        BtnExcluir.setVisible(true);
-        BtnCancelar.setVisible(false);
-        BtnLimpar.setVisible(true);
-    }
+
 
     @FXML
     void SalvarAparelho(ActionEvent event) {
@@ -110,15 +102,34 @@ public class CadastroAparelhosController implements Initializable {
         TextFieldMarca.setText("");
         TextFieldModelo.setText("");
         TextFieldNome.setText("");
+
+        Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
+        ImageView limpo = new ImageView(Limpar);
+        BtnLimpar.setGraphic(limpo);
+
+        BtnLimpar.setText("Limpar");
+        IdAparelho.setText("Novo Aparelho" );
+
+        BtnAlterar.setVisible(true);
+        BtnExcluir.setVisible(true);
+
+        BtnAlterar.setOpacity(1);
+        BtnExcluir.setOpacity(1);
+
+
     }
 
     @FXML
     void AlterarAparelho(ActionEvent event) {
-        BtnAlterar.setVisible(false);
-        BtnLimpar.setVisible(false);
-        BtnExcluir.setVisible(false);
-        BtnCancelar.setVisible(true);
+        BtnAlterar.setOpacity(0.25);
+        BtnExcluir.setOpacity(0.25);
         IdAparelho.setText("Alterando Aparelho" );
+
+        BtnLimpar.setText("Cancelar");
+
+        Image Cancelar = new Image(getClass().getResource("/org/example/apssemestre2/icons/cancelar.png").toExternalForm());
+        ImageView cancelado = new ImageView(Cancelar);
+        BtnLimpar.setGraphic(cancelado);
 
 
     }
@@ -177,7 +188,7 @@ public class CadastroAparelhosController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        BtnCancelar.setVisible(false);
+
 
         //add infos ao choicebox de categoria
         ObservableList<String> items = FXCollections.observableArrayList();
@@ -205,9 +216,6 @@ public class CadastroAparelhosController implements Initializable {
         ImageView salvo = new ImageView(Salvar);
         BtnSalvar.setGraphic(salvo);
 
-        Image Cancelar = new Image(getClass().getResource("/org/example/apssemestre2/icons/cancelar.png").toExternalForm());
-        ImageView cancelado = new ImageView(Cancelar);
-        BtnCancelar.setGraphic(cancelado);
 
         Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
         ImageView limpo = new ImageView(Limpar);

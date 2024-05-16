@@ -20,31 +20,35 @@
       </HBox>
       <AnchorPane layoutX="153.0" layoutY="52.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #6495ED;" AnchorPane.bottomAnchor="230.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="52.0">
          <children>
-            <Pane layoutX="100.0" layoutY="25.0" prefHeight="129.0" prefWidth="200.0" style="-fx-background-color: #FFD700; -fx-background-radius: 12;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+            <Pane layoutX="5.0" layoutY="6.0" prefHeight="108.0" prefWidth="590.0" style="-fx-background-color: #FFD700; -fx-background-radius: 12;" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="6.0">
                <children>
                   <Label layoutX="30.0" layoutY="14.0" text="Data :" />
                   <Label layoutX="30.0" layoutY="48.0" text="Aparelho :" />
                   <Label layoutX="247.0" layoutY="14.0" text="Gasto em Hora :" />
-                  <TextField fx:id="TextFieldData" layoutX="77.0" layoutY="10.0" />
-                  <TextField fx:id="TextFieldAparelho" layoutX="98.0" layoutY="44.0" />
-                  <TextField fx:id="TextFieldGastoHora" layoutX="350.0" layoutY="10.0" />
-                  <Button fx:id="BtnSalvar" layoutX="275.0" layoutY="77.0" mnemonicParsing="false" onAction="#salvarUso" prefHeight="20.0" prefWidth="75.0" text="Salvar" />
-                  <Button fx:id="BtnAlterar" layoutX="187.0" layoutY="77.0" mnemonicParsing="false" onAction="#alterarUso" prefHeight="20.0" prefWidth="75.0" text="Alterar" />
+                  <TextField fx:id="TextFieldGastoHora" layoutX="350.0" layoutY="10.0" prefHeight="25.0" prefWidth="85.0" />
+                  <Button fx:id="BtnSalvar" layoutX="318.0" layoutY="77.0" mnemonicParsing="false" onAction="#salvarUso" prefHeight="20.0" prefWidth="75.0" text="Salvar" />
+                  <Button fx:id="BtnAlterar" layoutX="220.0" layoutY="77.0" mnemonicParsing="false" onAction="#alterarUso" prefHeight="20.0" prefWidth="75.0" text="Alterar" />
+                  <DatePicker fx:id="DatePickerData" layoutX="97.0" layoutY="10.0" prefHeight="25.0" prefWidth="104.0" />
+                  <ChoiceBox fx:id="ChoiceBoxAparelho" layoutX="97.0" layoutY="44.0" prefHeight="25.0" prefWidth="104.0" />
                </children>
             </Pane>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="167.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #6495ED;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="170.0">
          <children>
-            <TreeTableView layoutX="148.0" layoutY="15.0" prefHeight="170.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="35.0">
-              <columns>
-                <TreeTableColumn prefWidth="269.0" text="Aparelho" />
-                <TreeTableColumn minWidth="0.0" prefWidth="97.0" text="Data" />
-                  <TreeTableColumn prefWidth="213.0" text="Gasto em Hora" />
-              </columns>
-            </TreeTableView>
-            <ChoiceBox layoutX="11.0" layoutY="5.0" prefHeight="25.0" prefWidth="85.0" />
-            <ChoiceBox layoutX="110.0" layoutY="5.0" prefHeight="25.0" prefWidth="104.0" />
+            <AnchorPane layoutX="5.0" layoutY="13.0" prefHeight="212.0" prefWidth="590.0" style="-fx-background-color: #FFD700;">
+               <children>
+                  <TreeTableView layoutX="7.0" layoutY="33.0" prefHeight="176.0" prefWidth="576.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="33.0">
+                    <columns>
+                      <TreeTableColumn prefWidth="222.0" text="Aparelho" />
+                      <TreeTableColumn minWidth="0.0" prefWidth="144.0" text="Data" />
+                        <TreeTableColumn prefWidth="213.0" text="Gasto em Hora" />
+                    </columns>
+                  </TreeTableView>
+                  <ChoiceBox fx:id="ChoiceBoxData" layoutX="411.0" layoutY="4.0" prefHeight="25.0" prefWidth="85.0" />
+                  <ChoiceBox fx:id="ChoiceBoxAparelho" layoutX="507.0" layoutY="4.0" prefHeight="25.0" prefWidth="75.0" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </children>

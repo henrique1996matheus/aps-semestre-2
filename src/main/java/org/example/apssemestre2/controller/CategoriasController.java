@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.scene.control.*;
 import org.example.apssemestre2.model.Categoria;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -11,10 +12,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -27,16 +24,19 @@ public class CategoriasController implements Initializable {
     private Button BtnSalvar;
 
     @FXML
-    private Button BtnNovo;
+    private Label LabelCategoria;
+
+    @FXML
+    private TableColumn<Categoria,String> TableColumnCategorias;
+
+    @FXML
+    private Button BtnLimpar;
 
     @FXML
     private Button BtnExcluir;
 
     @FXML
     private TableView<Categoria> TableViewCategorias;
-
-    @FXML
-    private TableColumn<Categoria, String> TableColumnCategorias;
 
     @FXML
     private TextField TextFieldNome;
@@ -51,9 +51,24 @@ public class CategoriasController implements Initializable {
     }
 
     @FXML
-    void adicionarCategoria(ActionEvent event) {
-        TextFieldNome.setEditable(true);
+    void LimparDados(ActionEvent event) {
+
         TextFieldNome.setText("");
+
+        Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
+        ImageView limpo = new ImageView(Limpar);
+        BtnLimpar.setGraphic(limpo);
+
+        BtnLimpar.setText("Limpar");
+        LabelCategoria.setText("Nova Categoria" );
+
+        BtnAlterar.setVisible(true);
+        BtnExcluir.setVisible(true);
+
+        BtnAlterar.setOpacity(1);
+        BtnExcluir.setOpacity(1);
+
+
     }
 
     @FXML
@@ -69,6 +84,16 @@ public class CategoriasController implements Initializable {
 
     @FXML
     void alterarCategoria(ActionEvent event) {
+
+        BtnAlterar.setOpacity(0.25);
+        BtnExcluir.setOpacity(0.25);
+        LabelCategoria.setText("Alterando Categoria" );
+
+        BtnLimpar.setText("Cancelar");
+
+        Image Cancelar = new Image(getClass().getResource("/org/example/apssemestre2/icons/cancelar.png").toExternalForm());
+        ImageView cancelado = new ImageView(Cancelar);
+        BtnLimpar.setGraphic(cancelado);
         Categoria categoriaSelecionada = TableViewCategorias.getSelectionModel().getSelectedItem();
         if (categoriaSelecionada != null) {
             String nome = TextFieldNome.getText();
@@ -117,26 +142,23 @@ public class CategoriasController implements Initializable {
         categorias.addAll(aparelhosList);
         TableViewCategorias.setItems(categorias);
 
-        Image salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());
-        ImageView Salvar = new ImageView(salvar);
-        Salvar.setFitHeight(13);
-        Salvar.setFitWidth(13);
-        BtnSalvar.setGraphic(Salvar);
+        Image Salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());
+        ImageView salvo = new ImageView(Salvar);
+        BtnSalvar.setGraphic(salvo);
 
-        Image excluir = new Image(getClass().getResource("/org/example/apssemestre2/icons/excluir.png").toExternalForm());
-        ImageView excl = new ImageView(excluir);
-        BtnExcluir.setGraphic(excl);
 
-        Image nov = new Image(getClass().getResource("/org/example/apssemestre2/icons/novoarq.png").toExternalForm());
-        ImageView novo = new ImageView(nov);
-        novo.setFitWidth(13);
-        novo.setFitHeight(13);
-        BtnNovo.setGraphic(novo);
+        Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
+        ImageView limpo = new ImageView(Limpar);
+        BtnLimpar.setGraphic(limpo);
 
-        Image alt = new Image(getClass().getResource("/org/example/apssemestre2/icons/setas-flechas.png").toExternalForm());
-        ImageView alterar = new ImageView(alt);
-        alterar.setFitWidth(16);
-        alterar.setFitHeight(16);
-        BtnAlterar.setGraphic(alterar);
+        Image Alterar = new Image(getClass().getResource("/org/example/apssemestre2/icons/setas-flechas.png").toExternalForm());
+        ImageView alterado = new ImageView(Alterar);
+        alterado.setFitWidth(16);
+        alterado.setFitHeight(16);
+        BtnAlterar.setGraphic(alterado);
+
+        Image Excluir = new Image(getClass().getResource("/org/example/apssemestre2/icons/excluir.png").toExternalForm());
+        ImageView excluido = new ImageView(Excluir);
+        BtnExcluir.setGraphic(excluido);
     }
 }

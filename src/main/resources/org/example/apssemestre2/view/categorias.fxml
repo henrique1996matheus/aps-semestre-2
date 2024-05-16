@@ -10,29 +10,33 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="335.0" prefWidth="486.0" style="-fx-background-color: #6495ED;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.apssemestre2.controller.CategoriasController">
    <children>
-      <HBox alignment="CENTER" layoutX="187.0" prefHeight="44.0" prefWidth="486.0" style="-fx-background-color: #6495ED;" AnchorPane.bottomAnchor="291.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER" layoutY="2.0" prefHeight="44.0" prefWidth="486.0" style="-fx-background-color: #6495ED;" AnchorPane.bottomAnchor="289.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
          <children>
-            <Label prefHeight="59.0" prefWidth="169.0" text="Categorias">
+            <Label fx:id="LabelCategoria" prefHeight="44.0" prefWidth="243.0" text="Nova Categoria">
                <font>
-                  <Font size="36.0" />
+                  <Font size="27.0" />
                </font>
             </Label>
          </children>
       </HBox>
-      <TableView fx:id="TableViewCategorias" layoutX="291.0" layoutY="65.0" prefHeight="249.0" prefWidth="190.0">
-        <columns>
-          <TableColumn fx:id="TableColumnCategorias" prefWidth="199.0" text="Categorias" />
-        </columns>
-      </TableView>
-      <Pane layoutX="6.0" layoutY="65.0" prefHeight="200.0" prefWidth="279.0" style="-fx-background-color: #FFD700; -fx-background-radius: 12;">
+      <Pane layoutX="13.0" layoutY="51.0" prefHeight="110.0" prefWidth="460.0" style="-fx-background-color: #FFD700; -fx-background-radius: 12;">
          <children>
             <Label layoutX="14.0" layoutY="27.0" text="Nome :" />
             <TextField fx:id="TextFieldNome" layoutX="66.0" layoutY="23.0" prefHeight="25.0" prefWidth="176.0" />
-            <Button fx:id="BtnNovo" layoutX="5.0" layoutY="65.0" mnemonicParsing="false" onAction="#adicionarCategoria" prefHeight="20.0" prefWidth="64.0" text="Novo" />
-            <Button fx:id="BtnAlterar" layoutX="203.0" layoutY="65.0" mnemonicParsing="false" onAction="#alterarCategoria" prefHeight="20.0" prefWidth="72.0" text="Alterar" />
-            <Button fx:id="BtnSalvar" layoutX="69.0" layoutY="108.0" mnemonicParsing="false" onAction="#salvarCategoria" prefHeight="22.0" prefWidth="67.0" text="Salvar" />
-            <Button fx:id="BtnExcluir" alignment="CENTER" layoutX="140.0" layoutY="108.0" mnemonicParsing="false" onAction="#excluirCategoria" text="Excluir" />
+            <Button fx:id="BtnLimpar" layoutX="242.0" layoutY="68.0" mnemonicParsing="false" onAction="#LimparDados" prefHeight="25.0" prefWidth="83.0" text="Limpar" />
+            <Button fx:id="BtnSalvar" layoutX="135.0" layoutY="68.0" mnemonicParsing="false" onAction="#salvarCategoria" prefHeight="22.0" prefWidth="75.0" text="Salvar" />
          </children>
       </Pane>
+      <AnchorPane layoutX="13.0" layoutY="173.0" prefHeight="155.0" prefWidth="460.0" style="-fx-background-color: #FFD700; -fx-background-radius: 5;">
+         <children>
+            <TableView fx:id="TableViewCategorias" layoutX="5.0" layoutY="33.0" prefHeight="118.0" prefWidth="450.0">
+              <columns>
+                <TableColumn fx:id="TableColumnCategorias" prefWidth="449.0" text="Categorias" />
+              </columns>
+            </TableView>
+            <Button fx:id="BtnAlterar" layoutX="6.0" layoutY="4.0" mnemonicParsing="false" onAction="#alterarCategoria" prefHeight="20.0" prefWidth="72.0" text="Alterar" />
+            <Button fx:id="BtnExcluir" alignment="CENTER" layoutX="87.0" layoutY="4.0" mnemonicParsing="false" onAction="#excluirCategoria" text="Excluir" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
