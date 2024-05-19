@@ -48,10 +48,6 @@ public class UsoAparelhoController implements Initializable{
 	public void initialize(URL url,ResourceBundle rb) {
 
 
-
-		DatePickerData.setEditable(false);
-		TextFieldGastoHora.setEditable(false);
-
 		Image Alterar = new Image(getClass().getResource("/org/example/apssemestre2/icons/setas-flechas.png").toExternalForm());
 		ImageView alterado = new ImageView(Alterar);
 		alterado.setFitWidth(16);

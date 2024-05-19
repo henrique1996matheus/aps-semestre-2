@@ -72,7 +72,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="TextFieldBandeira" layoutX="599.0" layoutY="273.0" prefHeight="25.0" prefWidth="79.0" />
+            <TextField fx:id="TextFieldBandeira" layoutX="597.0" layoutY="274.0" prefHeight="25.0" prefWidth="79.0" />
          </children>
       </Pane>
    </children>

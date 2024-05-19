@@ -44,9 +44,9 @@ public class AnaliseCategoriaController implements Initializable {
         VBox Categorias = new VBox();
         AnchorPaneCentral.getChildren().add(Categorias);
         Categorias.getChildren().add(CheckComboBoxCategorias);
-        Categorias.setLayoutX(480);
+        Categorias.setLayoutX(490);
         Categorias.setLayoutY(110);
-        CheckComboBoxCategorias.setPrefWidth(110);
+        CheckComboBoxCategorias.setPrefWidth(100);
         CheckComboBoxCategorias.setPrefHeight(25);
 
 

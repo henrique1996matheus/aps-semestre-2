@@ -3,14 +3,7 @@ package org.example.apssemestre2.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,8 +17,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
+
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
@@ -37,6 +29,9 @@ public class JanelaPrincipalController implements Initializable {
 
 	@FXML
 	private TextField TextFieldFat;
+
+	@FXML
+	private TextField TextFieldBandeira;
 
 	@FXML
 	private Menu MenuConsumoDetalhado;
@@ -96,7 +91,7 @@ public class JanelaPrincipalController implements Initializable {
 	@FXML
 	void acessarListaAparelhos(ActionEvent event) {
 		try {
-			abrirTelas("CadastroAparelhos");
+			abrirTelas("CadastroAparelhos", "Aparelhos");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,7 +101,7 @@ public class JanelaPrincipalController implements Initializable {
 	@FXML
 	void acessarConsumoAparelho(ActionEvent event) {
 		try {
-			abrirTelas("Uso_Aparelho");
+			abrirTelas("Uso_Aparelho", "Uso dos Aparelhos");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -116,7 +111,7 @@ public class JanelaPrincipalController implements Initializable {
 	@FXML
 	void acessarCategorias(ActionEvent event) {
 		try {
-			abrirTelas("categorias");
+			abrirTelas("categorias", "Categorias");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -131,7 +126,7 @@ public class JanelaPrincipalController implements Initializable {
 	@FXML
 	void acessarAnaliseCategoria(ActionEvent event) {
 		try {
-			abrirTelas("Analise_Categoria");
+			abrirTelas("Analise_Categoria", "Análise por Categoria");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -141,7 +136,7 @@ public class JanelaPrincipalController implements Initializable {
 	@FXML
 	void acessarConsumoDia(ActionEvent event) {
 		try {
-			abrirTelas("Consumo_Dia");
+			abrirTelas("Consumo_Dia", "Consumo Diário");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -151,7 +146,7 @@ public class JanelaPrincipalController implements Initializable {
 	@FXML
 	void acessarConsumoMes(ActionEvent event) {
 		try {
-			abrirTelas("Consumo_Mes");
+			abrirTelas("Consumo_Mes", "Consumo Mensal");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -161,7 +156,7 @@ public class JanelaPrincipalController implements Initializable {
 	@FXML
 	void acessarContaLuz(ActionEvent event) {
 		try {
-			abrirTelas("Cadastro_Luz");
+			abrirTelas("Cadastro_Luz","Conta de Luz");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -173,12 +168,13 @@ public class JanelaPrincipalController implements Initializable {
 
 	}
 
-	public void abrirTelas(String tela) throws IOException {
+
+	public void abrirTelas(String tela, String NomeTela) throws IOException {
 
 		Parent root = FXMLLoader.load(getClass().getResource("/org/example/apssemestre2/view/" + tela + ".fxml"));
 		Stage stage = new Stage();
 		stage.setScene(new Scene(root));
-		stage.setTitle(tela);
+		stage.setTitle(NomeTela);
 		stage.setResizable(false);
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.show();
@@ -225,7 +221,13 @@ public class JanelaPrincipalController implements Initializable {
 		ImageView sobre_1 = new ImageView(sobre);
 		MenuSobre.setGraphic(sobre_1);
 		
-		
+
+		//metodo para bandeira
+
+
+
+
+
 		//Grafico de Barras
 		
 		
@@ -248,12 +250,7 @@ public class JanelaPrincipalController implements Initializable {
 		GraficoBarra.setLegendVisible(false);
 		
 		
-		/*Line linhaMeta = new Line();
-		linhaMeta.setStartX(GraficoBarra.getXAxis().getLayoutX());
-		linhaMeta.setEndX(GraficoBarra.getXAxis().getLayoutX() + GraficoBarra.getXAxis().getWidth());
-		linhaMeta.setStartY(GraficoBarra.getYAxis().getDisplayPosition(2700));
-		linhaMeta.setEndY(GraficoBarra.getYAxis().getDisplayPosition(2700));
-		linhaMeta.setStroke(Color.RED);*/
+
 		
 		
 		//Preenchimento Campo de Texto
@@ -267,6 +264,9 @@ public class JanelaPrincipalController implements Initializable {
 		TextFieldFat.setText("30/07");
 		TextFieldFat.setEditable(false);
 		TextFieldFat.setAlignment(Pos.CENTER);
+
+		TextFieldBandeira.setEditable(false);
+		TextFieldBandeira.setStyle("-fx-background-color: rgb(50,205,50);");
 		
 
 		

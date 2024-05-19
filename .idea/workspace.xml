@@ -5,22 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e49fe05d-562a-4638-a2b3-b0c86a05535e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/AnaliseCategoriaController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/icons/filtro.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/Analise_Categoria.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CadastroAparelhosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CadastroAparelhosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CadastroLuzController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CadastroLuzController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CategoriasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CategoriasController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/AnaliseCategoriaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/AnaliseCategoriaController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/JanelaPrincipalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/JanelaPrincipalController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/UsoAparelhoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/UsoAparelhoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/Analise_Categoria.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/Analise_Categoria.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/CadastroAparelhos.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/CadastroAparelhos.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/Cadastro_Luz.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/Cadastro_Luz.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/Consumo_Dia.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/Consumo_Dia.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/Consumo_Mes.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/Consumo_Mes.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/JanelaPrincipal.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/JanelaPrincipal.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/Uso_Aparelho.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/Uso_Aparelho.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/categorias.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/categorias.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

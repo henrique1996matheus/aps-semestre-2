@@ -18,11 +18,15 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <Button fx:id="BtnFiltro" layoutX="501.0" layoutY="167.0" mnemonicParsing="false" text="Filtrar" />
+      <Button fx:id="BtnFiltro" layoutX="504.0" layoutY="167.0" mnemonicParsing="false" text="Filtrar" />
       <Label layoutX="134.0" layoutY="14.0" text="Análise por Categoria">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
+      <Label layoutX="428.0" layoutY="113.5" text="Categorias :">
+         <font>
+            <Font size="11.0" />
+         </font></Label>
    </children>
 </AnchorPane>

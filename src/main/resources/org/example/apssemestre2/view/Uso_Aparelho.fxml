@@ -45,8 +45,10 @@
                         <TreeTableColumn prefWidth="213.0" text="Gasto em Hora" />
                     </columns>
                   </TreeTableView>
-                  <ChoiceBox fx:id="ChoiceBoxData" layoutX="411.0" layoutY="4.0" prefHeight="25.0" prefWidth="85.0" />
-                  <ChoiceBox fx:id="ChoiceBoxAparelho" layoutX="507.0" layoutY="4.0" prefHeight="25.0" prefWidth="75.0" />
+                  <ChoiceBox fx:id="ChoiceBoxData" layoutX="379.0" layoutY="4.0" prefHeight="25.0" prefWidth="63.0" />
+                  <ChoiceBox fx:id="ChoiceBoxAparelho" layoutX="519.0" layoutY="4.0" prefHeight="25.0" prefWidth="63.0" />
+                  <Label layoutX="345.0" layoutY="8.0" text="Data :" />
+                  <Label layoutX="462.0" layoutY="8.0" text="Aparelho :" />
                </children>
             </AnchorPane>
          </children>
