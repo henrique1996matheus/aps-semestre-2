@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.example.apssemestre2.model.Categoria;
 
@@ -12,13 +13,15 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
     private final String TABELA = "categoria";
 
     @Override
-    public Categoria buscar() {
+    public Categoria buscar(long id) {
         return null;
     }
 
     @Override
-    public boolean salvar() {
-        return false;
+    public Categoria buscar(Categoria filtro) {
+        var categorias = listar(filtro);
+
+        return categorias.isEmpty() ? null : categorias.get(0);
     }
 
     @Override
@@ -89,22 +92,39 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
     @Override
     public List<Categoria> listar(Categoria filtroModel) {
         String sql = "SELECT * FROM " + TABELA;
+        String sqlWhere = " WHERE ";
 
-        List<Categoria> categorias = new ArrayList<Categoria>();
+        List<Object> filtros = new ArrayList<>();
 
-        PreparedStatement ps = null;
-        ResultSet rset = null;
+        sqlWhere = montarWhere(sqlWhere, filtros, filtroModel.getNome(), "nome", "=");
+
+        if (filtroModel.getId() != 0) {
+            sqlWhere = montarWhere(sqlWhere, filtros, filtroModel.getId(), "id", "!=");
+        }
+
+        if (!filtros.isEmpty()) {
+            sql += sqlWhere;
+        }
+
+        List<Categoria> categorias = new ArrayList<>();
+
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
 
         try {
-            ps = Conexao.getConexao().prepareStatement(sql);
-            rset = ps.executeQuery();
+            statement = Conexao.getConexao().prepareStatement(sql);
 
-            while (rset.next()) {
+            for (int i = 0; i < filtros.size(); i++) {
+                statement.setObject(i + 1, filtros.get(i));
+            }
 
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
                 Categoria categoria = new Categoria();
 
-                categoria.setId(rset.getInt("id"));
-                categoria.setNome(rset.getString("nome"));
+                categoria.setId(resultSet.getInt("id"));
+                categoria.setNome(resultSet.getString("nome"));
 
                 categorias.add(categoria);
             }

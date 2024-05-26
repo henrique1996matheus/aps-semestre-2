@@ -6,7 +6,12 @@ import java.util.List;
 
 public class ConsumoRepository extends BaseRepository<Consumo> {
     @Override
-    public Consumo buscar() {
+    public Consumo buscar(long id) {
+        return null;
+    }
+
+    @Override
+    public Consumo buscar(Consumo filtro) {
         return null;
     }
 
@@ -23,11 +28,6 @@ public class ConsumoRepository extends BaseRepository<Consumo> {
 
     @Override
     public boolean excluir(Consumo model) {
-        return false;
-    }
-
-    @Override
-    public boolean salvar() {
         return false;
     }
 

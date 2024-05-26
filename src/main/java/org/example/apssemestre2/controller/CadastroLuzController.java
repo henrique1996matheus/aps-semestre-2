@@ -64,9 +64,8 @@ public class CadastroLuzController implements Initializable {
 
         ContaLuz novaConta = new ContaLuz(bandeira, referencia, vencimento, consumo, valor);
 
-        if (service.cadastrar(novaConta)) {
-            contaluz.add(novaConta);
-        }
+        service.cadastrar(novaConta);
+        contaluz.add(novaConta);
     }
 
     @FXML
@@ -83,7 +82,7 @@ public class CadastroLuzController implements Initializable {
         BtnLimpar.setGraphic(limpo);
 
         BtnLimpar.setText("Limpar");
-        LabelCadastro.setText("Nova Conta de Luz" );
+        LabelCadastro.setText("Nova Conta de Luz");
 
         BtnAlterar.setVisible(true);
         BtnExcluir.setVisible(true);
@@ -97,7 +96,7 @@ public class CadastroLuzController implements Initializable {
 
         BtnAlterar.setOpacity(0.25);
         BtnExcluir.setOpacity(0.25);
-        LabelCadastro.setText("Editando Conta de Luz" );
+        LabelCadastro.setText("Editando Conta de Luz");
 
         BtnLimpar.setText("Cancelar");
 
@@ -135,8 +134,6 @@ public class CadastroLuzController implements Initializable {
             }
         }
     }
-
-
 
 
     @Override

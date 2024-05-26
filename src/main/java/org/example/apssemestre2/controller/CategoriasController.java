@@ -2,6 +2,8 @@ package org.example.apssemestre2.controller;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.*;
@@ -49,6 +51,10 @@ public class CategoriasController implements Initializable {
 
     private ObservableList<Categoria> categorias = FXCollections.observableArrayList();
 
+    private Categoria categoriaAlterar = null;
+
+    private Alert alert;
+
     public CategoriasController() {
         this.service = new CategoriaService();
     }
@@ -64,46 +70,29 @@ public class CategoriasController implements Initializable {
         BtnLimpar.setText("Limpar");
         LabelCategoria.setText("Nova Categoria");
 
-        BtnAlterar.setVisible(true);
-        BtnExcluir.setVisible(true);
-
-        BtnAlterar.setOpacity(1);
-        BtnExcluir.setOpacity(1);
-
-
-    }
-
-    @FXML
-    void selecionarCategoria(MouseEvent event) {
-
-        if (event.getClickCount() == 1) {
-            Categoria CategoriaSelecionada = (Categoria) TableViewCategorias.getSelectionModel().getSelectedItem();
-
-            if (CategoriaSelecionada != null) {
-                TextFieldNome.setText(CategoriaSelecionada.getNome());
-            }
-        }
+        BtnAlterar.setDisable(false);
+        BtnExcluir.setDisable(false);
     }
 
     @FXML
     void alterarCategoria(ActionEvent event) {
-        BtnAlterar.setOpacity(0.25);
-        BtnExcluir.setOpacity(0.25);
-        LabelCategoria.setText("Alterando Categoria");
+        Categoria categoriaSelecionada = (Categoria) TableViewCategorias.getSelectionModel().getSelectedItem();
 
-        BtnLimpar.setText("Cancelar");
+        if (Objects.nonNull(categoriaSelecionada)) {
+            categoriaAlterar = categoriaSelecionada;
 
-        Image Cancelar = new Image(getClass().getResource("/org/example/apssemestre2/icons/cancelar.png").toExternalForm());
-        ImageView cancelado = new ImageView(Cancelar);
-        BtnLimpar.setGraphic(cancelado);
-        Categoria categoriaSelecionada = TableViewCategorias.getSelectionModel().getSelectedItem();
+            TextFieldNome.setText(categoriaSelecionada.getNome());
 
-        if (categoriaSelecionada != null) {
-            String nome = TextFieldNome.getText();
+            BtnAlterar.setDisable(true);
+            BtnExcluir.setDisable(true);
 
-            if (service.atualizar(categoriaSelecionada, new Categoria(nome))) {
-                TableViewCategorias.refresh();
-            }
+            LabelCategoria.setText("Alterando Categoria");
+
+            BtnLimpar.setText("Cancelar");
+
+            Image Cancelar = new Image(getClass().getResource("/org/example/apssemestre2/icons/cancelar.png").toExternalForm());
+            ImageView cancelado = new ImageView(Cancelar);
+            BtnLimpar.setGraphic(cancelado);
         }
     }
 
@@ -111,11 +100,35 @@ public class CategoriasController implements Initializable {
     void salvarCategoria(ActionEvent event) {
         String nome = TextFieldNome.getText();
 
-        Categoria novaCategoria = new Categoria(nome);
+        Categoria categoria = new Categoria(nome);
 
+        if (Objects.nonNull(categoriaAlterar)) {
+            categoria.setId(categoriaAlterar.getId());
+        }
 
-        if (service.cadastrar(novaCategoria)) {
-            categorias.add(novaCategoria);
+        try {
+            service.cadastrar(categoria);
+
+            if (Objects.isNull(categoriaAlterar)) {
+                categorias.add(categoria);
+            } else {
+                for (Categoria c : TableViewCategorias.getItems()) {
+                    if (c.getId() == categoria.getId()) {
+                        c.setNome(categoria.getNome());
+                        TableViewCategorias.refresh();
+                        break;
+                    }
+                }
+
+                categoriaAlterar = null;
+            }
+
+            LimparDados(new ActionEvent());
+        } catch (Exception e) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro ao salvar a categoria!");
+            alert.setHeaderText(e.getMessage());
+            alert.show();
         }
     }
 
@@ -123,18 +136,33 @@ public class CategoriasController implements Initializable {
     void excluirCategoria(ActionEvent event) {
         Categoria excluirCategoria = TableViewCategorias.getSelectionModel().getSelectedItem();
 
-        if (excluirCategoria != null && service.excluir(excluirCategoria)) {
-            categorias.remove(excluirCategoria);
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmação de Exclusão");
+        alert.setHeaderText("Tem certeza que deseja excluir esse aparelho?");
+        alert.setContentText("Esta ação não poderá ser desfeita.");
+
+        ButtonType buttonTypeConfirmar = new ButtonType("Confirmar");
+        ButtonType buttonTypeCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonTypeConfirmar, buttonTypeCancelar);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == buttonTypeConfirmar) {
+            try {
+                service.excluir(excluirCategoria);
+                categorias.remove(excluirCategoria);
+            } catch (Exception e) {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erro ao excluir a categoria!");
+                alert.setHeaderText(e.getMessage());
+                alert.show();
+            }
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        TableViewCategorias.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 1) {
-                selecionarCategoria(event);
-            }
-        });
         TableColumnCategorias.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNome()));
 
         List<Categoria> categoriaList = service.listar(new Categoria());

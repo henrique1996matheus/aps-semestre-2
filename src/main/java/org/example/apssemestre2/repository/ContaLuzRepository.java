@@ -33,7 +33,12 @@ public class ContaLuzRepository extends BaseRepository<ContaLuz> {
     }
 
     @Override
-    public ContaLuz buscar() {
+    public ContaLuz buscar(long id) {
+        return null;
+    }
+
+    @Override
+    public ContaLuz buscar(ContaLuz filtro) {
         return null;
     }
 
@@ -44,11 +49,6 @@ public class ContaLuzRepository extends BaseRepository<ContaLuz> {
 
     @Override
     public boolean excluir(ContaLuz model) {
-        return false;
-    }
-
-    @Override
-    public boolean salvar() {
         return false;
     }
 

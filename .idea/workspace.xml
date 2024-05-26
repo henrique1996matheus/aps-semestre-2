@@ -7,13 +7,17 @@
     <list default="true" id="e49fe05d-562a-4638-a2b3-b0c86a05535e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CadastroAparelhosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CadastroAparelhosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CadastroLuzController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CadastroLuzController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CategoriasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CategoriasController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/AparelhoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/AparelhoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/BaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/BaseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/CategoriaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/CategoriaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/ConsumoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/ConsumoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/ContaLuzRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/ContaLuzRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/AparelhoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/AparelhoService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/BaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/BaseService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/CategoriaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/CategoriaService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/ContaLuzService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/ContaLuzService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/migration/V1_inicializar_tabelas.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/migration/V1_inicializar_tabelas.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +51,7 @@
     "Application.RunMainApplicationIntellij.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "correcoes-front-finalizamento-back",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Program Files (x86)/Oracle/JavaFX Scene Builder 2.0/JavaFX Scene Builder 2.0.exe",
@@ -103,5 +107,21 @@
       <updated>1713222741686</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/CategoriaService.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CategoriasController.java</url>
+          <line>155</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

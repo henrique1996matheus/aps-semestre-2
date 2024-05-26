@@ -6,28 +6,23 @@ import java.util.List;
 
 public class ContaLuzService extends BaseService<ContaLuz> {
     @Override
-    public ContaLuz buscar() {
+    public ContaLuz buscar(long id) {
         return null;
     }
 
     @Override
-    public boolean cadastrar(ContaLuz model) {
-        return false;
+    public ContaLuz buscar(ContaLuz filtro) {
+        return null;
     }
 
     @Override
-    public boolean atualizar(ContaLuz antigo, ContaLuz novo) {
-        return false;
+    public void cadastrar(ContaLuz model) {
+
     }
 
     @Override
-    public boolean excluir(ContaLuz model) {
-        return false;
-    }
+    public void excluir(ContaLuz model) {
 
-    @Override
-    public boolean salvar(ContaLuz model) {
-        return false;
     }
 
     @Override

@@ -13,39 +13,23 @@ public class AparelhoService extends BaseService<Aparelho> {
     }
 
     @Override
-    public Aparelho buscar() {
+    public Aparelho buscar(long id) {
         return null;
     }
 
     @Override
-    public boolean cadastrar(Aparelho aparelho) {
-        return repository.cadastrar(aparelho);
+    public Aparelho buscar(Aparelho filtro) {
+        return null;
     }
 
     @Override
-    public boolean atualizar(Aparelho antigo, Aparelho novo) {
-        novo.setId(antigo.getId());
-
-        if (repository.atualizar(novo)) {
-            antigo.setNome(antigo.getNome());
-            antigo.setModelo(antigo.getModelo());
-            antigo.setMarca(antigo.getMarca());
-            antigo.setPotencia(antigo.getPotencia());
-
-            return true;
-        }
-
-        return false;
+    public void cadastrar(Aparelho aparelho) {
+        repository.cadastrar(aparelho);
     }
 
     @Override
-    public boolean excluir(Aparelho aparelho) {
-        return repository.excluir(aparelho);
-    }
-
-    @Override
-    public boolean salvar(Aparelho aparelho) {
-        return false;
+    public void excluir(Aparelho aparelho) {
+        repository.excluir(aparelho);
     }
 
     @Override

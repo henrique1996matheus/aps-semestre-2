@@ -148,11 +148,10 @@ public class CadastroAparelhosController implements Initializable {
 
         Aparelho aparelho = new Aparelho(nome, modelo, marca, potencia);
 
-        if (service.cadastrar(aparelho)) {
-            aparelhos.add(aparelho);
+        service.cadastrar(aparelho);
+        aparelhos.add(aparelho);
 
-            LimparCampos(new ActionEvent());
-        }
+        LimparCampos(new ActionEvent());
     }
 
     @FXML
@@ -195,6 +194,7 @@ public class CadastroAparelhosController implements Initializable {
     @FXML
     void ExcluirAparelho(ActionEvent event) {
         Aparelho aparelho = TableViewAparelhos.getSelectionModel().getSelectedItem();
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmação de Exclusão");
         alert.setHeaderText("Tem certeza que deseja excluir esse aparelho?");
@@ -205,6 +205,7 @@ public class CadastroAparelhosController implements Initializable {
         alert.getButtonTypes().setAll(buttonTypeConfirmar, buttonTypeCancelar);
 
         Optional<ButtonType> result = alert.showAndWait();
+
         if (result.isPresent() && result.get() == buttonTypeConfirmar) {
             aparelhos.remove(aparelho);
         }

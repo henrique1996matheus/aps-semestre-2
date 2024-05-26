@@ -13,13 +13,13 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
     private final String TABELA = "aparelho";
 
     @Override
-    public Aparelho buscar() {
+    public Aparelho buscar(long id) {
         return null;
     }
 
     @Override
-    public boolean salvar() {
-        return false;
+    public Aparelho buscar(Aparelho filtro) {
+        return null;
     }
 
     @Override
