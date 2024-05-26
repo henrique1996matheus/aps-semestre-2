@@ -107,23 +107,7 @@ public class ConsumoController implements Initializable {
 
             service.cadastrar(consumo);
 
-            if (Objects.isNull(consumoAlterar)) {
-                consumos.add(consumo);
-            } else {
-                for (Consumo a : tableView.getItems()) {
-                    if (a.getId() == consumo.getId()) {
-                        a.setData(consumo.getData());
-                        a.setIdAparelho(consumo.getIdAparelho());
-                        a.setGastoHora(consumo.getGastoHora());
-
-                        tableView.refresh();
-                        break;
-                    }
-                }
-
-                consumoAlterar = null;
-            }
-
+            filtrar();
             limpar();
         } catch (Exception e) {
             alert = new Alert(Alert.AlertType.ERROR);
