@@ -1,8 +1,12 @@
 package org.example.apssemestre2.controller;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
@@ -11,164 +15,220 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import org.example.apssemestre2.model.ContaLuz;
 import org.example.apssemestre2.service.ContaLuzService;
 
 public class CadastroLuzController implements Initializable {
 
     @FXML
-    private TextField TextFieldBandeira;
+    private TextField textFieldBandeira;
 
     @FXML
-    private TextField TextFieldReferencia;
+    private DatePicker datePickerReferencia;
 
     @FXML
-    private Button BtnSalvar;
+    private Button btnSalvar;
 
     @FXML
-    private ChoiceBox<?> ChoiceBoxAno;
+    private TextField textFieldAno;
 
     @FXML
-    private TextField TextFieldVencimento;
+    private DatePicker datePickerVencimento;
 
     @FXML
-    private TextField TextFieldConsumo;
+    private TextField textFieldConsumo;
 
     @FXML
-    private Button BtnLimpar;
+    private Button btnLimpar;
 
     @FXML
-    private Label LabelCadastro;
+    private Label lblTitulo;
 
     @FXML
-    private Button BtnExcluir;
+    private Button btnExcluir;
 
     @FXML
-    private TableView<?> TableViewContaLuz;
+    private TableView<ContaLuz> tableView;
 
     @FXML
-    private TextField TextFieldValor;
+    private TableColumn<ContaLuz, String> tableColumnVencimento;
 
     @FXML
-    private Button BtnAlterar;
+    private TableColumn<ContaLuz, String> tableColumnValor;
 
     @FXML
-    void salvarCadastro(ActionEvent event) {
-
-        String bandeira = TextFieldBandeira.getText();
-        String referencia = TextFieldReferencia.getText();
-        String vencimento = TextFieldVencimento.getText();
-        String consumo = TextFieldConsumo.getText();
-        String valor = TextFieldValor.getText();
-
-        ContaLuz novaConta = new ContaLuz(bandeira, referencia, vencimento, consumo, valor);
-
-        service.cadastrar(novaConta);
-        contaluz.add(novaConta);
-    }
+    private TableColumn<ContaLuz, String> tableColumnReferencia;
 
     @FXML
-    void LimparDados(ActionEvent event) {
-
-        TextFieldBandeira.setText("");
-        TextFieldReferencia.setText("");
-        TextFieldVencimento.setText("");
-        TextFieldConsumo.setText("");
-        TextFieldValor.setText("");
-
-        Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
-        ImageView limpo = new ImageView(Limpar);
-        BtnLimpar.setGraphic(limpo);
-
-        BtnLimpar.setText("Limpar");
-        LabelCadastro.setText("Nova Conta de Luz");
-
-        BtnAlterar.setVisible(true);
-        BtnExcluir.setVisible(true);
-
-        BtnAlterar.setOpacity(1);
-        BtnExcluir.setOpacity(1);
-    }
+    private TableColumn<ContaLuz, String> tableColumnBandeira;
 
     @FXML
-    void alterarCadastro(ActionEvent event) {
-
-        BtnAlterar.setOpacity(0.25);
-        BtnExcluir.setOpacity(0.25);
-        LabelCadastro.setText("Editando Conta de Luz");
-
-        BtnLimpar.setText("Cancelar");
-
-        Image Cancelar = new Image(getClass().getResource("/org/example/apssemestre2/icons/cancelar.png").toExternalForm());
-        ImageView cancelado = new ImageView(Cancelar);
-        BtnLimpar.setGraphic(cancelado);
-
-    }
+    private TableColumn<ContaLuz, String> tableColumnConsumo;
 
     @FXML
-    void excluirCadastroLuz(ActionEvent event) {
+    private TextField textFieldValor;
 
-    }
+    @FXML
+    private Button btnAlterar;
 
-
-    private ObservableList<ContaLuz> contaluz = FXCollections.observableArrayList();
+    private ObservableList<ContaLuz> contas = FXCollections.observableArrayList();
 
     private final ContaLuzService service;
+
+    private Alert alert;
+
+    private ContaLuz contaLuzAlterar;
 
     public CadastroLuzController() {
         this.service = new ContaLuzService();
     }
 
+    @FXML
+    void salvar(ActionEvent event) {
+        try {
+            String bandeira = textFieldBandeira.getText();
+            LocalDate referencia = datePickerReferencia.getValue();
+            LocalDate vencimento = datePickerVencimento.getValue();
+            float consumo = Float.parseFloat(textFieldConsumo.getText());
+            float valor = Float.parseFloat(textFieldValor.getText());
+
+            ContaLuz novaConta = new ContaLuz(bandeira, referencia, vencimento, consumo, valor);
+
+            service.cadastrar(novaConta);
+
+            filtrar();
+            limpar(new ActionEvent());
+        } catch (Exception e) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro ao salvar a Conta de Luz!");
+            alert.setHeaderText(e.getMessage());
+            alert.show();
+        }
+    }
 
     @FXML
-    void selecionarContaLuz(MouseEvent event) {
-        if (event.getClickCount() == 1) {
-            ContaLuz ContaSelecionada = (ContaLuz) TableViewContaLuz.getSelectionModel().getSelectedItem();
-            if (ContaSelecionada != null) {
-                TextFieldBandeira.setText(ContaSelecionada.getBandeira());
-                TextFieldReferencia.setText(ContaSelecionada.getReferencia());
-                TextFieldVencimento.setText(ContaSelecionada.getVencimento());
-                TextFieldConsumo.setText(ContaSelecionada.getConsumo());
-                TextFieldValor.setText(ContaSelecionada.getValor());
+    void limpar(ActionEvent event) {
+        textFieldBandeira.setText("");
+        datePickerReferencia.setValue(null);
+        datePickerVencimento.setValue(null);
+        textFieldConsumo.setText("");
+        textFieldValor.setText("");
+
+        contaLuzAlterar = null;
+
+        Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
+        ImageView limpo = new ImageView(Limpar);
+        btnLimpar.setGraphic(limpo);
+
+        btnLimpar.setText("Limpar");
+        lblTitulo.setText("Nova Conta de Luz");
+
+        btnAlterar.setDisable(false);
+        btnExcluir.setDisable(false);
+    }
+
+    @FXML
+    void alterarCadastro(ActionEvent event) {
+        ContaLuz model = tableView.getSelectionModel().getSelectedItem();
+
+        if (Objects.nonNull(model)) {
+            contaLuzAlterar = model;
+
+            textFieldBandeira.setText(String.valueOf(model.getBandeira()));
+            datePickerReferencia.setValue(model.getReferencia());
+            datePickerVencimento.setValue(model.getVencimento());
+            textFieldConsumo.setText(String.valueOf(model.getConsumo()));
+            textFieldValor.setText(String.valueOf(model.getValor()));
+
+            btnAlterar.setDisable(true);
+            btnExcluir.setDisable(true);
+
+            lblTitulo.setText("Alterando Conta de Luz");
+
+            Image Cancelar = new Image(getClass().getResource("/org/example/apssemestre2/icons/cancelar.png").toExternalForm());
+            ImageView cancelado = new ImageView(Cancelar);
+            btnLimpar.setGraphic(cancelado);
+        }
+    }
+
+    @FXML
+    void excluirCadastroLuz(ActionEvent event) {
+        ContaLuz model = tableView.getSelectionModel().getSelectedItem();
+
+        if (Objects.nonNull(model)) {
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmação de Exclusão");
+            alert.setHeaderText("Tem certeza que deseja excluir essa Conta?");
+            alert.setContentText("Esta ação não poderá ser desfeita.");
+
+            ButtonType buttonTypeConfirmar = new ButtonType("Confirmar");
+            ButtonType buttonTypeCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+            alert.getButtonTypes().setAll(buttonTypeConfirmar, buttonTypeCancelar);
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == buttonTypeConfirmar) {
+                try {
+                    service.excluir(model);
+                    filtrar();
+                } catch (Exception e) {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erro ao excluir o consumo!");
+                    alert.setHeaderText(e.getMessage());
+                    alert.show();
+                }
             }
         }
     }
 
+    private void filtrar() {
+        ContaLuz filtro = new ContaLuz();
+
+        int ano = 0;
+
+        if (!Objects.equals("", textFieldAno.getText())) {
+            ano = Integer.parseInt(textFieldAno.getText());
+        }
+
+        filtro.setReferencia(LocalDate.of(ano, 1, 1));
+
+        var lista = service.listar(filtro);
+
+        contas.clear();
+        contas.addAll(lista);
+
+        tableView.setItems(contas);
+        tableView.refresh();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        TextFieldBandeira.setEditable(false);
-        TextFieldReferencia.setEditable(false);
-        TextFieldVencimento.setEditable(false);
-        TextFieldConsumo.setEditable(false);
-        TextFieldValor.setEditable(false);
+        textFieldAno.setOnAction(event -> filtrar());
 
-        TableViewContaLuz.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 1) {
-                selecionarContaLuz(event);
-            }
-        });
+        tableColumnVencimento.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getVencimento().toString()));
+        tableColumnValor.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getValor())));
+        tableColumnReferencia.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getReferencia().toString()));
+        tableColumnBandeira.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getBandeira()));
+        tableColumnConsumo.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getConsumo())));
+
+        filtrar();
 
         Image Salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());
         ImageView salvo = new ImageView(Salvar);
-        salvo.setFitWidth(14);
-        salvo.setFitHeight(14);
-        BtnSalvar.setGraphic(salvo);
-
+        btnSalvar.setGraphic(salvo);
 
         Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
         ImageView limpo = new ImageView(Limpar);
-        BtnLimpar.setGraphic(limpo);
+        btnLimpar.setGraphic(limpo);
 
         Image Alterar = new Image(getClass().getResource("/org/example/apssemestre2/icons/setas-flechas.png").toExternalForm());
         ImageView alterado = new ImageView(Alterar);
         alterado.setFitWidth(16);
         alterado.setFitHeight(16);
-        BtnAlterar.setGraphic(alterado);
+        btnAlterar.setGraphic(alterado);
 
         Image Excluir = new Image(getClass().getResource("/org/example/apssemestre2/icons/excluir.png").toExternalForm());
         ImageView excluido = new ImageView(Excluir);
-        BtnExcluir.setGraphic(excluido);
+        btnExcluir.setGraphic(excluido);
     }
 }

@@ -1,41 +1,70 @@
 package org.example.apssemestre2.model;
 
-public class ContaLuz {
-    private String bandeira;
-    private String referencia;
-    private String vencimento;
-    private String consumo;
-    private String valor;
+import java.time.LocalDate;
 
-    public String getValor() {
-        return valor;
+public class ContaLuz {
+    private int id;
+    private String bandeira;
+    private LocalDate referencia;
+    private LocalDate vencimento;
+    private float consumo;
+    private float valor;
+
+    public ContaLuz() {
     }
 
-    public void setValor(String valor) {
+    public ContaLuz(int id, LocalDate vencimento, LocalDate referencia) {
+        setId(id);
+        setVencimento(vencimento);
+        setReferencia(referencia);
+    }
+
+    public ContaLuz(String bandeira, LocalDate referencia, LocalDate vencimento, float consumo, float valor) {
+        super();
+        this.bandeira = bandeira;
+        this.referencia = referencia;
+        this.vencimento = vencimento;
+        this.consumo = consumo;
         this.valor = valor;
     }
 
-    public String getConsumo() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public float getValor() {
+        return valor;
+    }
+
+    public void setValor(float valor) {
+        this.valor = valor;
+    }
+
+    public float getConsumo() {
         return consumo;
     }
 
-    public void setConsumo(String consumo) {
+    public void setConsumo(float consumo) {
         this.consumo = consumo;
     }
 
-    public String getVencimento() {
+    public LocalDate getVencimento() {
         return vencimento;
     }
 
-    public void setVencimento(String vencimento) {
+    public void setVencimento(LocalDate vencimento) {
         this.vencimento = vencimento;
     }
 
-    public String getReferencia() {
+    public LocalDate getReferencia() {
         return referencia;
     }
 
-    public void setReferencia(String referencia) {
+    public void setReferencia(LocalDate referencia) {
         this.referencia = referencia;
     }
 
@@ -46,15 +75,4 @@ public class ContaLuz {
     public void setBandeira(String bandeira) {
         this.bandeira = bandeira;
     }
-
-    public ContaLuz(String bandeira, String referencia, String vencimento, String consumo, String valor) {
-        super();
-        this.bandeira = bandeira;
-        this.referencia = referencia;
-        this.vencimento = vencimento;
-        this.consumo = consumo;
-        this.valor = valor;
-    }
-
-    public ContaLuz() {}
 }
