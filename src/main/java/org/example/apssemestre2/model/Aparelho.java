@@ -1,14 +1,23 @@
 package org.example.apssemestre2.model;
 
-import org.example.apssemestre2.model.enums.VoltagemEnum;
-
 public class Aparelho {
     private int id;
+    private Integer idCategoria;
     private String nome;
     private String modelo;
     private String marca;
     private String potencia;
-    private VoltagemEnum voltagem;
+
+    public Aparelho(String nome, String modelo, String marca, String potencia) {
+        super();
+        this.nome = nome;
+        this.modelo = modelo;
+        this.marca = marca;
+        this.potencia = potencia;
+    }
+
+    public Aparelho() {
+    }
 
     public int getId() {
         return id;
@@ -16,6 +25,14 @@ public class Aparelho {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Integer getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(Integer idCategoria) {
+        this.idCategoria = idCategoria;
     }
 
     public String getNome() {
@@ -48,21 +65,5 @@ public class Aparelho {
 
     public void setPotencia(String potencia) {
         this.potencia = potencia;
-    }
-
-    public Aparelho(String nome, String modelo, String marca, String potencia) {
-        super();
-        this.nome = nome;
-        this.modelo = modelo;
-        this.marca = marca;
-        this.potencia = potencia;
-    }
-
-    public Aparelho() {
-    }
-
-    public Aparelho(String nome, VoltagemEnum voltagem) {
-        this.nome = nome;
-        this.voltagem = voltagem;
     }
 }

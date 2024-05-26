@@ -50,7 +50,9 @@ public class AparelhoService extends BaseService<Aparelho> {
 
     @Override
     public List<Aparelho> listar() {
-        var lista = repository.listar();
+        var filtro = new Aparelho();
+//        filtro.setIdCategoria(1);
+        var lista = repository.listar(filtro);
 
         return lista;
     }
