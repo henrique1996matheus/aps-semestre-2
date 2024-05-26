@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class AparelhoService extends BaseService<Aparelho> {
-    AparelhoRepository repository;
+    private final AparelhoRepository repository;
 
     public AparelhoService() {
         repository = new AparelhoRepository();
@@ -15,7 +15,7 @@ public class AparelhoService extends BaseService<Aparelho> {
 
     @Override
     public Aparelho buscar(long id) {
-        return null;
+        return repository.buscar(id);
     }
 
     @Override
@@ -43,8 +43,8 @@ public class AparelhoService extends BaseService<Aparelho> {
     }
 
     @Override
-    public void excluir(Aparelho aparelho) {
-        repository.excluir(aparelho);
+    public void excluir(Aparelho model) {
+        repository.excluir(model);
     }
 
     @Override

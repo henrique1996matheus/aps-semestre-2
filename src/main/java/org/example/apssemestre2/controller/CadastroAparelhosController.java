@@ -31,8 +31,6 @@ import org.example.apssemestre2.service.CategoriaService;
 
 
 public class CadastroAparelhosController implements Initializable {
-
-
     @FXML
     private TextField TextFieldPotencia;
 
@@ -49,7 +47,7 @@ public class CadastroAparelhosController implements Initializable {
     private TextField TextFieldUsoMedio;
 
     @FXML
-    private Label IdAparelho;
+    private Label TituloAparelho;
 
     @FXML
     private ChoiceBox<Categoria> ChoiceBoxCategoria;
@@ -156,11 +154,11 @@ public class CadastroAparelhosController implements Initializable {
         TableColumnMarca.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMarca()));
         TableColumnPotencia.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPotencia()));
 
+        filtrarAparelhos(new Aparelho());
+
         Image Salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());
         ImageView salvo = new ImageView(Salvar);
         BtnSalvar.setGraphic(salvo);
-
-        filtrarAparelhos(new Aparelho());
 
         Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
         ImageView limpo = new ImageView(Limpar);
@@ -253,7 +251,7 @@ public class CadastroAparelhosController implements Initializable {
             BtnLimpar.setGraphic(limpo);
 
             BtnLimpar.setText("Limpar");
-            IdAparelho.setText("Novo Aparelho");
+            TituloAparelho.setText("Novo Aparelho");
 
             BtnExcluir.setDisable(false);
             BtnAlterar.setDisable(false);
@@ -274,6 +272,8 @@ public class CadastroAparelhosController implements Initializable {
             TextFieldNome.setText(aparelhoSelecionado.getNome());
             TextFieldMarca.setText(aparelhoSelecionado.getMarca());
             TextFieldPotencia.setText(aparelhoSelecionado.getPotencia());
+            TextFieldModelo.setText(aparelhoSelecionado.getModelo());
+            TextFieldUsoMedio.setText(String.valueOf(aparelhoSelecionado.getUsoMedio()));
 
             for (Categoria categoria : ChoiceBoxCategoria.getItems()) {
                 if (categoria.getId() == aparelhoSelecionado.getIdCategoria()) {
@@ -282,13 +282,10 @@ public class CadastroAparelhosController implements Initializable {
                 }
             }
 
-            TextFieldModelo.setText(aparelhoSelecionado.getModelo());
-            TextFieldUsoMedio.setText(String.valueOf(aparelhoSelecionado.getUsoMedio()));
-
             BtnAlterar.setDisable(true);
             BtnExcluir.setDisable(true);
 
-            IdAparelho.setText("Alterando Aparelho");
+            TituloAparelho.setText("Alterando Aparelho");
 
             BtnLimpar.setText("Cancelar");
 
@@ -302,19 +299,21 @@ public class CadastroAparelhosController implements Initializable {
     void ExcluirAparelho(ActionEvent event) {
         Aparelho aparelho = TableViewAparelhos.getSelectionModel().getSelectedItem();
 
-        alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmação de Exclusão");
-        alert.setHeaderText("Tem certeza que deseja excluir esse aparelho?");
-        alert.setContentText("Esta ação não poderá ser desfeita.");
+        if (Objects.nonNull(aparelho)) {
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmação de Exclusão");
+            alert.setHeaderText("Tem certeza que deseja excluir esse aparelho?");
+            alert.setContentText("Esta ação não poderá ser desfeita.");
 
-        ButtonType buttonTypeConfirmar = new ButtonType("Confirmar");
-        ButtonType buttonTypeCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(buttonTypeConfirmar, buttonTypeCancelar);
+            ButtonType buttonTypeConfirmar = new ButtonType("Confirmar");
+            ButtonType buttonTypeCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+            alert.getButtonTypes().setAll(buttonTypeConfirmar, buttonTypeCancelar);
 
-        Optional<ButtonType> result = alert.showAndWait();
+            Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.isPresent() && result.get() == buttonTypeConfirmar) {
-            aparelhos.remove(aparelho);
+            if (result.isPresent() && result.get() == buttonTypeConfirmar) {
+                aparelhos.remove(aparelho);
+            }
         }
     }
 

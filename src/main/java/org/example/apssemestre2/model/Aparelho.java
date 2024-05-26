@@ -27,6 +27,10 @@ public class Aparelho {
         this.nome = nome;
     }
 
+    public Aparelho(String nome) {
+        this.nome = nome;
+    }
+
     public int getId() {
         return id;
     }

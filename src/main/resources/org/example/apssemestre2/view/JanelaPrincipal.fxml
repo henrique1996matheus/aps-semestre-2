@@ -22,7 +22,7 @@
                 </Menu>
                 <Menu fx:id="MenuMonitoramento" mnemonicParsing="false" text="Monitoramento">
                   <items>
-                    <MenuItem fx:id="menuitemMonitoramentoMetas" mnemonicParsing="false" onAction="#acessarMetas" text="Metas" />
+<!--                    <MenuItem fx:id="menuitemMonitoramentoMetas" mnemonicParsing="false" onAction="#acessarMetas" text="Metas" />-->
                         <MenuItem fx:id="menuitemMonitoramentoAnaliseCategoria" mnemonicParsing="false" onAction="#acessarAnaliseCategoria" text="Análise por Categoria" />
                   </items>
                 </Menu>

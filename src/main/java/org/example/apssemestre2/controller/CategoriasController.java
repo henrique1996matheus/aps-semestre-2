@@ -139,27 +139,29 @@ public class CategoriasController implements Initializable {
     void excluirCategoria(ActionEvent event) {
         Categoria excluirCategoria = TableViewCategorias.getSelectionModel().getSelectedItem();
 
-        alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmação de Exclusão");
-        alert.setHeaderText("Tem certeza que deseja excluir esse aparelho?");
-        alert.setContentText("Esta ação não poderá ser desfeita.");
+        if (Objects.nonNull(excluirCategoria)) {
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmação de Exclusão");
+            alert.setHeaderText("Tem certeza que deseja excluir esse aparelho?");
+            alert.setContentText("Esta ação não poderá ser desfeita.");
 
-        ButtonType buttonTypeConfirmar = new ButtonType("Confirmar");
-        ButtonType buttonTypeCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+            ButtonType buttonTypeConfirmar = new ButtonType("Confirmar");
+            ButtonType buttonTypeCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-        alert.getButtonTypes().setAll(buttonTypeConfirmar, buttonTypeCancelar);
+            alert.getButtonTypes().setAll(buttonTypeConfirmar, buttonTypeCancelar);
 
-        Optional<ButtonType> result = alert.showAndWait();
+            Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.isPresent() && result.get() == buttonTypeConfirmar) {
-            try {
-                service.excluir(excluirCategoria);
-                categorias.remove(excluirCategoria);
-            } catch (Exception e) {
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Erro ao excluir a categoria!");
-                alert.setHeaderText(e.getMessage());
-                alert.show();
+            if (result.isPresent() && result.get() == buttonTypeConfirmar) {
+                try {
+                    service.excluir(excluirCategoria);
+                    categorias.remove(excluirCategoria);
+                } catch (Exception e) {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erro ao excluir a categoria!");
+                    alert.setHeaderText(e.getMessage());
+                    alert.show();
+                }
             }
         }
     }
@@ -175,7 +177,6 @@ public class CategoriasController implements Initializable {
         Image Salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());
         ImageView salvo = new ImageView(Salvar);
         BtnSalvar.setGraphic(salvo);
-
 
         Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
         ImageView limpo = new ImageView(Limpar);

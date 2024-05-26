@@ -101,7 +101,7 @@ public class JanelaPrincipalController implements Initializable {
 	@FXML
 	void acessarConsumoAparelho(ActionEvent event) {
 		try {
-			abrirTelas("Uso_Aparelho", "Uso dos Aparelhos");
+			abrirTelas("consumo", "Consumo");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

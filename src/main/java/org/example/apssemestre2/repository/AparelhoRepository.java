@@ -14,7 +14,29 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
 
     @Override
     public Aparelho buscar(long id) {
-        return null;
+        String sql = "SELECT * FROM " + TABELA + " WHERE id = ?";
+
+        Aparelho aparelho = new Aparelho();
+
+        try (PreparedStatement statement = Conexao.getConexao().prepareStatement(sql)) {
+            statement.setObject(1, id);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                aparelho.setId(resultSet.getInt("id"));
+                aparelho.setIdCategoria(resultSet.getInt("id_categoria"));
+                aparelho.setNome(resultSet.getString("nome"));
+                aparelho.setModelo(resultSet.getString("modelo"));
+                aparelho.setMarca(resultSet.getString("marca"));
+                aparelho.setPotencia(resultSet.getString("potencia"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return aparelho;
     }
 
     @Override
@@ -25,22 +47,17 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
     }
 
     @Override
-    public boolean cadastrar(Aparelho aparelho) {
+    public boolean cadastrar(Aparelho model) {
         String sql = "INSERT INTO " + TABELA + " (nome, modelo, marca, potencia, id_categoria) VALUES (?,?,?,?,?)";
 
-        PreparedStatement ps = null;
-
-        try {
-            ps = Conexao.getConexao().prepareStatement(sql);
-            ps.setString(1, aparelho.getNome());
-            ps.setString(2, aparelho.getModelo());
-            ps.setString(3, aparelho.getMarca());
-            ps.setString(4, aparelho.getPotencia());
-            ps.setInt(5, aparelho.getIdCategoria());
+        try (PreparedStatement ps = Conexao.getConexao().prepareStatement(sql)) {
+            ps.setString(1, model.getNome());
+            ps.setString(2, model.getModelo());
+            ps.setString(3, model.getMarca());
+            ps.setString(4, model.getPotencia());
+            ps.setInt(5, model.getIdCategoria());
 
             ps.execute();
-            ps.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -51,15 +68,13 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
     }
 
     @Override
-    public boolean excluir(Aparelho aparelho) {
+    public boolean excluir(Aparelho model) {
         String sql = "DELETE FROM " + TABELA + " WHERE id = ?";
-        PreparedStatement ps = null;
 
-        try {
-            ps = Conexao.getConexao().prepareStatement(sql);
-            ps.setInt(1, aparelho.getId());
+        try (PreparedStatement ps = Conexao.getConexao().prepareStatement(sql)) {
+            ps.setInt(1, model.getId());
+
             ps.execute();
-            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -73,10 +88,7 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
     public boolean atualizar(Aparelho aparelho) {
         String sql = "UPDATE " + TABELA + " SET id_categoria = ?, nome = ?, modelo = ?, marca = ?, potencia = ?, uso_medio = ? WHERE id = ?";
 
-        PreparedStatement ps = null;
-
-        try {
-            ps = Conexao.getConexao().prepareStatement(sql);
+        try (PreparedStatement ps = Conexao.getConexao().prepareStatement(sql)) {
             ps.setInt(1, aparelho.getIdCategoria());
             ps.setString(2, aparelho.getNome());
             ps.setString(3, aparelho.getModelo());
@@ -86,8 +98,6 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
             ps.setInt(7, aparelho.getId());
 
             ps.execute();
-            ps.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -120,17 +130,12 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
 
         List<Aparelho> aparelhos = new ArrayList<>();
 
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-
-        try {
-            statement = Conexao.getConexao().prepareStatement(sql);
-
+        try (PreparedStatement statement = Conexao.getConexao().prepareStatement(sql)) {
             for (int i = 0; i < filtros.size(); i++) {
                 statement.setObject(i + 1, filtros.get(i));
             }
 
-            resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 Aparelho aparelho = new Aparelho();
