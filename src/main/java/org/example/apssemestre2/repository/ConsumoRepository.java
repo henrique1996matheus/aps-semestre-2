@@ -32,7 +32,7 @@ public class ConsumoRepository extends BaseRepository<Consumo> {
     }
 
     @Override
-    public List<Consumo> listar() {
+    public List<Consumo> listar(Consumo filtroModel) {
         return null;
     }
 }
