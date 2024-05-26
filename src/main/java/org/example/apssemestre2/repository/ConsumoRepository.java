@@ -132,10 +132,7 @@ public class ConsumoRepository extends BaseRepository<Consumo> {
             while (resultSet.next()) {
                 Consumo aparelho = new Consumo();
 
-                aparelho.setId(resultSet.getInt("id"));
-                aparelho.setIdAparelho(resultSet.getInt("id_aparelho"));
-                aparelho.setData(resultSet.getObject("data", LocalDate.class));
-                aparelho.setGastoHora(resultSet.getInt("gasto_hora"));
+                preencherModel(aparelho, resultSet);
 
                 consumos.add(aparelho);
             }
@@ -145,5 +142,48 @@ public class ConsumoRepository extends BaseRepository<Consumo> {
         }
 
         return consumos;
+    }
+
+    private static void preencherModel(Consumo aparelho, ResultSet resultSet) throws SQLException {
+        aparelho.setId(resultSet.getInt("id"));
+        aparelho.setIdAparelho(resultSet.getInt("id_aparelho"));
+        aparelho.setData(resultSet.getObject("data", LocalDate.class));
+        aparelho.setGastoHora(resultSet.getInt("gasto_hora"));
+    }
+
+    public List<Consumo> listarPorData(LocalDate dataAtual) {
+        String sql = " select c.id_aparelho, data, c.gasto_hora " +
+                " from " + TABELA + " c " +
+                " where " +
+                " year(data) = ? " +
+                " and month(data) = ? " +
+                " order by id_aparelho, data";
+
+        List<Consumo> consumos = new ArrayList<>();
+
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = Conexao.getConexao().prepareStatement(sql);
+
+            statement.setObject(1, dataAtual.getYear());
+            statement.setObject(2, dataAtual.getMonth().ordinal() + 1);
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Consumo aparelho = new Consumo();
+
+                preencherModel(aparelho, resultSet);
+
+                consumos.add(aparelho);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
