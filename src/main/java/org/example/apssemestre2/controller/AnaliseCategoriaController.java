@@ -53,5 +53,8 @@ public class AnaliseCategoriaController implements Initializable {
         Image Filtrar = new Image(getClass().getResource("/org/example/apssemestre2/icons/filtro.png").toExternalForm());
         ImageView Filtrado = new ImageView(Filtrar);
         BtnFiltro.setGraphic(Filtrado);
+
+
+
     }
 }

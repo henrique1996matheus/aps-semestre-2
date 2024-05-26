@@ -5,21 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e49fe05d-562a-4638-a2b3-b0c86a05535e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/ConsumoController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/ConsumoService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/migration/V4_criar_consumo.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CadastroAparelhosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CadastroAparelhosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CategoriasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/CategoriasController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/model/GraficoDados.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/GraficoDadosService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/AnaliseCategoriaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/AnaliseCategoriaController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/JanelaPrincipalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/JanelaPrincipalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/controller/UsoAparelhoController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/model/Aparelho.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/model/Aparelho.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/model/Consumo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/model/Consumo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/AparelhoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/AparelhoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/ConsumoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/repository/ConsumoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/AparelhoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/apssemestre2/service/AparelhoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/CadastroAparelhos.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/CadastroAparelhos.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/Uso_Aparelho.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/apssemestre2/view/consumo.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,10 +39,10 @@
   "keyToString": {
     "Application.HelloApplication.executor": "Run",
     "Application.MainApplication.executor": "Run",
-    "Application.RunMainApplicationIntellij.executor": "Debug",
+    "Application.RunMainApplicationIntellij.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "correcoes-front-finalizamento-back",
+    "git-widget-placeholder": "atualizacao-front-tela-inicial",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Program Files (x86)/Oracle/JavaFX Scene Builder 2.0/JavaFX Scene Builder 2.0.exe",

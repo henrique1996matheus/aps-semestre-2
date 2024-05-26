@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import javafx.util.Duration;
 
 public class JanelaPrincipalController implements Initializable {
 
@@ -52,7 +55,7 @@ public class JanelaPrincipalController implements Initializable {
 	private MenuItem menuitemListaAparelhos;
 
 	@FXML
-	private BarChart<?, ?> GraficoBarra;
+	private BarChart<String, Number> GraficoBarra;
 
 	@FXML
 	private MenuItem menuitemConsumoConsumoporDia;
@@ -183,12 +186,34 @@ public class JanelaPrincipalController implements Initializable {
 	}
 
 
+	/*private void timerGrafico() {
+		Timeline timeline = new Timeline(new KeyFrame(Duration.minutes(10), event -> {
+
+			// Exemplo de atualização de dados do gráfico
+			String[] dias = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"};
+			int[] consum = {2900, 2698, 2600, 2400, 2000, 3200, 3102, 2345, 2735, 2144, 2234};
+
+			XYChart.Series<String, Number> serie1 = new XYChart.Series<>();
+			for (int i = 0; i < dias.length; i++) {
+				// Simulando mudança nos dados
+				consum[i] += (int) (Math.random() * 100 - 50); // Alterar valores aleatoriamente
+				serie1.getData().add(new XYChart.Data<>(dias[i], consum[i]));
+			}
+			GraficoBarra.getData().clear();
+			GraficoBarra.getData().add(serie1);
+			GraficoBarra.setLegendVisible(false);
+		}));
+
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.play();
+	}*/
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 
 
 		//aparelhos
-		
+
+		//timerGrafico();
 		
 		/*Image é uma classe que serve para carregar e armazenar imagens,enquanto ImageView serve para renderizar uma imagem carregada pela
 		 * classe Image.
@@ -267,9 +292,9 @@ public class JanelaPrincipalController implements Initializable {
 
 		TextFieldBandeira.setEditable(false);
 		TextFieldBandeira.setStyle("-fx-background-color: rgb(50,205,50);");
-		
 
-		
+
+
 	}
 	
 	
