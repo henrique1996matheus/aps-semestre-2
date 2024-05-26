@@ -87,7 +87,7 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
     }
 
     @Override
-    public List<Categoria> listar(Categoria filtroModel) {
+    public List<Categoria> listar() {
 
         String sql = "SELECT * FROM " + TABELA;
 

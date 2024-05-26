@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.example.apssemestre2.model.Aparelho;
 
@@ -93,37 +92,28 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
     }
 
     @Override
-    public List<Aparelho> listar(Aparelho filtroModel) {
+    public List<Aparelho> listar() {
+
         String sql = "SELECT * FROM " + TABELA;
 
-        if (Objects.nonNull(filtroModel.getIdCategoria())) {
-            sql += " WHERE id_categoria = ? ";
-        }
+        List<Aparelho> aparelhos = new ArrayList<Aparelho>();
 
-        List<Aparelho> aparelhos = new ArrayList<>();
-
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
+        PreparedStatement ps = null;
+        ResultSet rset = null;
 
         try {
-            statement = Conexao.getConexao().prepareStatement(sql);
+            ps = Conexao.getConexao().prepareStatement(sql);
+            rset = ps.executeQuery();
 
-            if (Objects.nonNull(filtroModel.getIdCategoria())) {
-                statement.setInt(1, filtroModel.getIdCategoria());
-            }
-
-            resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
+            while (rset.next()) {
 
                 Aparelho aparelho = new Aparelho();
 
-                aparelho.setId(resultSet.getInt("id"));
-                aparelho.setIdCategoria(resultSet.getInt("id_categoria"));
-                aparelho.setNome(resultSet.getString("nome"));
-                aparelho.setModelo(resultSet.getString("modelo"));
-                aparelho.setMarca(resultSet.getString("marca"));
-                aparelho.setPotencia(resultSet.getString("potencia"));
+                aparelho.setId(rset.getInt("id"));
+                aparelho.setNome(rset.getString("nome"));
+                aparelho.setModelo(rset.getString("modelo"));
+                aparelho.setMarca(rset.getString("marca"));
+                aparelho.setPotencia(rset.getString("potencia"));
 
                 aparelhos.add(aparelho);
             }
