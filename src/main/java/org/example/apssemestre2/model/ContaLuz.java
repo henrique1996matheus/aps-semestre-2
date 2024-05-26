@@ -1,70 +1,41 @@
 package org.example.apssemestre2.model;
 
-import java.time.LocalDate;
-
 public class ContaLuz {
-    private int id;
     private String bandeira;
-    private LocalDate referencia;
-    private LocalDate vencimento;
-    private float consumo;
-    private float valor;
+    private String referencia;
+    private String vencimento;
+    private String consumo;
+    private String valor;
 
-    public ContaLuz() {
-    }
-
-    public ContaLuz(int id, LocalDate vencimento, LocalDate referencia) {
-        setId(id);
-        setVencimento(vencimento);
-        setReferencia(referencia);
-    }
-
-    public ContaLuz(String bandeira, LocalDate referencia, LocalDate vencimento, float consumo, float valor) {
-        super();
-        this.bandeira = bandeira;
-        this.referencia = referencia;
-        this.vencimento = vencimento;
-        this.consumo = consumo;
-        this.valor = valor;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public float getValor() {
+    public String getValor() {
         return valor;
     }
 
-    public void setValor(float valor) {
+    public void setValor(String valor) {
         this.valor = valor;
     }
 
-    public float getConsumo() {
+    public String getConsumo() {
         return consumo;
     }
 
-    public void setConsumo(float consumo) {
+    public void setConsumo(String consumo) {
         this.consumo = consumo;
     }
 
-    public LocalDate getVencimento() {
+    public String getVencimento() {
         return vencimento;
     }
 
-    public void setVencimento(LocalDate vencimento) {
+    public void setVencimento(String vencimento) {
         this.vencimento = vencimento;
     }
 
-    public LocalDate getReferencia() {
+    public String getReferencia() {
         return referencia;
     }
 
-    public void setReferencia(LocalDate referencia) {
+    public void setReferencia(String referencia) {
         this.referencia = referencia;
     }
 
@@ -75,4 +46,15 @@ public class ContaLuz {
     public void setBandeira(String bandeira) {
         this.bandeira = bandeira;
     }
+
+    public ContaLuz(String bandeira, String referencia, String vencimento, String consumo, String valor) {
+        super();
+        this.bandeira = bandeira;
+        this.referencia = referencia;
+        this.vencimento = vencimento;
+        this.consumo = consumo;
+        this.valor = valor;
+    }
+
+    public ContaLuz() {}
 }

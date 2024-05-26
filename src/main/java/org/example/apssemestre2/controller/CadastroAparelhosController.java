@@ -176,10 +176,10 @@ public class CadastroAparelhosController implements Initializable {
     }
 
     private void filtrarAparelhos(Aparelho aparelho) {
-        List<Aparelho> lista = service.listar(aparelho);
+        List<Aparelho> aparelhosList = service.listar(aparelho);
 
         aparelhos.clear();
-        aparelhos.addAll(lista);
+        aparelhos.addAll(aparelhosList);
 
         TableViewAparelhos.setItems(aparelhos);
         TableViewAparelhos.refresh();

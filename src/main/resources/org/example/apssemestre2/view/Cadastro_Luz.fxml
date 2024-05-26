@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.apssemestre2.controller.CadastroLuzController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.apssemestre2.controller.CadastroLuzController">
    <children>
       <HBox alignment="CENTER" layoutX="184.0" layoutY="14.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #6495ED;" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="lblTitulo" text="Nova Conta de Luz">
+            <Label fx:id="LabelCadastro" text="Nova Conta de Luz">
                <font>
                   <Font size="27.0" />
                </font>
@@ -22,15 +26,15 @@
                   <Label layoutX="18.0" layoutY="18.0" text="Valor :" />
                   <Label layoutX="14.0" layoutY="57.0" text="Vencimento :" />
                   <Label layoutX="201.0" layoutY="18.0" text="Bandeira :" />
-                  <TextField fx:id="textFieldValor" layoutX="59.0" layoutY="14.0" prefHeight="25.0" prefWidth="69.0" />
-                  <DatePicker fx:id="datePickerVencimento" layoutX="94.0" layoutY="53.0" prefHeight="25.0" prefWidth="69.0" />
-                  <TextField fx:id="textFieldBandeira" layoutX="264.0" layoutY="14.0" prefHeight="25.0" prefWidth="69.0" />
-                  <DatePicker fx:id="datePickerReferencia" layoutX="317.0" layoutY="53.0" prefHeight="25.0" prefWidth="69.0" />
+                  <TextField fx:id="TextFieldValor" layoutX="59.0" layoutY="14.0" prefHeight="25.0" prefWidth="69.0" />
+                  <TextField fx:id="TextFieldVencimento" layoutX="94.0" layoutY="53.0" prefHeight="25.0" prefWidth="69.0" />
+                  <TextField fx:id="TextFieldBandeira" layoutX="264.0" layoutY="14.0" prefHeight="25.0" prefWidth="69.0" />
+                  <TextField fx:id="TextFieldReferencia" layoutX="317.0" layoutY="53.0" prefHeight="25.0" prefWidth="69.0" />
                   <Label layoutX="201.0" layoutY="57.0" text="Mês de Referência :" />
                   <Label layoutX="372.0" layoutY="18.0" text="Consumo :" />
-                  <TextField fx:id="textFieldConsumo" layoutX="442.0" layoutY="14.0" prefHeight="25.0" prefWidth="97.0" />
-                  <Button fx:id="btnSalvar" layoutX="198.0" layoutY="89.0" mnemonicParsing="false" onAction="#salvar" prefWidth="68.0" text="Salvar" />
-                  <Button fx:id="btnLimpar" layoutX="274.0" layoutY="89.0" mnemonicParsing="false" onAction="#limpar" prefHeight="25.0" prefWidth="82.0" text="Limpar" />
+                  <TextField fx:id="TextFieldConsumo" layoutX="442.0" layoutY="14.0" prefHeight="25.0" prefWidth="97.0" />
+                  <Button fx:id="BtnSalvar" layoutX="198.0" layoutY="89.0" mnemonicParsing="false" onAction="#salvarCadastro" prefWidth="68.0" text="Salvar" />
+                  <Button fx:id="BtnLimpar" layoutX="274.0" layoutY="89.0" mnemonicParsing="false" onAction="#LimparDados" prefHeight="25.0" prefWidth="82.0" text="Limpar" />
                </children>
             </Pane>
          </children>
@@ -39,22 +43,19 @@
          <children>
             <Pane layoutX="40.0" layoutY="29.0" prefHeight="156.0" prefWidth="570.0" style="-fx-background-color: #FFD700; -fx-background-radius: 5;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="-15.0">
                <children>
-                  <TableView fx:id="tableView" layoutX="3.0" layoutY="41.0" prefHeight="163.0" prefWidth="563.0">
+                  <TableView fx:id="TableViewContaLuz" layoutX="3.0" layoutY="41.0" prefHeight="163.0" prefWidth="563.0">
                     <columns>
-                      <TableColumn fx:id="tableColumnVencimento" prefWidth="104.0" text="Vencimento" />
-                      <TableColumn fx:id="tableColumnValor" prefWidth="100.0" text="Valor" />
-                        <TableColumn fx:id="tableColumnReferencia" prefWidth="137.0" text="Mes Referencia" />
-                        <TableColumn fx:id="tableColumnBandeira" prefWidth="129.0" text="Bandeira" />
-                        <TableColumn fx:id="tableColumnConsumo" prefWidth="92.0" text="Consumo" />
+                      <TableColumn prefWidth="104.0" text="Vencimento" />
+                      <TableColumn prefWidth="100.0" text="Valor" />
+                        <TableColumn prefWidth="137.0" text="Mes Referencia" />
+                        <TableColumn prefWidth="129.0" text="Bandeira" />
+                        <TableColumn prefWidth="92.0" text="Consumo" />
                     </columns>
                   </TableView>
-
-                  <TextField fx:id="textFieldAno" layoutX="432.0" layoutY="12.0" prefHeight="25.0" prefWidth="117.0" />
-
+                  <ChoiceBox fx:id="ChoiceBoxAno" layoutX="432.0" layoutY="12.0" prefHeight="25.0" prefWidth="117.0" />
                   <Label layoutX="398.0" layoutY="15.0" text="Ano :" />
-
-                  <Button fx:id="btnAlterar" layoutX="27.0" layoutY="12.0" mnemonicParsing="false" onAction="#alterarCadastro" text="Alterar" />
-                  <Button fx:id="btnExcluir" alignment="CENTER" layoutX="105.0" layoutY="12.0" mnemonicParsing="false" onAction="#excluirCadastroLuz" text="Excluir" />
+                  <Button fx:id="BtnAlterar" layoutX="27.0" layoutY="12.0" mnemonicParsing="false" onAction="#alterarCadastro" text="Alterar" />
+                  <Button fx:id="BtnExcluir" alignment="CENTER" layoutX="105.0" layoutY="12.0" mnemonicParsing="false" onAction="#excluirCadastroLuz" text="Excluir" />
                </children>
             </Pane>
          </children>
