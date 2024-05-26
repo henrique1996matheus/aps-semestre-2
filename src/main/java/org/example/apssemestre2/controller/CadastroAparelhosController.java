@@ -23,7 +23,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.fxml.Initializable;
+import org.example.apssemestre2.model.Categoria;
 import org.example.apssemestre2.service.AparelhoService;
+import org.example.apssemestre2.service.CategoriaService;
 
 
 public class CadastroAparelhosController implements Initializable {
@@ -48,7 +50,7 @@ public class CadastroAparelhosController implements Initializable {
     private Label IdAparelho;
 
     @FXML
-    private ChoiceBox<String> ChoiceBoxCategoria;
+    private ChoiceBox<Categoria> ChoiceBoxCategoria;
 
     @FXML
     private Button BtnLimpar;
@@ -80,7 +82,62 @@ public class CadastroAparelhosController implements Initializable {
     @FXML
     private TableView<Aparelho> TableViewAparelhos;
 
+    private ObservableList<Aparelho> aparelhos = FXCollections.observableArrayList();
+
     private boolean novoCadastro = true;
+
+    private AparelhoService service;
+
+    private CategoriaService categoriaService;
+
+    public CadastroAparelhosController() {
+        service = new AparelhoService();
+        categoriaService = new CategoriaService();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        //add infos ao choicebox de categoria
+        var categorias = categoriaService.listar(new Categoria());
+
+        TableViewAparelhos.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                selecionarAparelho(event);
+            }
+        });
+
+        ChoiceBoxCategoria.getItems().addAll(categorias);
+
+        ChoiceBoxCategoria.setOnAction(event -> abrirCategoria());
+
+        TableColumnNome.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNome()));
+        TableColumnModelo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getModelo()));
+        TableColumnMarca.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMarca()));
+        TableColumnPotencia.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPotencia()));
+
+        List<Aparelho> aparelhosList = service.listar(new Aparelho());
+        aparelhos.addAll(aparelhosList);
+        TableViewAparelhos.setItems(aparelhos);
+
+        Image Salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());
+        ImageView salvo = new ImageView(Salvar);
+        BtnSalvar.setGraphic(salvo);
+
+
+        Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
+        ImageView limpo = new ImageView(Limpar);
+        BtnLimpar.setGraphic(limpo);
+
+        Image Alterar = new Image(getClass().getResource("/org/example/apssemestre2/icons/setas-flechas.png").toExternalForm());
+        ImageView alterado = new ImageView(Alterar);
+        alterado.setFitWidth(16);
+        alterado.setFitHeight(16);
+        BtnAlterar.setGraphic(alterado);
+
+        Image Excluir = new Image(getClass().getResource("/org/example/apssemestre2/icons/excluir.png").toExternalForm());
+        ImageView excluido = new ImageView(Excluir);
+        BtnExcluir.setGraphic(excluido);
+    }
 
     @FXML
     void SalvarAparelho(ActionEvent event) {
@@ -154,15 +211,8 @@ public class CadastroAparelhosController implements Initializable {
     }
 
 
-    private AparelhoService service;
-
-    public CadastroAparelhosController() {
-        this.service = new AparelhoService();
-    }
-
-
     private void abrirCategoria() {
-        String selecCat = ChoiceBoxCategoria.getValue();
+        Categoria selecCat = ChoiceBoxCategoria.getValue();
 
         if (selecCat.equals("Nova Categoria...")) {
             abrirJanelaCategoria();
@@ -184,53 +234,6 @@ public class CadastroAparelhosController implements Initializable {
         }
     }
 
-    private ObservableList<Aparelho> aparelhos = FXCollections.observableArrayList();
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
-
-        //add infos ao choicebox de categoria
-        ObservableList<String> items = FXCollections.observableArrayList();
-
-        TableViewAparelhos.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 1) {
-                selecionarAparelho(event);
-            }
-        });
-
-        ChoiceBoxCategoria.setItems(items);
-
-        ChoiceBoxCategoria.setOnAction(event -> abrirCategoria());
-
-        TableColumnNome.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNome()));
-        TableColumnModelo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getModelo()));
-        TableColumnMarca.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMarca()));
-        TableColumnPotencia.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPotencia()));
-
-        List<Aparelho> aparelhosList = service.listar();
-        aparelhos.addAll(aparelhosList);
-        TableViewAparelhos.setItems(aparelhos);
-
-        Image Salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());
-        ImageView salvo = new ImageView(Salvar);
-        BtnSalvar.setGraphic(salvo);
-
-
-        Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
-        ImageView limpo = new ImageView(Limpar);
-        BtnLimpar.setGraphic(limpo);
-
-        Image Alterar = new Image(getClass().getResource("/org/example/apssemestre2/icons/setas-flechas.png").toExternalForm());
-        ImageView alterado = new ImageView(Alterar);
-        alterado.setFitWidth(16);
-        alterado.setFitHeight(16);
-        BtnAlterar.setGraphic(alterado);
-
-        Image Excluir = new Image(getClass().getResource("/org/example/apssemestre2/icons/excluir.png").toExternalForm());
-        ImageView excluido = new ImageView(Excluir);
-        BtnExcluir.setGraphic(excluido);
-    }
 
     private void selecionarAparelho(MouseEvent event) {
     }

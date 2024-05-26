@@ -46,7 +46,7 @@ public class CategoriaService extends BaseService<Categoria> {
     }
 
     @Override
-    public List<Categoria> listar() {
-        return new ArrayList<>();
+    public List<Categoria> listar(Categoria filtro) {
+        return repository.listar(filtro);
     }
 }

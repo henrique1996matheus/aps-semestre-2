@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.*;
+import org.example.apssemestre2.model.Aparelho;
 import org.example.apssemestre2.model.Categoria;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -27,7 +28,7 @@ public class CategoriasController implements Initializable {
     private Label LabelCategoria;
 
     @FXML
-    private TableColumn<Categoria,String> TableColumnCategorias;
+    private TableColumn<Categoria, String> TableColumnCategorias;
 
     @FXML
     private Button BtnLimpar;
@@ -46,13 +47,14 @@ public class CategoriasController implements Initializable {
 
     private CategoriaService service;
 
+    private ObservableList<Categoria> categorias = FXCollections.observableArrayList();
+
     public CategoriasController() {
         this.service = new CategoriaService();
     }
 
     @FXML
     void LimparDados(ActionEvent event) {
-
         TextFieldNome.setText("");
 
         Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
@@ -60,7 +62,7 @@ public class CategoriasController implements Initializable {
         BtnLimpar.setGraphic(limpo);
 
         BtnLimpar.setText("Limpar");
-        LabelCategoria.setText("Nova Categoria" );
+        LabelCategoria.setText("Nova Categoria");
 
         BtnAlterar.setVisible(true);
         BtnExcluir.setVisible(true);
@@ -76,6 +78,7 @@ public class CategoriasController implements Initializable {
 
         if (event.getClickCount() == 1) {
             Categoria CategoriaSelecionada = (Categoria) TableViewCategorias.getSelectionModel().getSelectedItem();
+
             if (CategoriaSelecionada != null) {
                 TextFieldNome.setText(CategoriaSelecionada.getNome());
             }
@@ -84,10 +87,9 @@ public class CategoriasController implements Initializable {
 
     @FXML
     void alterarCategoria(ActionEvent event) {
-
         BtnAlterar.setOpacity(0.25);
         BtnExcluir.setOpacity(0.25);
-        LabelCategoria.setText("Alterando Categoria" );
+        LabelCategoria.setText("Alterando Categoria");
 
         BtnLimpar.setText("Cancelar");
 
@@ -95,6 +97,7 @@ public class CategoriasController implements Initializable {
         ImageView cancelado = new ImageView(Cancelar);
         BtnLimpar.setGraphic(cancelado);
         Categoria categoriaSelecionada = TableViewCategorias.getSelectionModel().getSelectedItem();
+
         if (categoriaSelecionada != null) {
             String nome = TextFieldNome.getText();
 
@@ -125,12 +128,8 @@ public class CategoriasController implements Initializable {
         }
     }
 
-    private ObservableList<Categoria> categorias = FXCollections.observableArrayList();
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        TextFieldNome.setEditable(false);
-
         TableViewCategorias.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
                 selecionarCategoria(event);
@@ -138,8 +137,8 @@ public class CategoriasController implements Initializable {
         });
         TableColumnCategorias.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNome()));
 
-        List<Categoria> aparelhosList = service.listar();
-        categorias.addAll(aparelhosList);
+        List<Categoria> categoriaList = service.listar(new Categoria());
+        categorias.addAll(categoriaList);
         TableViewCategorias.setItems(categorias);
 
         Image Salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());

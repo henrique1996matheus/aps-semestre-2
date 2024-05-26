@@ -49,8 +49,7 @@ public class AparelhoService extends BaseService<Aparelho> {
     }
 
     @Override
-    public List<Aparelho> listar() {
-        var filtro = new Aparelho();
+    public List<Aparelho> listar(Aparelho filtro) {
 //        filtro.setIdCategoria(1);
         var lista = repository.listar(filtro);
 

@@ -88,7 +88,6 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
 
     @Override
     public List<Categoria> listar(Categoria filtroModel) {
-
         String sql = "SELECT * FROM " + TABELA;
 
         List<Categoria> categorias = new ArrayList<Categoria>();
@@ -113,6 +112,7 @@ public class CategoriaRepository extends BaseRepository<Categoria> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return categorias;
     }
 }

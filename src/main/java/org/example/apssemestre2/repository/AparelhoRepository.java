@@ -115,7 +115,6 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-
                 Aparelho aparelho = new Aparelho();
 
                 aparelho.setId(resultSet.getInt("id"));

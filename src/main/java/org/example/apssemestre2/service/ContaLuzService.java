@@ -31,7 +31,7 @@ public class ContaLuzService extends BaseService<ContaLuz> {
     }
 
     @Override
-    public List<ContaLuz> listar() {
+    public List<ContaLuz> listar(ContaLuz filtro) {
         return null;
     }
 }
