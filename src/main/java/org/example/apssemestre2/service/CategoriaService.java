@@ -31,6 +31,10 @@ public class CategoriaService extends BaseService<Categoria> {
 
     @Override
     public void cadastrar(Categoria model) throws Exception {
+        if (Objects.isNull(model) || Objects.isNull(model.getNome()) || model.getNome().isEmpty()) {
+            throw new Exception("Categoria precisa de um nome válido!");
+        }
+
         Categoria duplicado = buscar(model);
 
         if (Objects.nonNull(duplicado)) {

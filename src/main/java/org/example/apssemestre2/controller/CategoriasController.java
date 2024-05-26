@@ -63,6 +63,8 @@ public class CategoriasController implements Initializable {
     void LimparDados(ActionEvent event) {
         TextFieldNome.setText("");
 
+        categoriaAlterar = null;
+
         Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
         ImageView limpo = new ImageView(Limpar);
         BtnLimpar.setGraphic(limpo);
@@ -115,6 +117,7 @@ public class CategoriasController implements Initializable {
                 for (Categoria c : TableViewCategorias.getItems()) {
                     if (c.getId() == categoria.getId()) {
                         c.setNome(categoria.getNome());
+
                         TableViewCategorias.refresh();
                         break;
                     }

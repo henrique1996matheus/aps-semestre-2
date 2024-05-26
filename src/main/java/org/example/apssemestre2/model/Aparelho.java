@@ -7,16 +7,24 @@ public class Aparelho {
     private String modelo;
     private String marca;
     private String potencia;
+    private int usoMedio;
 
-    public Aparelho(String nome, String modelo, String marca, String potencia) {
+    public Aparelho(String nome, String modelo, String marca, String potencia, int idCategoria) {
         super();
+
         this.nome = nome;
         this.modelo = modelo;
         this.marca = marca;
         this.potencia = potencia;
+        this.idCategoria = idCategoria;
     }
 
     public Aparelho() {
+    }
+
+    public Aparelho(int id, String nome) {
+        this.id = id;
+        this.nome = nome;
     }
 
     public int getId() {
@@ -65,5 +73,13 @@ public class Aparelho {
 
     public void setPotencia(String potencia) {
         this.potencia = potencia;
+    }
+
+    public int getUsoMedio() {
+        return usoMedio;
+    }
+
+    public void setUsoMedio(int usoMedio) {
+        this.usoMedio = usoMedio;
     }
 }

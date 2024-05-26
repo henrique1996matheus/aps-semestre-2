@@ -19,12 +19,14 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
 
     @Override
     public Aparelho buscar(Aparelho filtro) {
-        return null;
+        var aparelhos = listar(filtro);
+
+        return aparelhos.isEmpty() ? null : aparelhos.get(0);
     }
 
     @Override
     public boolean cadastrar(Aparelho aparelho) {
-        String sql = "INSERT INTO " + TABELA + " (nome, modelo, marca, potencia) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO " + TABELA + " (nome, modelo, marca, potencia, id_categoria) VALUES (?,?,?,?,?)";
 
         PreparedStatement ps = null;
 
@@ -34,6 +36,7 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
             ps.setString(2, aparelho.getModelo());
             ps.setString(3, aparelho.getMarca());
             ps.setString(4, aparelho.getPotencia());
+            ps.setInt(5, aparelho.getIdCategoria());
 
             ps.execute();
             ps.close();
@@ -68,17 +71,19 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
 
     @Override
     public boolean atualizar(Aparelho aparelho) {
-        String sql = "UPDATE " + TABELA + " SET nome = ?, modelo = ?, marca = ?, potencia = ? WHERE id = ?";
+        String sql = "UPDATE " + TABELA + " SET id_categoria = ?, nome = ?, modelo = ?, marca = ?, potencia = ?, uso_medio = ? WHERE id = ?";
 
         PreparedStatement ps = null;
 
         try {
             ps = Conexao.getConexao().prepareStatement(sql);
-            ps.setString(1, aparelho.getNome());
-            ps.setString(2, aparelho.getModelo());
-            ps.setString(3, aparelho.getMarca());
-            ps.setString(4, aparelho.getPotencia());
-            ps.setInt(5, aparelho.getId());
+            ps.setInt(1, aparelho.getIdCategoria());
+            ps.setString(2, aparelho.getNome());
+            ps.setString(3, aparelho.getModelo());
+            ps.setString(4, aparelho.getMarca());
+            ps.setString(5, aparelho.getPotencia());
+            ps.setInt(6, aparelho.getUsoMedio());
+            ps.setInt(7, aparelho.getId());
 
             ps.execute();
             ps.close();
@@ -95,9 +100,22 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
     @Override
     public List<Aparelho> listar(Aparelho filtroModel) {
         String sql = "SELECT * FROM " + TABELA;
+        String sqlWhere = " WHERE ";
 
-        if (Objects.nonNull(filtroModel.getIdCategoria())) {
-            sql += " WHERE id_categoria = ? ";
+        List<Object> filtros = new ArrayList<>();
+
+        sqlWhere = montarWhere(sqlWhere, filtros, filtroModel.getNome(), "nome", "=");
+
+        if (Objects.nonNull(filtroModel.getIdCategoria()) && filtroModel.getIdCategoria() != 0) {
+            sqlWhere = montarWhere(sqlWhere, filtros, filtroModel.getIdCategoria(), "id_categoria", "=");
+        }
+
+        if (Objects.nonNull(filtroModel.getId()) && filtroModel.getId() != 0) {
+            sqlWhere = montarWhere(sqlWhere, filtros, filtroModel.getId(), "id", "!=");
+        }
+
+        if (!filtros.isEmpty()) {
+            sql += sqlWhere;
         }
 
         List<Aparelho> aparelhos = new ArrayList<>();
@@ -108,8 +126,8 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
         try {
             statement = Conexao.getConexao().prepareStatement(sql);
 
-            if (Objects.nonNull(filtroModel.getIdCategoria())) {
-                statement.setInt(1, filtroModel.getIdCategoria());
+            for (int i = 0; i < filtros.size(); i++) {
+                statement.setObject(i + 1, filtros.get(i));
             }
 
             resultSet = statement.executeQuery();

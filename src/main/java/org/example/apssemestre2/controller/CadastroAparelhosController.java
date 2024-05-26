@@ -3,10 +3,12 @@ package org.example.apssemestre2.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.*;
+import javafx.util.StringConverter;
 import org.example.apssemestre2.model.Aparelho;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -53,13 +55,13 @@ public class CadastroAparelhosController implements Initializable {
     private ChoiceBox<Categoria> ChoiceBoxCategoria;
 
     @FXML
+    private ChoiceBox<Categoria> ChoiceBoxFiltro;
+
+    @FXML
     private Button BtnLimpar;
 
     @FXML
     private Button BtnExcluir;
-
-    @FXML
-    private ChoiceBox<?> ChoiceBoxFiltro;
 
     @FXML
     private TextField TextFieldNome;
@@ -82,13 +84,17 @@ public class CadastroAparelhosController implements Initializable {
     @FXML
     private TableView<Aparelho> TableViewAparelhos;
 
-    private ObservableList<Aparelho> aparelhos = FXCollections.observableArrayList();
+    private final ObservableList<Aparelho> aparelhos = FXCollections.observableArrayList();
+
+    private final AparelhoService service;
+
+    private final CategoriaService categoriaService;
 
     private boolean novoCadastro = true;
 
-    private AparelhoService service;
+    private Aparelho aparelhoAlterar = null;
 
-    private CategoriaService categoriaService;
+    private Alert alert;
 
     public CadastroAparelhosController() {
         service = new AparelhoService();
@@ -106,23 +112,55 @@ public class CadastroAparelhosController implements Initializable {
             }
         });
 
+        // Choice Cadastro
         ChoiceBoxCategoria.getItems().addAll(categorias);
+        ChoiceBoxCategoria.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Categoria categoria) {
+                return categoria != null ? categoria.getNome() : "";
+            }
+
+            @Override
+            public Categoria fromString(String string) {
+                return null;
+            }
+        });
 
         ChoiceBoxCategoria.setOnAction(event -> abrirCategoria());
+
+        // Choice Filtro
+        ChoiceBoxFiltro.getItems().addAll(new Categoria(""));
+        ChoiceBoxFiltro.getItems().addAll(categorias);
+        ChoiceBoxFiltro.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Categoria categoria) {
+                return categoria != null ? categoria.getNome() : "";
+            }
+
+            @Override
+            public Categoria fromString(String string) {
+                return null;
+            }
+        });
+        ChoiceBoxFiltro.setOnAction(event -> {
+            Aparelho aparelho = new Aparelho();
+            Categoria categoria = ChoiceBoxFiltro.getValue();
+
+            aparelho.setIdCategoria(Objects.nonNull(categoria) ? categoria.getId() : 0);
+
+            filtrarAparelhos(aparelho);
+        });
 
         TableColumnNome.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNome()));
         TableColumnModelo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getModelo()));
         TableColumnMarca.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMarca()));
         TableColumnPotencia.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPotencia()));
 
-        List<Aparelho> aparelhosList = service.listar(new Aparelho());
-        aparelhos.addAll(aparelhosList);
-        TableViewAparelhos.setItems(aparelhos);
-
         Image Salvar = new Image(getClass().getResource("/org/example/apssemestre2/icons/salvar.png").toExternalForm());
         ImageView salvo = new ImageView(Salvar);
         BtnSalvar.setGraphic(salvo);
 
+        filtrarAparelhos(new Aparelho());
 
         Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
         ImageView limpo = new ImageView(Limpar);
@@ -139,19 +177,62 @@ public class CadastroAparelhosController implements Initializable {
         BtnExcluir.setGraphic(excluido);
     }
 
+    private void filtrarAparelhos(Aparelho aparelho) {
+        List<Aparelho> aparelhosList = service.listar(aparelho);
+
+        aparelhos.clear();
+        aparelhos.addAll(aparelhosList);
+
+        TableViewAparelhos.setItems(aparelhos);
+        TableViewAparelhos.refresh();
+    }
+
     @FXML
     void SalvarAparelho(ActionEvent event) {
         String nome = TextFieldNome.getText();
         String modelo = TextFieldModelo.getText();
         String marca = TextFieldMarca.getText();
         String potencia = TextFieldPotencia.getText();
+        Categoria categoria = ChoiceBoxCategoria.getValue();
 
-        Aparelho aparelho = new Aparelho(nome, modelo, marca, potencia);
+        int idCategoria = Objects.nonNull(categoria) ? categoria.getId() : 0;
 
-        service.cadastrar(aparelho);
-        aparelhos.add(aparelho);
+        Aparelho aparelho = new Aparelho(nome, modelo, marca, potencia, idCategoria);
 
-        LimparCampos(new ActionEvent());
+        if (Objects.nonNull(aparelhoAlterar)) {
+            aparelho.setId(aparelhoAlterar.getId());
+        }
+
+        try {
+            service.cadastrar(aparelho);
+
+            if (Objects.isNull(aparelhoAlterar)) {
+                aparelhos.add(aparelho);
+            } else {
+                for (Aparelho a : TableViewAparelhos.getItems()) {
+                    if (a.getId() == aparelho.getId()) {
+                        a.setIdCategoria(aparelho.getIdCategoria());
+                        a.setNome(aparelho.getNome());
+                        a.setModelo(aparelho.getModelo());
+                        a.setMarca(aparelho.getMarca());
+                        a.setPotencia(aparelho.getPotencia());
+                        a.setUsoMedio(aparelho.getUsoMedio());
+
+                        TableViewAparelhos.refresh();
+                        break;
+                    }
+                }
+
+                aparelhoAlterar = null;
+            }
+
+            LimparCampos(new ActionEvent());
+        } catch (Exception e) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro ao salvar o aparelho!");
+            alert.setHeaderText(e.getMessage());
+            alert.show();
+        }
     }
 
     @FXML
@@ -160,8 +241,11 @@ public class CadastroAparelhosController implements Initializable {
         TextFieldMarca.setText("");
         TextFieldModelo.setText("");
         TextFieldNome.setText("");
+        ChoiceBoxCategoria.setValue(null);
+
 
         if (!novoCadastro) {
+            aparelhoAlterar = null;
             novoCadastro = true;
 
             Image Limpar = new Image(getClass().getResource("/org/example/apssemestre2/icons/limpar-limpo.png").toExternalForm());
@@ -178,24 +262,47 @@ public class CadastroAparelhosController implements Initializable {
 
     @FXML
     void AlterarAparelho(ActionEvent event) {
-        novoCadastro = false;
+        Aparelho aparelhoSelecionado = TableViewAparelhos.getSelectionModel().getSelectedItem();
 
-        BtnAlterar.setDisable(true);
-        BtnExcluir.setDisable(true);
-        IdAparelho.setText("Alterando Aparelho");
+        if (Objects.nonNull(aparelhoSelecionado)) {
+            LimparCampos(new ActionEvent());
 
-        BtnLimpar.setText("Cancelar");
+            novoCadastro = false;
 
-        Image Cancelar = new Image(getClass().getResource("/org/example/apssemestre2/icons/cancelar.png").toExternalForm());
-        ImageView cancelado = new ImageView(Cancelar);
-        BtnLimpar.setGraphic(cancelado);
+            aparelhoAlterar = aparelhoSelecionado;
+
+            TextFieldNome.setText(aparelhoSelecionado.getNome());
+            TextFieldMarca.setText(aparelhoSelecionado.getMarca());
+            TextFieldPotencia.setText(aparelhoSelecionado.getPotencia());
+
+            for (Categoria categoria : ChoiceBoxCategoria.getItems()) {
+                if (categoria.getId() == aparelhoSelecionado.getIdCategoria()) {
+                    ChoiceBoxCategoria.setValue(categoria);
+                    break;
+                }
+            }
+
+            TextFieldModelo.setText(aparelhoSelecionado.getModelo());
+            TextFieldUsoMedio.setText(String.valueOf(aparelhoSelecionado.getUsoMedio()));
+
+            BtnAlterar.setDisable(true);
+            BtnExcluir.setDisable(true);
+
+            IdAparelho.setText("Alterando Aparelho");
+
+            BtnLimpar.setText("Cancelar");
+
+            Image Cancelar = new Image(getClass().getResource("/org/example/apssemestre2/icons/cancelar.png").toExternalForm());
+            ImageView cancelado = new ImageView(Cancelar);
+            BtnLimpar.setGraphic(cancelado);
+        }
     }
 
     @FXML
     void ExcluirAparelho(ActionEvent event) {
         Aparelho aparelho = TableViewAparelhos.getSelectionModel().getSelectedItem();
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmação de Exclusão");
         alert.setHeaderText("Tem certeza que deseja excluir esse aparelho?");
         alert.setContentText("Esta ação não poderá ser desfeita.");
@@ -211,11 +318,10 @@ public class CadastroAparelhosController implements Initializable {
         }
     }
 
-
     private void abrirCategoria() {
         Categoria selecCat = ChoiceBoxCategoria.getValue();
 
-        if (selecCat.equals("Nova Categoria...")) {
+        if (Objects.nonNull(selecCat) && selecCat.equals("Nova Categoria...")) {
             abrirJanelaCategoria();
         }
     }
@@ -234,7 +340,6 @@ public class CadastroAparelhosController implements Initializable {
             e.printStackTrace();
         }
     }
-
 
     private void selecionarAparelho(MouseEvent event) {
     }
