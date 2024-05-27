@@ -190,14 +190,20 @@ public class JanelaPrincipalController implements Initializable {
     }
 
     private void timerGrafico() {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.minutes(10), event -> {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(10), event -> {
 
-            GraficoDados dados = graficoService.inicial(LocalDate.MIN);
+            GraficoDados dados = graficoService.inicial(LocalDate.now());
 
             XYChart.Series<String, Number> serie1 = new XYChart.Series<>();
 
-            serie1.getData().addAll(new XYChart.Data<>(dados.getX(), dados.getY()));
+            // Iterando sobre os dados e adicionando ao gráfico
+            String[] dias = dados.getX();
+            String[] consumo = dados.getY();
+            for (int i = 0; i < dias.length; i++) {
+                serie1.getData().add(new XYChart.Data<>(dias[i], Integer.parseInt(consumo[i])));
+            }
 
+            // Limpando os dados antigos e adicionando a nova série
             GraficoBarra.getData().clear();
             GraficoBarra.getData().add(serie1);
             GraficoBarra.setLegendVisible(false);
