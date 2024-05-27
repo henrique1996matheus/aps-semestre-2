@@ -3,30 +3,30 @@ package org.example.apssemestre2.model;
 import java.util.List;
 
 public class GraficoDados {
-    private List<String> x;
-    private List<String> y;
+    private String[] x;
+    private String[] y;
 
     public GraficoDados() {
     }
     
-    public GraficoDados(List<String> x, List<String> y) {
+    public GraficoDados(String[] x, String[] y) {
         this.x = x;
         this.y = y;
     }
 
-    public List<String> getX() {
+    public String[] getX() {
         return x;
     }
 
-    public void setX(List<String> x) {
+    public void setX(String[] x) {
         this.x = x;
     }
 
-    public List<String> getY() {
+    public String[] getY() {
         return y;
     }
 
-    public void setY(List<String> y) {
+    public void setY(String[] y) {
         this.y = y;
     }
 }
