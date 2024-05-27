@@ -2,6 +2,7 @@ package org.example.apssemestre2.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import javafx.animation.KeyFrame;
@@ -24,6 +25,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.util.Duration;
+import org.example.apssemestre2.model.GraficoDados;
+import org.example.apssemestre2.service.GraficoService;
 
 public class JanelaPrincipalController implements Initializable {
 
@@ -89,6 +92,12 @@ public class JanelaPrincipalController implements Initializable {
 
     @FXML
     private CategoryAxis GraficoDias;
+
+    private final GraficoService graficoService;
+
+    public JanelaPrincipalController() {
+        graficoService = new GraficoService();
+    }
 
     @FXML
     void acessarListaAparelhos(ActionEvent event) {
@@ -183,16 +192,12 @@ public class JanelaPrincipalController implements Initializable {
     private void timerGrafico() {
         Timeline timeline = new Timeline(new KeyFrame(Duration.minutes(10), event -> {
 
-            // Exemplo de atualização de dados do gráfico
-            String[] dias = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"};
-            int[] consum = {2900, 2698, 2600, 2400, 2000, 3200, 3102, 2345, 2735, 2144, 2234};
+            GraficoDados dados = graficoService.inicial(LocalDate.MIN);
 
             XYChart.Series<String, Number> serie1 = new XYChart.Series<>();
-            for (int i = 0; i < dias.length; i++) {
-                // Simulando mudança nos dados
-                consum[i] += (int) (Math.random() * 100 - 50); // Alterar valores aleatoriamente
-                serie1.getData().add(new XYChart.Data<>(dias[i], consum[i]));
-            }
+
+            serie1.getData().addAll(new XYChart.Data<>(dados.getX(), dados.getY()));
+
             GraficoBarra.getData().clear();
             GraficoBarra.getData().add(serie1);
             GraficoBarra.setLegendVisible(false);

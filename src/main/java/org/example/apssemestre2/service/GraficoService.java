@@ -15,9 +15,11 @@ public class GraficoService {
     }
 
     public GraficoDados inicial(LocalDate dataAtual) {
-        var a = consumoRepository.listarPorData(dataAtual);
+        // Exemplo de atualização de dados do gráfico
+        String[] dias = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"};
+        String[] consumo = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"};
 
-        return new GraficoDados();
+        return new GraficoDados(dias, consumo);
     }
 
     public GraficoDados dias(LocalDate diaInicialFiltro, LocalDate diaFinalFiltro){
