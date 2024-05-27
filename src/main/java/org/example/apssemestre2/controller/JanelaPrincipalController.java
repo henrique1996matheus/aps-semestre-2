@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -129,10 +130,7 @@ public class JanelaPrincipalController implements Initializable {
         }
     }
 
-    @FXML
-    void acessarMetas(ActionEvent event) {
-
-    }
+  
 
     @FXML
     void acessarAnaliseCategoria(ActionEvent event) {
@@ -174,10 +172,7 @@ public class JanelaPrincipalController implements Initializable {
         }
     }
 
-    @FXML
-    void acessarSistema(ActionEvent event) {
 
-    }
 
     public void abrirTelas(String tela, String NomeTela) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/org/example/apssemestre2/view/" + tela + ".fxml"));
@@ -189,8 +184,59 @@ public class JanelaPrincipalController implements Initializable {
         stage.show();
     }
 
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+
+        configurarGrafico();
+
+        timerGrafico();
+        //aparelhos
+
+        /*Image é uma classe que serve para carregar e armazenar imagens,enquanto ImageView serve para renderizar uma imagem carregada pela
+         * classe Image.
+         * */
+        Image aparel = new Image(getClass().getResourceAsStream("/org/example/apssemestre2/icons/aparelhos.png"));
+        ImageView aparelh = new ImageView(aparel);
+        MenuAparelhos.setGraphic(aparelh);
+
+        //monitoramento
+        Image monitoramento = new Image(getClass().getResourceAsStream("/org/example/apssemestre2/icons/monitoramento (1).png"));
+        ImageView monitor = new ImageView(monitoramento);
+        MenuMonitoramento.setGraphic(monitor);
+
+        //Consumo detalhado
+        Image consumo = new Image(getClass().getResourceAsStream("/org/example/apssemestre2/icons/consumo_detalhado.png"));
+        ImageView detalhado = new ImageView(consumo);
+        MenuConsumoDetalhado.setGraphic(detalhado);
+
+
+
+        //metodo para bandeira
+
+
+        //Grafico de Barras
+
+
+
+        //Preenchimento Campo de Texto
+        TextFieldAnt.setText("R$ 142,90");
+        TextFieldAnt.setEditable(false);
+        TextFieldAnt.setAlignment(Pos.CENTER);
+
+        TextFieldFat.setText("30/07");
+        TextFieldFat.setEditable(false);
+        TextFieldFat.setAlignment(Pos.CENTER);
+
+        TextFieldBandeira.setEditable(false);
+        TextFieldBandeira.setStyle("-fx-background-color: rgb(50,205,50);");
+
+
+    }
     private void timerGrafico() {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(10), event -> {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.minutes(5), event -> {
 
             GraficoDados dados = graficoService.inicial(LocalDate.now());
 
@@ -213,51 +259,22 @@ public class JanelaPrincipalController implements Initializable {
         timeline.play();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    private void configurarGrafico() {
+        GraficoDados dados = graficoService.inicial(LocalDate.now());
 
-        timerGrafico();
-        //aparelhos
+        XYChart.Series<String, Number> serie1 = new XYChart.Series<>();
 
-        /*Image é uma classe que serve para carregar e armazenar imagens,enquanto ImageView serve para renderizar uma imagem carregada pela
-         * classe Image.
-         * */
-        Image aparel = new Image(getClass().getResourceAsStream("/org/example/apssemestre2/icons/aparelhos.png"));
-        ImageView aparelh = new ImageView(aparel);
-        MenuAparelhos.setGraphic(aparelh);
+        // Itera sobre os dados e adiciona ao gráfico
+        String[] dias = dados.getX();
+        String[] consumo = dados.getY();
+        for (int i = 0; i < dias.length; i++) {
+            serie1.getData().add(new XYChart.Data<>(dias[i], Integer.parseInt(consumo[i])));
+        }
 
-        //monitoramento
-        Image monitoramento = new Image(getClass().getResourceAsStream("/org/example/apssemestre2/icons/monitoramento (1).png"));
-        ImageView monitor = new ImageView(monitoramento);
-        MenuMonitoramento.setGraphic(monitor);
-
-        //Consumo detalhado
-        Image consumo = new Image(getClass().getResourceAsStream("/org/example/apssemestre2/icons/consumo_detalhado.png"));
-        ImageView detalhado = new ImageView(consumo);
-        MenuConsumoDetalhado.setGraphic(detalhado);
-
-        //sobre
-        Image sobre = new Image(getClass().getResourceAsStream("/org/example/apssemestre2/icons/sobre.png"));
-        ImageView sobre_1 = new ImageView(sobre);
-        MenuSobre.setGraphic(sobre_1);
-
-        //metodo para bandeira
-
-
-        //Grafico de Barras
-
-
-
-        //Preenchimento Campo de Texto
-        TextFieldAnt.setText("R$ 142,90");
-        TextFieldAnt.setEditable(false);
-        TextFieldAnt.setAlignment(Pos.CENTER);
-
-        TextFieldFat.setText("30/07");
-        TextFieldFat.setEditable(false);
-        TextFieldFat.setAlignment(Pos.CENTER);
-
-        TextFieldBandeira.setEditable(false);
-        TextFieldBandeira.setStyle("-fx-background-color: rgb(50,205,50);");
+        // Limpa os dados antigos e adiciona a nova série
+        GraficoBarra.getData().clear();
+        GraficoBarra.getData().add(serie1);
+        GraficoBarra.setLegendVisible(false);
     }
+
 }

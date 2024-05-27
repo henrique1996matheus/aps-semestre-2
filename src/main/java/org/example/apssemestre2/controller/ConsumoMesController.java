@@ -9,11 +9,14 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+import org.example.apssemestre2.model.GraficoDados;
+import org.example.apssemestre2.service.GraficoService;
 
 public class ConsumoMesController implements Initializable {
 
@@ -27,7 +30,13 @@ public class ConsumoMesController implements Initializable {
     private AnchorPane DatePickerFiltro;
 
     @FXML
-    private LineChart<?, ?> LineChartUsoMes;
+    private LineChart<String, Number> LineChartUsoMes;
+
+    private final GraficoService graficoService;
+
+    public ConsumoMesController() {
+        graficoService = new GraficoService();
+    }
 
     private void FiltragemMes(DatePicker datePicker) {
         // Define o formato de exibição para mês/ano
@@ -89,6 +98,20 @@ public class ConsumoMesController implements Initializable {
 
         // Lógica para atualizar o gráfico com base nas datas selecionadas
 
+        GraficoDados dados = graficoService.dias(LocalDate.now(), LocalDate.now());
+
+        XYChart.Series<String, Number> serie1 = new XYChart.Series<>();
+
+        // Iterando sobre os dados e adicionando ao gráfico
+        String[] dias = dados.getX();
+        String[] consumo = dados.getY();
+        for (int i = 0; i < dias.length; i++) {
+            serie1.getData().add(new XYChart.Data<>(dias[i], Integer.parseInt(consumo[i])));
+        }
+
+        // Limpando os dados antigos e adicionando a nova série
+        LineChartUsoMes.getData().clear();
+        LineChartUsoMes.getData().add(serie1);
 
     }
     private void configDatePicker(DatePicker datePicker) {
