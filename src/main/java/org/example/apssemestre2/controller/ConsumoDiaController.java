@@ -54,28 +54,37 @@ public class ConsumoDiaController implements Initializable  {
 	    }
 
 	private void updateChart() {
+
 		LocalDate startDate = DatePickerInicio.getValue();
 		LocalDate endDate = DatePcikerFim.getValue();
 
+		// Verificar se endDate é nulo
+		if (endDate == null) {
+			// Se endDate for nulo, não fazer nada e retornar
+			return;
+		}
+
 		// Lógica para atualizar o gráfico com base nas datas selecionadas
+		GraficoDados dados = graficoService.dias(startDate, endDate);
 
-		GraficoDados dados = graficoService.dias(LocalDate.now(), LocalDate.now());
+		// Limpar todas as séries existentes
+		LineChartUsoDia.getData().clear();
 
-		XYChart.Series<String, Number> serie1 = new XYChart.Series<>();
+		// Criar uma nova série
+		XYChart.Series<String, Number> series = new XYChart.Series<>();
 
-		// Iterando sobre os dados e adicionando ao gráfico
+
+		LineChartUsoDia.setLegendVisible(false);
+
+		// Iterar sobre os dados e adicionar ao gráfico
 		String[] dias = dados.getX();
 		String[] consumo = dados.getY();
 		for (int i = 0; i < dias.length; i++) {
-			serie1.getData().add(new XYChart.Data<>(dias[i], Integer.parseInt(consumo[i])));
+			series.getData().add(new XYChart.Data<>(dias[i], Integer.parseInt(consumo[i])));
 		}
 
-		// Limpando os dados antigos e adicionando a nova série
-		LineChartUsoDia.getData().clear();
-		LineChartUsoDia.getData().add(serie1);
-
-
-
+		// Adicionar a nova série ao gráfico
+		LineChartUsoDia.getData().add(series);
 	}
 
 

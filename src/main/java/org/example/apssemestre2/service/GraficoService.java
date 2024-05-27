@@ -25,18 +25,28 @@ public class GraficoService {
     public GraficoDados dias(LocalDate diaInicialFiltro, LocalDate diaFinalFiltro){
         var b = consumoRepository.listarPorData(diaInicialFiltro);
 
-        return new GraficoDados();
+        // Exemplo de atualização de dados do gráfico
+        String[] dias = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"};
+        String[] consumo = {"34534", "22345", "323455", "2344", "5643", "23426", "5347", "6458", "2349", "632410", "12341"};
+        return new GraficoDados(dias,consumo);
     }
 
     public GraficoDados mes(LocalDate mesInicialFiltro, LocalDate mesFinalFiltro){
         var b = consumoRepository.listarPorData(mesInicialFiltro);
 
-        return new GraficoDados();
+        // Exemplo de atualização de dados do gráfico
+        String[] meses = {"jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov"};
+        String[] consumo = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"};
+        return new GraficoDados(meses,consumo);
     }
 
     public GraficoDados categorias(List<Categoria> cat){
 
-        return new GraficoDados();
+
+        // Exemplo de atualização de dados do gráfico
+        String[] cats = {"sala", "cozinha", "quarto", "escritorio"};
+        String[] consumo = {"123121", "24234", "3123", "2344","3123"};
+        return new GraficoDados(cats,consumo);
     }
 
 
