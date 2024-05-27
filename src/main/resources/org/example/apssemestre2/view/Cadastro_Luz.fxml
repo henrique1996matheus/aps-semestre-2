@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.apssemestre2.controller.CadastroLuzController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.apssemestre2.controller.CadastroLuzController">
    <children>
       <HBox alignment="CENTER" layoutX="184.0" layoutY="14.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #6495ED;" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -24,13 +25,13 @@
                   <Label layoutX="201.0" layoutY="18.0" text="Bandeira :" />
                   <TextField fx:id="textFieldValor" layoutX="59.0" layoutY="14.0" prefHeight="25.0" prefWidth="69.0" />
                   <DatePicker fx:id="datePickerVencimento" layoutX="94.0" layoutY="53.0" prefHeight="25.0" prefWidth="69.0" />
-                  <TextField fx:id="textFieldBandeira" layoutX="264.0" layoutY="14.0" prefHeight="25.0" prefWidth="69.0" />
                   <DatePicker fx:id="datePickerReferencia" layoutX="317.0" layoutY="53.0" prefHeight="25.0" prefWidth="69.0" />
                   <Label layoutX="201.0" layoutY="57.0" text="Mês de Referência :" />
                   <Label layoutX="372.0" layoutY="18.0" text="Consumo :" />
                   <TextField fx:id="textFieldConsumo" layoutX="442.0" layoutY="14.0" prefHeight="25.0" prefWidth="97.0" />
                   <Button fx:id="btnSalvar" layoutX="198.0" layoutY="89.0" mnemonicParsing="false" onAction="#salvar" prefWidth="68.0" text="Salvar" />
                   <Button fx:id="btnLimpar" layoutX="274.0" layoutY="89.0" mnemonicParsing="false" onAction="#limpar" prefHeight="25.0" prefWidth="82.0" text="Limpar" />
+                  <TextField fx:id="textFieldBandeira" layoutX="263.0" layoutY="14.0" prefHeight="25.0" prefWidth="82.0" />
                </children>
             </Pane>
          </children>
