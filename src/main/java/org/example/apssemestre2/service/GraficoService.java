@@ -6,6 +6,7 @@ import org.example.apssemestre2.repository.ConsumoRepository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GraficoService {
     private ConsumoRepository consumoRepository;
@@ -41,14 +42,20 @@ public class GraficoService {
     }
 
     public GraficoDados categorias(List<Categoria> cat){
+        // Obter os nomes das categorias
+        String[] nomesCategorias = cat.stream()
+                .map(Categoria::getNome)
+                .toArray(String[]::new);
 
+        // Exemplo fictício de consumo para cada categoria
+        String[][] consumosCategorias = new String[nomesCategorias.length][12]; // 12 meses de consumo fictício, por exemplo
+        for (int i = 0; i < nomesCategorias.length; i++) {
+            for (int j = 0; j < 12; j++) {
+                consumosCategorias[i][j] = String.valueOf((i + 1) * (j + 1) * 100); // Valores fictícios de consumo
+            }
+        }
 
-        // Exemplo de atualização de dados do gráfico
-        String[] cats = {"sala", "cozinha", "quarto", "escritorio"};
-        String[] consumo = {"123121", "24234", "3123", "2344","3123"};
-        return new GraficoDados(cats,consumo);
+        return new GraficoDados(nomesCategorias, new String[nomesCategorias.length], consumosCategorias);
     }
-
-
 
 }

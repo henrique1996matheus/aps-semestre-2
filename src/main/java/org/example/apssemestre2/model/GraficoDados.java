@@ -5,6 +5,7 @@ import java.util.List;
 public class GraficoDados {
     private String[] x;
     private String[] y;
+    private String[][] consumosCategorias;
 
     public GraficoDados() {
     }
@@ -12,6 +13,12 @@ public class GraficoDados {
     public GraficoDados(String[] x, String[] y) {
         this.x = x;
         this.y = y;
+    }
+
+    public GraficoDados(String[] x, String[] y, String[][] consumosCategorias) {
+        this.x = x;
+        this.y = y;
+        this.consumosCategorias = consumosCategorias;
     }
 
     public String[] getX() {
@@ -28,5 +35,13 @@ public class GraficoDados {
 
     public void setY(String[] y) {
         this.y = y;
+    }
+
+    public String[][] getConsumosCategorias() {
+        return consumosCategorias;
+    }
+
+    public void setConsumosCategorias(String[][] consumosCategorias) {
+        this.consumosCategorias = consumosCategorias;
     }
 }

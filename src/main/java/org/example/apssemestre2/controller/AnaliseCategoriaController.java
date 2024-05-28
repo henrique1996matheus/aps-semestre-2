@@ -10,12 +10,15 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.CheckComboBox;
+import org.example.apssemestre2.model.Categoria;
 import org.example.apssemestre2.model.GraficoDados;
 import org.example.apssemestre2.service.GraficoService;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class AnaliseCategoriaController implements Initializable {
 
@@ -44,7 +47,8 @@ public class AnaliseCategoriaController implements Initializable {
         CheckComboBoxCategorias.setPrefHeight(25);
 
         CheckComboBoxCategorias.getCheckModel().getCheckedItems().addListener((ListChangeListener<String>) change -> {
-            // Atualizando o gráfico toda vez que um item é selecionado ou desselecionado
+
+
             updateChart(CheckComboBoxCategorias.getCheckModel().getCheckedItems());
         });
     }
@@ -53,17 +57,29 @@ public class AnaliseCategoriaController implements Initializable {
         // Limpar os dados antigos
         LineChartAnalise.getData().clear();
 
-        // Adicionar uma série para cada categoria selecionada
-        for (String categoria : selectedCategories) {
-            GraficoDados dados = graficoService.inicial(LocalDate.now());
-            XYChart.Series<String, Number> series = new XYChart.Series<>();
-            series.setName(categoria);
+        if (selectedCategories.isEmpty()) {
+            return;
+        }
 
-            // Iterando sobre os dados e adicionando ao gráfico
-            String[] dias = dados.getX();
-            String[] consumo = dados.getY();
-            for (int i = 0; i < dias.length; i++) {
-                series.getData().add(new XYChart.Data<>(dias[i], Integer.parseInt(consumo[i])));
+        // Obter os dados das categorias selecionadas
+        List<Categoria> categoriasSelecionadas = selectedCategories.stream()
+                .map(nome -> new Categoria(nome))
+                .collect(Collectors.toList());
+
+        GraficoDados dados = graficoService.categorias(categoriasSelecionadas);
+
+        // Obter as categorias e seus consumos
+        String[] categorias = dados.getX();
+        String[][] consumos = dados.getConsumosCategorias();
+
+        // Iterar sobre as categorias selecionadas
+        for (int i = 0; i < categorias.length; i++) {
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.setName(categorias[i]);
+
+            // Adicionar pontos de dados para cada categoria
+            for (int j = 0; j < consumos[i].length; j++) {
+                series.getData().add(new XYChart.Data<>(String.valueOf(j + 1), Integer.parseInt(consumos[i][j])));
             }
 
             // Adicionar a nova série ao gráfico
