@@ -84,6 +84,7 @@ public class ContaLuzService extends BaseService<ContaLuz> {
         var fatura = new ContaLuz();
         fatura.setValor(142.30f);
         fatura.setBandeira("A");
+        fatura.setVencimento(LocalDate.now());
 
         return fatura;
     }
