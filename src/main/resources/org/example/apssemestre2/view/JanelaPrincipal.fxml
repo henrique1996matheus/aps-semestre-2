@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.chart.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="750.0" style="-fx-background-color: #FFD700;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.apssemestre2.controller.JanelaPrincipalController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="750.0" style="-fx-background-color: #FFD700;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.apssemestre2.controller.JanelaPrincipalController">
    <children>
       <HBox alignment="CENTER" layoutX="6.0" prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: #6495ED;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -57,7 +55,7 @@
                   <Font size="14.0" />
                </font></Label>
             <TextField fx:id="TextFieldFat" alignment="CENTER" layoutX="598.0" layoutY="196.0" prefHeight="25.0" prefWidth="79.0" />
-            <Label fx:id="LabelTitulo" layoutX="175.0" layoutY="22.0" prefHeight="39.0" prefWidth="344.0" text="Consumo Parcial">
+            <Label fx:id="LabelTitulo" layoutX="175.0" layoutY="22.0" prefHeight="39.0" prefWidth="344.0" text="Consumo do Mês Atual">
                <font>
                   <Font size="32.0" />
                </font>
