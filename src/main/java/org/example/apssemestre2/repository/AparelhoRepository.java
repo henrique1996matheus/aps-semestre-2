@@ -146,6 +146,7 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
                 aparelho.setModelo(resultSet.getString("modelo"));
                 aparelho.setMarca(resultSet.getString("marca"));
                 aparelho.setPotencia(resultSet.getString("potencia"));
+                aparelho.setUsoMedio(resultSet.getInt("uso_medio"));
 
                 aparelhos.add(aparelho);
             }

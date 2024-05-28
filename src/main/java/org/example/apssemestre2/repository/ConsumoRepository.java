@@ -152,7 +152,7 @@ public class ConsumoRepository extends BaseRepository<Consumo> {
     }
 
     public List<Consumo> listarPorData(LocalDate dataAtual) {
-        String sql = " select c.id_aparelho, data, c.gasto_hora " +
+        String sql = " select * " +
                 " from " + TABELA + " c " +
                 " where " +
                 " year(data) = ? " +
@@ -184,6 +184,6 @@ public class ConsumoRepository extends BaseRepository<Consumo> {
             e.printStackTrace();
         }
 
-        return null;
+        return consumos;
     }
 }
