@@ -268,7 +268,7 @@ public class JanelaPrincipalController implements Initializable {
         String[] dias = dados.getX();
         String[] consumo = dados.getY();
         for (int i = 0; i < dias.length; i++) {
-            serie1.getData().add(new XYChart.Data<>(dias[i], Integer.parseInt(consumo[i])));
+            serie1.getData().add(new XYChart.Data<>(dias[i], Float.parseFloat(consumo[i])));
         }
 
         // Limpa os dados antigos e adiciona a nova série
