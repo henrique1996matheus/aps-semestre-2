@@ -15,9 +15,8 @@ public class GraficoDados {
         this.y = y;
     }
 
-    public GraficoDados(String[] x, String[] y, String[][] consumosCategorias) {
+    public GraficoDados(String[] x, String[][] consumosCategorias) {
         this.x = x;
-        this.y = y;
         this.consumosCategorias = consumosCategorias;
     }
 

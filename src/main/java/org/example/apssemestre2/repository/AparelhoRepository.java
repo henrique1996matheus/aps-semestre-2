@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.example.apssemestre2.model.Aparelho;
+import org.example.apssemestre2.model.Categoria;
 
 public class AparelhoRepository extends BaseRepository<Aparelho> {
     private final String TABELA = "aparelho";
@@ -140,13 +141,7 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
             while (resultSet.next()) {
                 Aparelho aparelho = new Aparelho();
 
-                aparelho.setId(resultSet.getInt("id"));
-                aparelho.setIdCategoria(resultSet.getInt("id_categoria"));
-                aparelho.setNome(resultSet.getString("nome"));
-                aparelho.setModelo(resultSet.getString("modelo"));
-                aparelho.setMarca(resultSet.getString("marca"));
-                aparelho.setPotencia(resultSet.getString("potencia"));
-                aparelho.setUsoMedio(resultSet.getInt("uso_medio"));
+                preencherAparelho(aparelho, resultSet);
 
                 aparelhos.add(aparelho);
             }
@@ -156,5 +151,58 @@ public class AparelhoRepository extends BaseRepository<Aparelho> {
         }
 
         return aparelhos;
+    }
+
+    public List<Aparelho> listarPorCategorias(List<Categoria> categorias) {
+        String sqlIn = montarInCategorias(categorias);
+
+        String sql = "SELECT * FROM " + TABELA +
+                " WHERE id_categoria in (" + sqlIn + ");";
+
+        List<Aparelho> aparelhos = new ArrayList<>();
+
+        try (PreparedStatement statement = Conexao.getConexao().prepareStatement(sql)) {
+            for (int i = 0; i < categorias.size(); i++) {
+                statement.setObject(i + 1, categorias.get(i).getId());
+            }
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Aparelho aparelho = new Aparelho();
+
+                preencherAparelho(aparelho, resultSet);
+
+                aparelhos.add(aparelho);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return aparelhos;
+    }
+
+    private void preencherAparelho(Aparelho aparelho, ResultSet resultSet) throws SQLException {
+        aparelho.setId(resultSet.getInt("id"));
+        aparelho.setIdCategoria(resultSet.getInt("id_categoria"));
+        aparelho.setNome(resultSet.getString("nome"));
+        aparelho.setModelo(resultSet.getString("modelo"));
+        aparelho.setMarca(resultSet.getString("marca"));
+        aparelho.setPotencia(resultSet.getString("potencia"));
+        aparelho.setUsoMedio(resultSet.getInt("uso_medio"));
+    }
+
+    private String montarInCategorias(List<Categoria> categorias) {
+        String sql = "";
+
+        for (int i = 0; i < categorias.size(); i++) {
+            sql += "?";
+
+            if (i + 1 < categorias.size()) {
+                sql += ",";
+            }
+        }
+
+        return sql;
     }
 }

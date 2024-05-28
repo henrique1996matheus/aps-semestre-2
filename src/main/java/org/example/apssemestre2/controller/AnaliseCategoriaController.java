@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.CheckComboBox;
 import org.example.apssemestre2.model.Categoria;
 import org.example.apssemestre2.model.GraficoDados;
+import org.example.apssemestre2.service.CategoriaService;
 import org.example.apssemestre2.service.GraficoService;
 
 import java.net.URL;
@@ -28,14 +29,18 @@ public class AnaliseCategoriaController implements Initializable {
     @FXML
     private AnchorPane AnchorPaneCentral;
 
+    private final CategoriaService categoriaService;
     private final GraficoService graficoService;
 
     public AnaliseCategoriaController() {
+        categoriaService = new CategoriaService();
         graficoService = new GraficoService();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        List<Categoria> categorias = categoriaService.listar(new Categoria());
+
         ObservableList<String> items = FXCollections.observableArrayList("Sala", "Cozinha", "Quarto 1", "Escritorio", "Quarto 2");
         CheckComboBox<String> CheckComboBoxCategorias = new CheckComboBox<>(items);
         VBox Categorias = new VBox();
@@ -66,7 +71,8 @@ public class AnaliseCategoriaController implements Initializable {
                 .map(nome -> new Categoria(nome))
                 .collect(Collectors.toList());
 
-        GraficoDados dados = graficoService.categorias(categoriasSelecionadas);
+        // todo alterar o anoFiltro fixo
+        GraficoDados dados = graficoService.categorias(categoriasSelecionadas, 2024);
 
         // Obter as categorias e seus consumos
         String[] categorias = dados.getX();
@@ -79,7 +85,7 @@ public class AnaliseCategoriaController implements Initializable {
 
             // Adicionar pontos de dados para cada categoria
             for (int j = 0; j < consumos[i].length; j++) {
-                series.getData().add(new XYChart.Data<>(String.valueOf(j + 1), Integer.parseInt(consumos[i][j])));
+                series.getData().add(new XYChart.Data<>(String.valueOf(j + 1), Float.parseFloat(consumos[i][j])));
             }
 
             // Adicionar a nova série ao gráfico

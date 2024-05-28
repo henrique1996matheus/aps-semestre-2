@@ -1,5 +1,6 @@
 package org.example.apssemestre2.repository;
 
+import org.example.apssemestre2.model.Categoria;
 import org.example.apssemestre2.model.Consumo;
 
 import java.sql.PreparedStatement;
@@ -151,7 +152,7 @@ public class ConsumoRepository extends BaseRepository<Consumo> {
         aparelho.setGastoHora(resultSet.getInt("gasto_hora"));
     }
 
-    public List<Consumo> listarPorData(LocalDate dataAtual) {
+    public List<Consumo> listarPorData(LocalDate data) {
         String sql = " select * " +
                 " from " + TABELA + " c " +
                 " where " +
@@ -167,8 +168,8 @@ public class ConsumoRepository extends BaseRepository<Consumo> {
         try {
             statement = Conexao.getConexao().prepareStatement(sql);
 
-            statement.setObject(1, dataAtual.getYear());
-            statement.setObject(2, dataAtual.getMonth().ordinal() + 1);
+            statement.setObject(1, data.getYear());
+            statement.setObject(2, data.getMonth().ordinal() + 1);
 
             resultSet = statement.executeQuery();
 
@@ -185,5 +186,83 @@ public class ConsumoRepository extends BaseRepository<Consumo> {
         }
 
         return consumos;
+    }
+
+    public List<Consumo> listarPorData(LocalDate dataInicial, LocalDate dataFinal) {
+        String sql = "select * " +
+                " from consumo c " +
+                " where data between ? and ? " +
+                " order by id_aparelho, data; ";
+
+        List<Consumo> consumos = new ArrayList<>();
+
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = Conexao.getConexao().prepareStatement(sql);
+
+            statement.setObject(1, dataInicial);
+            statement.setObject(2, dataFinal);
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Consumo aparelho = new Consumo();
+
+                preencherModel(aparelho, resultSet);
+
+                consumos.add(aparelho);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return consumos;
+    }
+
+    public List<Consumo> listarPorCategorias(Categoria categoria, int ano) {
+        String sql = "select c.* " +
+                "from " + TABELA + " c " +
+                "join aparelho a " +
+                "on c.id_aparelho = a.id " +
+                "where a.id_categoria = ? and year(data) = ? " +
+                "order by id_aparelho, data;";
+
+        List<Consumo> consumos = new ArrayList<>();
+
+        try (PreparedStatement statement = Conexao.getConexao().prepareStatement(sql)) {
+            statement.setObject(1, categoria.getId());
+            statement.setObject(2, ano);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Consumo aparelho = new Consumo();
+
+                preencherModel(aparelho, resultSet);
+
+                consumos.add(aparelho);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return consumos;
+    }
+
+    private String montarInCategorias(List<Categoria> categorias) {
+        String sql = "";
+
+        for (int i = 0; i < categorias.size(); i++) {
+            sql += "?";
+
+            if (i + 1 < categorias.size()) {
+                sql += ",";
+            }
+        }
+
+        return sql;
     }
 }

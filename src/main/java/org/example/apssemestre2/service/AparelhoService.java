@@ -29,6 +29,20 @@ public class AparelhoService extends BaseService<Aparelho> {
             throw new Exception("Aparelho precisa de um nome válido!");
         }
 
+        if (Objects.isNull(model.getPotencia())) {
+            throw new Exception("Aparelho precisa de uma potência!");
+        }
+
+        if (Objects.isNull(model.getIdCategoria()) || model.getIdCategoria() <= 0) {
+            throw new Exception("Aparelho precisa de uma categoria!");
+        }
+
+        try {
+            Float.parseFloat(model.getPotencia());
+        } catch (Exception e) {
+            throw new Exception("Aparelho precisa de uma potência válida!");
+        }
+
         Aparelho duplicado = buscar(new Aparelho(model.getId(), model.getNome()));
 
         if (Objects.nonNull(duplicado)) {

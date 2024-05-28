@@ -2,14 +2,18 @@ package org.example.apssemestre2.service;
 
 import org.example.apssemestre2.model.Aparelho;
 import org.example.apssemestre2.model.Categoria;
+import org.example.apssemestre2.model.Consumo;
 import org.example.apssemestre2.model.GraficoDados;
 import org.example.apssemestre2.repository.AparelhoRepository;
 import org.example.apssemestre2.repository.ConsumoRepository;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class GraficoService {
     private final ConsumoRepository consumoRepository;
@@ -20,8 +24,6 @@ public class GraficoService {
         aparelhoRepository = new AparelhoRepository();
     }
 
-    // CONSUMO (kWh) = potência (W) x horas de uso por dia (h) x dias de uso no mês / 1000.
-
     public GraficoDados inicial(LocalDate dataFiltro) {
         var consumos = consumoRepository.listarPorData(dataFiltro);
         var aparelhos = aparelhoRepository.listar(new Aparelho());
@@ -31,8 +33,148 @@ public class GraficoService {
         List<LocalDate> todosDias = new ArrayList<>();
         List<Float> valores = new ArrayList<>();
 
-        preencherDiasEValores(dataFiltro, dataInicial, valores, todosDias);
+        gerarDiasEValores(dataFiltro, dataInicial, valores, todosDias);
+        preencherValores(todosDias, aparelhos, consumos, valores);
 
+        return gerarGraficoDadosPorDia(todosDias, valores);
+    }
+
+    public GraficoDados dias(LocalDate dataInicial, LocalDate dataFinal) {
+        var consumos = consumoRepository.listarPorData(dataInicial, dataFinal);
+        var aparelhos = aparelhoRepository.listar(new Aparelho());
+
+        long diasDiferenca = ChronoUnit.DAYS.between(dataInicial, dataFinal);
+
+        if (diasDiferenca < 0 || diasDiferenca > 400) {
+            return new GraficoDados(new String[0], new String[0]);
+        }
+
+        List<LocalDate> todosDias = new ArrayList<>();
+        List<Float> valores = new ArrayList<>();
+
+        gerarDiasEValores(dataFinal, dataInicial, valores, todosDias);
+        preencherValores(todosDias, aparelhos, consumos, valores);
+
+        return gerarGraficoDadosPorDia(todosDias, valores);
+    }
+
+    public GraficoDados mes(LocalDate mesInicialFiltro, LocalDate mesFinalFiltro) {
+        var dataInicial = mesInicialFiltro.withDayOfMonth(1);
+        var dataFinal = mesFinalFiltro.with(TemporalAdjusters.lastDayOfMonth());
+
+        long diasDiferenca = ChronoUnit.DAYS.between(dataInicial, dataFinal);
+
+        if (diasDiferenca < 0 || diasDiferenca > 400) {
+            return new GraficoDados(new String[0], new String[0]);
+        }
+
+        var consumos = consumoRepository.listarPorData(dataInicial, dataFinal);
+        var aparelhos = aparelhoRepository.listar(new Aparelho());
+
+        List<LocalDate> todosDias = new ArrayList<>();
+        List<Float> valoresDias = new ArrayList<>();
+
+        gerarDiasEValores(dataFinal, dataInicial, valoresDias, todosDias);
+        preencherValores(todosDias, aparelhos, consumos, valoresDias);
+
+        List<String> todosMeses = new ArrayList<>();
+        List<Float> valoresMeses = new ArrayList<>();
+
+        DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("MM/yy");
+
+        calcularPorMes(todosDias, formatacao, todosMeses, valoresMeses, valoresDias);
+
+        return gerarGraficoDados(todosMeses, valoresMeses);
+    }
+
+    public GraficoDados categorias(List<Categoria> categorias, int anoFiltro) {
+        for (int i = 0; i < categorias.size(); ++i) {
+            if (categorias.get(i).getId() == 0) {
+                categorias.get(i).setId(i + 1);
+            }
+        }
+
+        var aparelhos = aparelhoRepository.listarPorCategorias(categorias);
+
+        LocalDate dataInicial = LocalDate.of(anoFiltro, 1, 1);
+        LocalDate dataFinal = LocalDate.of(anoFiltro, 12, 31);
+
+        float[][] valoresPorCategoria = new float[categorias.size()][12];
+
+        for (int i = 0; i < categorias.size(); i++) {
+            for (int j = 0; j < 12; j++) {
+                valoresPorCategoria[i][j] = 0f;
+            }
+        }
+
+        for (int i = 0; i < categorias.size(); i++) {
+            var categoria = categorias.get(i);
+            var consumos = consumoRepository.listarPorCategorias(categoria, anoFiltro);
+
+            List<LocalDate> todosDias = new ArrayList<>();
+            List<Float> valoresDias = new ArrayList<>();
+
+            gerarDiasEValores(dataFinal, dataInicial, valoresDias, todosDias);
+            preencherValores(todosDias, aparelhos, consumos, valoresDias);
+
+            List<String> todosMeses = new ArrayList<>();
+            List<Float> valoresMeses = new ArrayList<>();
+
+            DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("MM/yy");
+
+            for (Month mes : Month.values()) {
+                LocalDate data = LocalDate.of(anoFiltro, mes, 1);
+                String mesFormatado = data.format(formatacao);
+
+                todosMeses.add(mesFormatado);
+                valoresMeses.add(0f);
+            }
+
+            calcularPorMes(todosDias, formatacao, todosMeses, valoresMeses, valoresDias);
+
+            for (int j = 0; j < 12; j++) {
+                valoresPorCategoria[i][j] += valoresMeses.get(j);
+            }
+        }
+
+        return gerarGraficoDados(categorias, valoresPorCategoria);
+    }
+
+    private static GraficoDados gerarGraficoDados(List<Categoria> categorias, float[][] valoresPorCategoria) {
+        String[] nomesCategorias = categorias.stream()
+                .map(Categoria::getNome)
+                .toArray(String[]::new);
+
+        String[][] consumosCategorias = new String[nomesCategorias.length][12];
+        for (int i = 0; i < nomesCategorias.length; i++) {
+            for (int j = 0; j < 12; j++) {
+                consumosCategorias[i][j] = String.valueOf(valoresPorCategoria[i][j]);
+            }
+        }
+
+        return new GraficoDados(nomesCategorias, consumosCategorias);
+    }
+
+    private static void calcularPorMes(List<LocalDate> todosDias, DateTimeFormatter formatacao, List<String> todosMeses, List<Float> valoresMeses, List<Float> valoresDias) {
+        for (int i = 0; i < todosDias.size(); ++i) {
+            LocalDate data = todosDias.get(i);
+            String mes = data.format(formatacao);
+
+            int posicao = todosMeses.indexOf(mes);
+
+            if (posicao == -1) {
+                todosMeses.add(mes);
+                valoresMeses.add(0f);
+
+                posicao = todosMeses.size() - 1;
+            }
+
+            var valorMes = valoresMeses.get(posicao);
+            valoresMeses.set(posicao, valorMes + valoresDias.get(i));
+        }
+    }
+
+    private void preencherValores(List<LocalDate> todosDias, List<Aparelho> aparelhos, List<Consumo> consumos, List<Float> valores) {
         for (int i = 0; i < todosDias.size(); ++i) {
             for (var aparelhoAtual : aparelhos) {
                 var achouConsumoAparelho = false;
@@ -64,21 +206,25 @@ public class GraficoService {
                 valores.set(i, valorDia + valorAp);
             }
         }
+    }
 
+    private GraficoDados gerarGraficoDadosPorDia(List<LocalDate> todosDias, List<Float> valores) {
         String[] diasConvertidos = new String[todosDias.size()];
         String[] valoresConvertidos = new String[todosDias.size()];
 
+        DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM");
+
         for (int i = 0; i < todosDias.size(); ++i) {
-            diasConvertidos[i] = String.valueOf(todosDias.get(i).getDayOfMonth());
+            diasConvertidos[i] = todosDias.get(i).format(formatacao);
             valoresConvertidos[i] = String.valueOf(valores.get(i));
         }
 
         return new GraficoDados(diasConvertidos, valoresConvertidos);
     }
 
-    private void preencherDiasEValores(LocalDate dataAtual, LocalDate dataInicial, List<Float> valores, List<LocalDate> todosDias) {
+    private void gerarDiasEValores(LocalDate dataFinal, LocalDate dataInicial, List<Float> valores, List<LocalDate> todosDias) {
         LocalDate data = dataInicial;
-        while (!data.isAfter(dataAtual)) {
+        while (!data.isAfter(dataFinal)) {
             valores.add(0f);
             todosDias.add(data);
 
@@ -86,39 +232,15 @@ public class GraficoService {
         }
     }
 
-    public GraficoDados dias(LocalDate diaInicialFiltro, LocalDate diaFinalFiltro) {
-        var b = consumoRepository.listarPorData(diaInicialFiltro);
+    private static GraficoDados gerarGraficoDados(List<String> todosMeses, List<Float> valoresMeses) {
+        String[] mesesConvertidos = new String[todosMeses.size()];
+        String[] valoresConvertidos = new String[todosMeses.size()];
 
-        // Exemplo de atualização de dados do gráfico
-        String[] dias = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"};
-        String[] consumo = {"34534", "22345", "323455", "2344", "5643", "23426", "5347", "6458", "2349", "632410", "12341"};
-        return new GraficoDados(dias,consumo);
-    }
-
-    public GraficoDados mes(LocalDate mesInicialFiltro, LocalDate mesFinalFiltro) {
-        var b = consumoRepository.listarPorData(mesInicialFiltro);
-
-        // Exemplo de atualização de dados do gráfico
-        String[] meses = {"jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov"};
-        String[] consumo = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"};
-        return new GraficoDados(meses,consumo);
-    }
-
-    public GraficoDados categorias(List<Categoria> cat){
-        // Obter os nomes das categorias
-        String[] nomesCategorias = cat.stream()
-                .map(Categoria::getNome)
-                .toArray(String[]::new);
-
-        // Exemplo fictício de consumo para cada categoria
-        String[][] consumosCategorias = new String[nomesCategorias.length][12]; // 12 meses de consumo fictício, por exemplo
-        for (int i = 0; i < nomesCategorias.length; i++) {
-            for (int j = 0; j < 12; j++) {
-                consumosCategorias[i][j] = String.valueOf((i + 1) * (j + 1) * 100); // Valores fictícios de consumo
-            }
+        for (int i = 0; i < todosMeses.size(); ++i) {
+            mesesConvertidos[i] = todosMeses.get(i);
+            valoresConvertidos[i] = String.valueOf(valoresMeses.get(i));
         }
 
-        return new GraficoDados(nomesCategorias, new String[nomesCategorias.length], consumosCategorias);
+        return new GraficoDados(mesesConvertidos, valoresConvertidos);
     }
-
 }

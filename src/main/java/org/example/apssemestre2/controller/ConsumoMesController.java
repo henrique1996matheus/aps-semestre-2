@@ -119,7 +119,7 @@ public class ConsumoMesController implements Initializable {
         String[] dias = dados.getX();
         String[] consumo = dados.getY();
         for (int i = 0; i < dias.length; i++) {
-            series.getData().add(new XYChart.Data<>(dias[i], Integer.parseInt(consumo[i])));
+            series.getData().add(new XYChart.Data<>(dias[i], Float.parseFloat(consumo[i])));
         }
 
         // Adicionar a nova série ao gráfico

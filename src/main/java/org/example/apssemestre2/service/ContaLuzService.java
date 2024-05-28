@@ -81,11 +81,8 @@ public class ContaLuzService extends BaseService<ContaLuz> {
     }
 
     public ContaLuz buscarContaPorData(LocalDate dataFiltro) {
-        var fatura = new ContaLuz();
-        fatura.setValor(142.30f);
-        fatura.setBandeira("A");
-        fatura.setVencimento(LocalDate.now());
+        var conta = repository.buscar(new ContaLuz(dataFiltro));
 
-        return fatura;
+        return conta;
     }
 }

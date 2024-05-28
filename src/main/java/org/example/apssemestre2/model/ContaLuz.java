@@ -28,6 +28,10 @@ public class ContaLuz {
         this.valor = valor;
     }
 
+    public ContaLuz(LocalDate referencia) {
+        setReferencia(referencia);
+    }
+
     public int getId() {
         return id;
     }
