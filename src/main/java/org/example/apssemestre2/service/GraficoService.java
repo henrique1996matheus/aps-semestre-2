@@ -86,58 +86,6 @@ public class GraficoService {
         }
     }
 
-    public GraficoDados inicial1(LocalDate dataAtual) {
-        var consumos = consumoRepository.listarPorData(dataAtual);
-
-        LocalDate dataInicial = dataAtual.withDayOfMonth(1);
-
-        List<LocalDate> todosDias = new ArrayList<>();
-        List<Float> valores = new ArrayList<>();
-
-        preencherDiasEValores(dataAtual, dataInicial, valores, todosDias);
-
-        var aparelhos = new ArrayList<Aparelho>();
-        var apAtual = new Aparelho();
-
-        for (var consumo : consumos) {
-            var id = consumo.getIdAparelho();
-
-            if (apAtual.getId() != id) {
-                var achou = false;
-
-                for (var apPesquisa : aparelhos) {
-                    if (apPesquisa.getId() == id) {
-                        apAtual = apPesquisa;
-                        achou = true;
-                        break;
-                    }
-                }
-
-                if (!achou) {
-                    apAtual = aparelhoRepository.buscar(id);
-                    aparelhos.add(apAtual);
-                }
-            }
-
-            var posicao = todosDias.indexOf(consumo.getData());
-
-            var valorDia = valores.get(posicao);
-            var valorAp = (Float.parseFloat(apAtual.getPotencia()) * (float) consumo.getGastoHora()) / 1000;
-
-            valores.set(posicao, valorDia + valorAp);
-        }
-
-        String[] diasConvertidos = new String[todosDias.size()];
-        String[] valoresConvertidos = new String[todosDias.size()];
-
-        for (int i = 0; i < todosDias.size(); ++i) {
-            diasConvertidos[i] = String.valueOf(todosDias.get(i).getDayOfMonth());
-            valoresConvertidos[i] = String.valueOf(valores.get(i));
-        }
-
-        return new GraficoDados(diasConvertidos, valoresConvertidos);
-    }
-
     public GraficoDados dias(LocalDate diaInicialFiltro, LocalDate diaFinalFiltro) {
         var b = consumoRepository.listarPorData(diaInicialFiltro);
 

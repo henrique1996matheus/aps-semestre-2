@@ -7,6 +7,7 @@ import org.example.apssemestre2.repository.ContaLuzRepository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -77,5 +78,13 @@ public class ContaLuzService extends BaseService<ContaLuz> {
         var lista = repository.listar(filtro);
 
         return lista;
+    }
+
+    public ContaLuz buscarContaPorData(LocalDate dataFiltro) {
+        var fatura = new ContaLuz();
+        fatura.setValor(142.30f);
+        fatura.setBandeira("A");
+
+        return fatura;
     }
 }
