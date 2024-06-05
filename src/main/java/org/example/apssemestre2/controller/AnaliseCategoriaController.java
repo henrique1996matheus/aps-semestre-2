@@ -18,6 +18,7 @@ import org.example.apssemestre2.service.GraficoService;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -45,8 +46,10 @@ public class AnaliseCategoriaController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         List<Categoria> categorias = categoriaService.listar(new Categoria());
 
-        ObservableList<String> items = FXCollections.observableArrayList("Sala", "Cozinha", "Quarto 1", "Escritorio", "Quarto 2");
-        CheckComboBox<String> CheckComboBoxCategorias = new CheckComboBox<>(items);
+        ObservableList<Categoria> items = FXCollections.observableArrayList();
+        items.addAll(categorias);
+
+        CheckComboBox<Categoria> CheckComboBoxCategorias = new CheckComboBox<>(items);
         VBox Categorias = new VBox();
         AnchorPaneCentral.getChildren().add(Categorias);
         Categorias.getChildren().add(CheckComboBoxCategorias);
@@ -55,14 +58,12 @@ public class AnaliseCategoriaController implements Initializable {
         CheckComboBoxCategorias.setPrefWidth(100);
         CheckComboBoxCategorias.setPrefHeight(25);
 
-        CheckComboBoxCategorias.getCheckModel().getCheckedItems().addListener((ListChangeListener<String>) change -> {
-
-
+        CheckComboBoxCategorias.getCheckModel().getCheckedItems().addListener((ListChangeListener<Categoria>) change -> {
             updateChart(CheckComboBoxCategorias.getCheckModel().getCheckedItems());
         });
     }
 
-    private void updateChart(ObservableList<String> selectedCategories) {
+    private void updateChart(ObservableList<Categoria> selectedCategories) {
         // Limpar os dados antigos
         LineChartAnalise.getData().clear();
 
@@ -71,9 +72,7 @@ public class AnaliseCategoriaController implements Initializable {
         }
 
         // Obter os dados das categorias selecionadas
-        List<Categoria> categoriasSelecionadas = selectedCategories.stream()
-                .map(nome -> new Categoria(nome))
-                .collect(Collectors.toList());
+        List<Categoria> categoriasSelecionadas = new ArrayList<>(selectedCategories);
 
         // todo alterar o anoFiltro fixo
         GraficoDados dados = graficoService.categorias(categoriasSelecionadas, 2024);
