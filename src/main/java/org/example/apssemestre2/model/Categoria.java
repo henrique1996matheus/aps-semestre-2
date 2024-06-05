@@ -25,4 +25,9 @@ public class Categoria {
     }
 
     public Categoria() {}
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

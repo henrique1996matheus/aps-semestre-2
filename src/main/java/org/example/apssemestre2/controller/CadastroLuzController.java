@@ -90,7 +90,7 @@ public class CadastroLuzController implements Initializable {
     @FXML
     void salvar(ActionEvent event) {
         try {
-            String bandeira = textFieldBandeira.getText();
+            String bandeira = ChoiceBoxBandeira.getValue();
             LocalDate referencia = datePickerReferencia.getValue();
             LocalDate vencimento = datePickerVencimento.getValue();
             float consumo = Float.parseFloat(textFieldConsumo.getText());
@@ -112,7 +112,6 @@ public class CadastroLuzController implements Initializable {
 
     @FXML
     void limpar(ActionEvent event) {
-        textFieldBandeira.setText("");
         datePickerReferencia.setValue(null);
         datePickerVencimento.setValue(null);
         textFieldConsumo.setText("");
@@ -138,7 +137,7 @@ public class CadastroLuzController implements Initializable {
         if (Objects.nonNull(model)) {
             contaLuzAlterar = model;
 
-            textFieldBandeira.setText(String.valueOf(model.getBandeira()));
+            ChoiceBoxBandeira.setValue(String.valueOf(model.getBandeira()));
             datePickerReferencia.setValue(model.getReferencia());
             datePickerVencimento.setValue(model.getVencimento());
             textFieldConsumo.setText(String.valueOf(model.getConsumo()));
