@@ -81,7 +81,7 @@ public class ContaLuzService extends BaseService<ContaLuz> {
     }
 
     public ContaLuz buscarContaPorData(LocalDate dataFiltro) {
-        var conta = repository.buscar(new ContaLuz(dataFiltro));
+        var conta = repository.buscarPorData(dataFiltro);
 
         return conta;
     }

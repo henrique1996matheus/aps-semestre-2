@@ -3,6 +3,8 @@ package org.example.apssemestre2.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.animation.KeyFrame;
@@ -61,7 +63,7 @@ public class JanelaPrincipalController implements Initializable {
     private MenuItem menuitemListaAparelhos;
 
     @FXML
-    private BarChart<String,Number> GraficoBarra;
+    private BarChart<String, Number> GraficoBarra;
 
     @FXML
     private MenuItem menuitemConsumoConsumoporDia;
@@ -106,7 +108,6 @@ public class JanelaPrincipalController implements Initializable {
     }
 
 
-
     @FXML
     void acessarListaAparelhos(ActionEvent event) {
         try {
@@ -137,7 +138,6 @@ public class JanelaPrincipalController implements Initializable {
         }
     }
 
-  
 
     @FXML
     void acessarAnaliseCategoria(ActionEvent event) {
@@ -180,7 +180,6 @@ public class JanelaPrincipalController implements Initializable {
     }
 
 
-
     public void abrirTelas(String tela, String NomeTela) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/org/example/apssemestre2/view/" + tela + ".fxml"));
         Stage stage = new Stage();
@@ -191,13 +190,8 @@ public class JanelaPrincipalController implements Initializable {
         stage.show();
     }
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-
-
         configurarGrafico();
 
         timerGrafico();
@@ -221,34 +215,52 @@ public class JanelaPrincipalController implements Initializable {
         MenuConsumoDetalhado.setGraphic(detalhado);
 
 
-
         //metodo para bandeira
 
 
         //Grafico de Barras
 
 
-
         //Preenchimento Campo de Texto
-        TextFieldAnt.setText("R$ 142,90");
+        LocalDate mesPassado = LocalDate.now().withDayOfMonth(1).minusMonths(1);
+        var conta = contaluzService.buscarContaPorData(mesPassado);
+
+        var valor = "-";
+        var fatura = "-";
+        var cor = "grey";
+
+        DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM");
+
+        if (Objects.nonNull(conta)) {
+            valor = "R$ " + conta.getValor();
+            fatura = conta.getReferencia().format(formatacao);
+
+            switch (conta.getBandeira()) {
+                case "Verde":
+                    cor = "green";
+                    break;
+
+                case "Amarelo":
+                    cor = "yellow";
+                    break;
+
+                case "Vermelho":
+                    cor = "red";
+                    break;
+            }
+        }
+
+        TextFieldAnt.setText(valor);
         TextFieldAnt.setEditable(false);
         TextFieldAnt.setAlignment(Pos.CENTER);
 
-        TextFieldFat.setText("30/07");
+        TextFieldFat.setText(fatura);
         TextFieldFat.setEditable(false);
         TextFieldFat.setAlignment(Pos.CENTER);
 
         TextFieldBandeira.setEditable(false);
-        TextFieldBandeira.setStyle("-fx-background-color: rgb(50,205,50);");
-
-
+        TextFieldBandeira.setStyle("-fx-background-color: " + cor +" ;");
     }
-
-
-
-
-
-
 
     private void timerGrafico() {
         Timeline timeline = new Timeline(new KeyFrame(Duration.minutes(5), event -> {
@@ -291,5 +303,4 @@ public class JanelaPrincipalController implements Initializable {
         GraficoBarra.getData().add(serie1);
         GraficoBarra.setLegendVisible(false);
     }
-
 }

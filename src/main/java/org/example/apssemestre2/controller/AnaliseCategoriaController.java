@@ -74,8 +74,13 @@ public class AnaliseCategoriaController implements Initializable {
         // Obter os dados das categorias selecionadas
         List<Categoria> categoriasSelecionadas = new ArrayList<>(selectedCategories);
 
-        // todo alterar o anoFiltro fixo
-        GraficoDados dados = graficoService.categorias(categoriasSelecionadas, 2024);
+        int ano = 0;
+
+        try {
+            ano = Integer.parseInt(TextFieldAno.getText());
+        } catch (Exception e) {}
+
+        GraficoDados dados = graficoService.categorias(categoriasSelecionadas, ano);
 
         // Obter as categorias e seus consumos
         String[] categorias = dados.getX();

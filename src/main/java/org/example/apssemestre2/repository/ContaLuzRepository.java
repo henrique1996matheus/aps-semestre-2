@@ -160,4 +160,27 @@ public class ContaLuzRepository extends BaseRepository<ContaLuz> {
         model.setConsumo(resultSet.getFloat("consumo"));
         model.setValor(resultSet.getFloat("valor"));
     }
+
+    public ContaLuz buscarPorData(LocalDate dataFiltro) {
+        String sql = "SELECT * FROM " + TABELA + " WHERE MONTH(referencia) = ? AND YEAR(referencia) = ?";
+
+        ContaLuz model = null;
+
+        try (PreparedStatement statement = Conexao.getConexao().prepareStatement(sql)) {
+            statement.setObject(1, dataFiltro.getMonth().ordinal() + 1);
+            statement.setObject(2, dataFiltro.getYear());
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                model = new ContaLuz();
+
+                preencherModel(model, resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return model;
+    }
 }

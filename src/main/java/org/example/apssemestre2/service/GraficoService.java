@@ -88,12 +88,6 @@ public class GraficoService {
     }
 
     public GraficoDados categorias(List<Categoria> categorias, int anoFiltro) {
-        for (int i = 0; i < categorias.size(); ++i) {
-            if (categorias.get(i).getId() == 0) {
-                categorias.get(i).setId(i + 1);
-            }
-        }
-
         var aparelhos = aparelhoRepository.listarPorCategorias(categorias);
 
         LocalDate dataInicial = LocalDate.of(anoFiltro, 1, 1);
