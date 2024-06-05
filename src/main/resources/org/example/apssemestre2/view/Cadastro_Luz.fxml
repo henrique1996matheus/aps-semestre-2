@@ -31,7 +31,7 @@
                   <TextField fx:id="textFieldConsumo" layoutX="442.0" layoutY="14.0" prefHeight="25.0" prefWidth="97.0" />
                   <Button fx:id="btnSalvar" layoutX="198.0" layoutY="89.0" mnemonicParsing="false" onAction="#salvar" prefWidth="68.0" text="Salvar" />
                   <Button fx:id="btnLimpar" layoutX="274.0" layoutY="89.0" mnemonicParsing="false" onAction="#limpar" prefHeight="25.0" prefWidth="82.0" text="Limpar" />
-                  <TextField fx:id="textFieldBandeira" layoutX="263.0" layoutY="14.0" prefHeight="25.0" prefWidth="82.0" />
+                  <ChoiceBox fx:id="ChoiceBoxBandeira" layoutX="265.0" layoutY="15.0" prefHeight="25.0" prefWidth="82.0" />
                </children>
             </Pane>
          </children>

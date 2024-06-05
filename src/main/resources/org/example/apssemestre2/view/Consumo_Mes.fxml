@@ -8,7 +8,7 @@
 
 <AnchorPane fx:id="DatePickerFiltro" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #6495ED;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.apssemestre2.controller.ConsumoMesController">
    <children>
-      <LineChart fx:id="LineChartUsoMes" layoutX="16.0" layoutY="47.0" prefHeight="335.0" prefWidth="445.0">
+      <LineChart fx:id="LineChartUsoMes" layoutX="16.0" layoutY="47.0" prefHeight="335.0" prefWidth="445.0" title="Consumo Mensal">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>

@@ -24,6 +24,10 @@ public class CadastroLuzController implements Initializable {
     private TextField textFieldBandeira;
 
     @FXML
+    private ChoiceBox<String> ChoiceBoxBandeira;
+
+
+    @FXML
     private DatePicker datePickerReferencia;
 
     @FXML
@@ -203,6 +207,10 @@ public class CadastroLuzController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        ChoiceBoxBandeira.getItems().addAll("Verde","Amarelo","Vermelho");
+
+
         textFieldAno.setOnAction(event -> filtrar());
 
         tableColumnVencimento.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getVencimento().toString()));

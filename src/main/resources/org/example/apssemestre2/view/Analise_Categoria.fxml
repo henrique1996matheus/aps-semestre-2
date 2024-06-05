@@ -10,7 +10,7 @@
 
 <AnchorPane fx:id="AnchorPaneCentral" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #6495ED;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.apssemestre2.controller.AnaliseCategoriaController">
    <children>
-      <LineChart fx:id="LineChartAnalise" layoutX="14.0" layoutY="62.0" prefHeight="308.0" prefWidth="421.0">
+      <LineChart fx:id="LineChartAnalise" layoutX="14.0" layoutY="62.0" prefHeight="308.0" prefWidth="421.0" title="Análise por Categoria">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -18,14 +18,11 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <Label layoutX="134.0" layoutY="14.0" text="Análise por Categoria">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Label>
       <Label layoutX="428.0" layoutY="113.5" text="Categorias :">
          <font>
             <Font size="11.0" />
          </font></Label>
+      <Label layoutX="428.0" layoutY="150.0" text="Ano :" />
+      <TextField fx:id="TextFieldAno" layoutX="471.0" layoutY="146.0" prefHeight="25.0" prefWidth="86.0" />
    </children>
 </AnchorPane>

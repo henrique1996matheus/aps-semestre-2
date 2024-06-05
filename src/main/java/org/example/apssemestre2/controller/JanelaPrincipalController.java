@@ -26,7 +26,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.util.Duration;
+import org.example.apssemestre2.model.ContaLuz;
 import org.example.apssemestre2.model.GraficoDados;
+import org.example.apssemestre2.service.ContaLuzService;
 import org.example.apssemestre2.service.GraficoService;
 
 public class JanelaPrincipalController implements Initializable {
@@ -96,9 +98,14 @@ public class JanelaPrincipalController implements Initializable {
 
     private final GraficoService graficoService;
 
+    private final ContaLuzService contaluzService;
+
     public JanelaPrincipalController() {
         graficoService = new GraficoService();
+        contaluzService = new ContaLuzService();
     }
+
+
 
     @FXML
     void acessarListaAparelhos(ActionEvent event) {
@@ -190,6 +197,7 @@ public class JanelaPrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
 
+
         configurarGrafico();
 
         timerGrafico();
@@ -235,6 +243,13 @@ public class JanelaPrincipalController implements Initializable {
 
 
     }
+
+
+
+
+
+
+
     private void timerGrafico() {
         Timeline timeline = new Timeline(new KeyFrame(Duration.minutes(5), event -> {
 

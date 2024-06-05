@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.CheckComboBox;
@@ -25,6 +26,9 @@ public class AnaliseCategoriaController implements Initializable {
 
     @FXML
     private LineChart<String, Number> LineChartAnalise;
+
+    @FXML
+    private TextField TextFieldAno;
 
     @FXML
     private AnchorPane AnchorPaneCentral;
